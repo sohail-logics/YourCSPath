@@ -431,6 +431,11 @@
             .hero-stats { gap:1.2rem; }
             .cert-row { grid-template-columns:1fr; }
         }
+        @media(max-width:900px) {
+    .hero-section::before {
+        background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=75') !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -448,12 +453,11 @@
             <li><a href="#career-timeline">Timeline</a></li>
             <li><a href="#jobs">Remote Jobs</a></li>
             <li><a href="index.html" class="cta-button">← All Paths</a></li>
-            <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          
+        </ul>
+         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <span class="theme-icon">🌙</span>
                 </button>
-            </li>
-        </ul>
             <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
     <span></span>
     <span></span>
