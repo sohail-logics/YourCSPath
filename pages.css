@@ -709,3 +709,82 @@ body.dark-mode .mobile-drawer a { color: #e8eaed; border-color: #2a3148; }
     .cy-footer-nav-cols { grid-template-columns: 1fr; }
     .cy-footer-socials { flex-direction: row; flex-wrap: wrap; }
 }
+
+/* ── MOBILE HERO — Background Image ── */
+@media(max-width: 900px) {
+
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        padding: 3rem 1.5rem 2.5rem;
+        margin-top: 70px;
+    }
+
+    /* Background image layer */
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--hero-mobile-bg, url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=75')) center/cover no-repeat;
+        z-index: 0;
+        opacity: .12;
+    }
+
+    body.dark-mode .hero-section::before {
+        opacity: .07;
+    }
+
+    /* Make content sit above the bg */
+    .hero-inner {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Add a subtle gradient top bar */
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4169E1, #5b4fc6);
+        z-index: 2;
+    }
+
+    /* Improve text readability */
+    .hero-section h1 {
+        font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
+        line-height: 1.15;
+    }
+
+    .hero-desc {
+        font-size: .88rem !important;
+    }
+
+    .hero-stats {
+        gap: 1.2rem;
+        padding-top: 1.2rem;
+    }
+
+    .hs-val {
+        font-size: 1.4rem !important;
+    }
+
+    /* Hero badge smaller on mobile */
+    .hero-badge {
+        font-size: .62rem !important;
+        padding: .3rem .75rem !important;
+    }
+}
+
+@media(max-width: 480px) {
+    .hero-section {
+        padding: 2.5rem 1.1rem 2rem;
+    }
+    .hero-section h1 {
+        font-size: 1.65rem !important;
+    }
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
