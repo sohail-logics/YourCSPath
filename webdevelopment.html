@@ -400,6 +400,11 @@
         .jl-arrow { color:var(--blue); font-size:.95rem; }
 
         /* ── RESPONSIVE ── */
+        @media(max-width:900px) {
+    .hero-section::before {
+        background-image: url('https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=75') !important;
+    }
+}
         @media(max-width:1024px) { .cert-row { grid-template-columns:repeat(2,1fr); } }
         @media(max-width:900px) {
             .hero-inner { grid-template-columns:1fr; }
@@ -433,12 +438,11 @@
             <li><a href="#career-timeline">Timeline</a></li>
             <li><a href="#jobs">Remote Jobs</a></li>
             <li><a href="index.html" class="cta-button">← All Paths</a></li>
-            <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          
+        </ul>
+         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
                     <span class="theme-icon">🌙</span>
                 </button>
-            </li>
-        </ul>
             <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
     <span></span>
     <span></span>
