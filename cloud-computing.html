@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="/pages.css">
+
+    <style>
+
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg,#4169E1,#5b4fc6);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+        }
+
+        /* ── DARK MODE ── */
+        body.dark-mode .cy-section,
+        body.dark-mode section { background-color: var(--bg) !important; }
+        body.dark-mode .cy-section[style*="var(--surf)"] { background: var(--surf) !important; }
+        body.dark-mode .zz-phase-card,
+        body.dark-mode .spec-card,
+        body.dark-mode .cert-card,
+        body.dark-mode .ct-content,
+        body.dark-mode .job-link,
+        body.dark-mode .outcome-banner { background: var(--surf) !important; border-color: var(--border) !important; }
+        body.dark-mode .hero-section { background: var(--surf) !important; }
+        body.dark-mode .hero-terminal { background: #0d1117 !important; border-color: #2a3148 !important; }
+        body.dark-mode .terminal-bar  { background: #161b22 !important; }
+
+        /* ── HERO ── */
+        .hero-section {
+            margin-top: 80px;
+            background: var(--surf);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 3rem;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .1em;
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.25);
+            color: var(--blue);
+            padding: .38rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.3rem;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+        .hero-section h1 {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: var(--text);
+            margin-bottom: 1.1rem;
+        }
+        .hero-section h1 .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: .98rem;
+            color: var(--muted);
+            line-height: 1.78;
+            margin-bottom: 2rem;
+            font-family: 'Epilogue', sans-serif;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1.6rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .hs-val {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        .hs-lbl { font-size: .76rem; color: var(--muted); margin-top: .1rem; font-family:'Epilogue',sans-serif; }
+
+        /* ── HERO IMAGE CARD ── */
+        .hero-img-card {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,.18);
+            animation: fadeInRight .8s ease-out .2s both;
+            position: relative;
+        }
+        @keyframes fadeInRight {
+            from { opacity:0; transform:translateX(30px); }
+            to   { opacity:1; transform:translateX(0); }
+        }
+        .hero-img-card img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(65,105,225,.28) 0%, rgba(91,79,198,.2) 100%);
+        }
+        .hero-label {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: rgba(255,255,255,.9);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(65,105,225,.65);
+            backdrop-filter: blur(6px);
+            padding: .32rem .85rem;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .hero-chips {
+            position: absolute;
+            bottom: 1.4rem;
+            left: 1.4rem;
+            right: 1.4rem;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+        }
+        .chip-row { display: flex; gap: .55rem; flex-wrap: wrap; }
+        .chip {
+            background: rgba(10,14,30,.62);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 7px;
+            padding: .42rem .95rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .71rem;
+            color: rgba(255,255,255,.9);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: .42rem;
+        }
+        .chip-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+        .cd-green  { background: #00ff88; }
+        .cd-blue   { background: #79c0ff; }
+        .cd-amber  { background: #ffd700; }
+        .cd-purple { background: #d2a8ff; }
+        .cd-cyan   { background: #00d4ff; }
+
+        /* ── SHARED SECTION ── */
+        .cy-section { padding: 4.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+        .cy-inner { max-width: 1200px; margin: 0 auto; }
+        .cy-label {
+            font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500;
+            letter-spacing:.12em; text-transform:uppercase; color:var(--blue);
+            margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cy-label::before { content:''; width:16px; height:2px; background:var(--blue); }
+        .cy-title { font-family:'Epilogue',sans-serif; font-size:clamp(1.55rem,2.5vw,2.1rem); font-weight:800; letter-spacing:-.02em; margin-bottom:.4rem; color:var(--text); }
+        .cy-sub { font-size:.93rem; color:var(--muted); max-width:560px; line-height:1.7; margin-bottom:2.8rem; font-family:'Epilogue',sans-serif; }
+        .fade { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
+        .fade.on { opacity:1; transform:none; }
+
+        /* ── SNAKE ROADMAP ── */
+        .zz-wrap { position:relative; }
+        .zz-row { display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; margin-bottom:0; }
+        .zz-row::before {
+            content:''; position:absolute; top:50%;
+            left:calc(16.66% + 18px); right:calc(16.66% + 18px);
+            height:3px; background:linear-gradient(90deg,#4169E1,#5b4fc6,#9650ff);
+            transform:translateY(-50%); z-index:0;
+        }
+        .zz-row.reverse::before { background:linear-gradient(90deg,#9650ff,#f59e0b,#ef4444); }
+        .zz-row.row3::before { background:linear-gradient(90deg,#ef4444,#16a34a); right:calc(16.66% + 18px); }
+        .zz-connector { display:flex; justify-content:flex-end; padding-right:calc(16.66% + 6px); height:60px; }
+        .zz-connector.from-right { justify-content:flex-start; padding-left:calc(16.66% + 6px); padding-right:0; }
+        .zz-connector::before { content:''; width:3px; height:100%; background:linear-gradient(180deg,#9650ff,#f59e0b); display:block; border-radius:2px; }
+        .zz-connector.from-right::before { background:linear-gradient(180deg,#ef4444,#16a34a); }
+        .zz-phase-card {
+            background:var(--surf); border:2px solid rgba(65,105,225,.2); border-radius:14px;
+            padding:1.8rem 1.8rem 1.6rem; margin:0 18px; position:relative; z-index:1;
+            transition:transform .25s,box-shadow .25s,border-color .25s;
+            box-shadow:0 2px 14px rgba(65,105,225,.07);
+        }
+        .zz-phase-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(65,105,225,.14); border-color:rgba(65,105,225,.45); }
+        .zz-phase-card::before {
+            content:attr(data-num); position:absolute; top:-16px; left:50%;
+            transform:translateX(-50%); width:32px; height:32px; border-radius:50%;
+            background:var(--grad); color:white; font-family:'JetBrains Mono',monospace;
+            font-size:.68rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+            z-index:3; line-height:32px; text-align:center; box-shadow:0 3px 10px rgba(65,105,225,.35);
+        }
+        .zz-row.reverse { direction:rtl; }
+        .zz-row.reverse .zz-phase-card { direction:ltr; }
+        .zz-card-header { display:flex; align-items:center; gap:.65rem; margin-bottom:.55rem; padding-top:.6rem; }
+        .zz-icon { font-size:1.4rem; flex-shrink:0; }
+        .zz-phase { font-family:'JetBrains Mono',monospace; font-size:.61rem; color:var(--muted); letter-spacing:.05em; margin-bottom:.12rem; }
+        .zz-name  { font-family:'Epilogue',sans-serif; font-size:.92rem; font-weight:800; color:var(--text); line-height:1.2; }
+        .zz-desc  { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.75rem; font-family:'Epilogue',sans-serif; }
+        .zz-topics { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+        .zz-topic { font-family:'JetBrains Mono',monospace; font-size:.6rem; background:var(--lb); border:1px solid rgba(65,105,225,.15); color:var(--blue); padding:.18rem .48rem; border-radius:3px; }
+        .zz-courses { border-top:1px solid var(--border); padding-top:.65rem; }
+        .zz-courses-label { font-family:'JetBrains Mono',monospace; font-size:.58rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-bottom:.32rem; }
+        .zz-courses ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.25rem; }
+        .zz-courses ul li { font-size:.77rem; color:var(--muted); font-family:'Epilogue',sans-serif; padding-left:.9rem; position:relative; }
+        .zz-courses ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue); font-size:.65rem; top:.06rem; }
+        .zz-courses ul li a { color:var(--blue); text-decoration:none; font-weight:600; }
+        .zz-courses ul li a:hover { text-decoration:underline; }
+
+        /* ── SPECIALIZATIONS ── */
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.4rem; }
+        .spec-card { background:var(--surf); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:transform .3s,box-shadow .3s; }
+        .spec-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
+        .spec-img-wrap { width:100%; height:180px; overflow:hidden; position:relative; }
+        .spec-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+        .spec-card:hover .spec-img-wrap img { transform:scale(1.05); }
+        .spec-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.58) 100%); }
+        .spec-img-label { position:absolute; bottom:.9rem; left:1rem; font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:700; color:rgba(255,255,255,.9); letter-spacing:.08em; text-transform:uppercase; }
+        .spec-body { padding:1.3rem 1.5rem; }
+        .spec-name { font-family:'Epilogue',sans-serif; font-size:.98rem; font-weight:800; color:var(--text); margin-bottom:.2rem; }
+        .spec-tag  { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); margin-bottom:.55rem; }
+        .spec-importance { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:.9rem; font-family:'Epilogue',sans-serif; }
+        .spec-skills { display:flex; flex-wrap:wrap; gap:.38rem; }
+        .spec-skill { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem; border-radius:4px; border:1px solid; font-weight:500; }
+        .sk-sky    { background:rgba(14,165,233,.07); border-color:rgba(14,165,233,.22); color:#0ea5e9; }
+        .sk-orange { background:rgba(249,115,22,.07); border-color:rgba(249,115,22,.22); color:#ea580c; }
+        .sk-green  { background:rgba(22,163,74,.07);  border-color:rgba(22,163,74,.18);  color:#16a34a; }
+        .sk-red    { background:rgba(239,68,68,.07);  border-color:rgba(239,68,68,.22);  color:#dc2626; }
+        .sk-violet { background:rgba(124,58,237,.07); border-color:rgba(124,58,237,.22); color:#7c3aed; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-tier { margin-bottom:3rem; }
+        .cert-tier:last-child { margin-bottom:0; }
+        .tier-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.2rem; }
+        .tier-badge { font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:.3rem .8rem; border-radius:4px; }
+        .tb-green { background:#dcfce7; color:#16a34a; }
+        .tb-amber { background:#fef3c7; color:#d97706; }
+        .tb-red   { background:#fee2e2; color:#dc2626; }
+        .tier-line { flex:1; height:1px; background:var(--border); }
+        .cert-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+        .cert-card { background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.4rem 1.4rem 1.2rem; display:flex; flex-direction:column; gap:.45rem; transition:border-color .2s,transform .2s,box-shadow .2s; }
+        .cert-card:hover { border-color:rgba(65,105,225,.4); transform:translateY(-3px); box-shadow:0 10px 28px rgba(65,105,225,.1); }
+        .cert-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+        .cert-name { font-size:.9rem; font-weight:700; color:var(--text); font-family:'Epilogue',sans-serif; }
+        .cert-pill { font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; padding:.16rem .48rem; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .pill-g { background:#dcfce7; color:#16a34a; }
+        .pill-a { background:#fef3c7; color:#d97706; }
+        .pill-r { background:#fee2e2; color:#dc2626; }
+        .cert-body { font-size:.8rem; color:var(--muted); line-height:1.6; font-family:'Epilogue',sans-serif; flex:1; }
+        .cert-meta { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); }
+        .cert-meta strong { color:var(--text); }
+        .cert-site { font-family:'Epilogue',sans-serif; font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; padding-top:.45rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:.3rem; text-decoration:none; }
+        .cert-site::before { content:'🔗'; font-size:.7rem; }
+        .cert-site:hover { opacity:.75; }
+
+        /* ── CAREER TIMELINE ── */
+        .career-track { display:flex; flex-direction:column; position:relative; }
+        .career-track::before { content:''; position:absolute; left:26px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--blue),var(--purple),#f59e0b,#ef4444,#16a34a,#0ea5e9); }
+        .ct-item { display:flex; gap:1.4rem; padding:0 0 2.2rem; position:relative; }
+        .ct-item:last-child { padding-bottom:0; }
+        .ct-left { width:52px; flex-shrink:0; display:flex; justify-content:center; }
+        .ct-dot  { width:15px; height:15px; border-radius:50%; border:3px solid var(--bg); box-shadow:0 0 0 2px currentColor; margin-top:5px; }
+        .ct-content { flex:1; background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.3rem 1.5rem; transition:box-shadow .25s; }
+        .ct-content:hover { box-shadow:0 8px 22px rgba(65,105,225,.08); }
+        .ct-stage  { font-size:.68rem; font-family:'JetBrains Mono',monospace; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+        .ct-period { font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.05em; margin-bottom:.2rem; }
+        .ct-title  { font-family:'Epilogue',sans-serif; font-size:1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .ct-salary { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700; padding:.22rem .6rem; border-radius:4px; margin-bottom:.55rem; }
+        .cs-blue   { background:rgba(65,105,225,.08); color:var(--blue);   border:1px solid rgba(65,105,225,.2); }
+        .cs-purple { background:rgba(91,79,198,.08);  color:var(--purple);  border:1px solid rgba(91,79,198,.2); }
+        .cs-amber  { background:rgba(245,158,11,.08); color:#d97706;        border:1px solid rgba(245,158,11,.2); }
+        .cs-red    { background:rgba(239,68,68,.08);  color:#dc2626;        border:1px solid rgba(239,68,68,.2); }
+        .cs-green  { background:rgba(22,163,74,.08);  color:#16a34a;        border:1px solid rgba(22,163,74,.2); }
+        .cs-cyan   { background:rgba(14,165,233,.08); color:#0ea5e9;        border:1px solid rgba(14,165,233,.2); }
+        .ct-desc  { font-size:.86rem; color:var(--muted); line-height:1.65; font-family:'Epilogue',sans-serif; margin-bottom:.75rem; }
+        .ct-gains { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .ct-gain  { font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.28rem; background:var(--bg); border:1px solid var(--border); padding:.2rem .6rem; border-radius:4px; font-family:'Epilogue',sans-serif; }
+        .ok { color:#16a34a; font-weight:700; }
+
+        /* ── OUTCOME ── */
+        .outcome-banner { background:linear-gradient(135deg,rgba(65,105,225,.06),rgba(91,79,198,.06)); border:1px solid rgba(65,105,225,.15); border-radius:14px; padding:2rem 2.2rem; margin-top:3rem; }
+        .ob-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1.2rem 1.8rem; margin-bottom:1.3rem; }
+        .ob-item  { text-align:center; }
+        .ob-val   { font-family:'Epilogue',sans-serif; font-size:1.4rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        .ob-lbl   { font-size:.72rem; color:var(--muted); margin-top:.12rem; font-family:'Epilogue',sans-serif; }
+        .ob-note  { padding-top:1.2rem; border-top:1px solid rgba(65,105,225,.12); font-size:.88rem; color:var(--muted); line-height:1.8; font-family:'Epilogue',sans-serif; }
+        .ob-note strong { color:var(--text); }
+
+        /* ── JOBS ── */
+        .jobs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+        .jobs-col h3 { font-family:'Epilogue',sans-serif; font-size:1.1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .jobs-col p  { font-size:.84rem; color:var(--muted); margin-bottom:.9rem; font-family:'Epilogue',sans-serif; line-height:1.6; }
+        .job-links { display:flex; flex-direction:column; gap:.5rem; }
+        .job-link  { display:flex; align-items:center; justify-content:space-between; background:var(--surf); border:1px solid var(--border); border-radius:9px; padding:.85rem 1rem; text-decoration:none; transition:border-color .2s,transform .2s; color:var(--text); }
+        .job-link:hover { border-color:rgba(65,105,225,.4); transform:translateY(-2px); }
+        .jl-left  { display:flex; align-items:center; gap:.7rem; }
+        .jl-icon  { font-size:1.2rem; }
+        .jl-name  { font-family:'Epilogue',sans-serif; font-size:.88rem; font-weight:700; }
+        .jl-cat   { font-family:'JetBrains Mono',monospace; font-size:.63rem; color:var(--muted); display:block; margin-top:.08rem; }
+        .jl-arrow { color:var(--blue); font-size:.95rem; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) { .cert-row { grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:900px) {
+            .hero-inner { grid-template-columns:1fr; }
+            .hero-img-card { display:none; }
+            .zz-row,.zz-row.reverse,.zz-row.row3 { grid-template-columns:1fr; direction:ltr; }
+            .zz-row::before { display:none; }
+            .zz-connector { display:none; }
+            .zz-phase-card { margin:0 0 1.8rem; }
+            .jobs-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px) {
+            .cy-section { padding:3rem 1.2rem; }
+            .hero-section { padding:2.5rem 1.2rem; }
+            .hero-stats { gap:1.2rem; }
+            .cert-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#specializations">Specializations</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#career-timeline">Timeline</a></li>
+            <li><a href="#jobs">Remote Jobs</a></li>
+            <li><a href="yourcspath-landing.html" class="cta-button">← All Paths</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    </nav>
+</header>
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="yourcspath-landing.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="index.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section">
+    <div class="hero-inner">
+        <div class="fade">
+            <div class="hero-badge">☁️ CAREER PATH · CLOUD COMPUTING</div>
+            <h1>Build the Infrastructure<br>That Runs the <span class="hl">Modern World.</span></h1>
+            <p class="hero-desc">
+                Cloud computing is the backbone of the entire digital economy. Every app you use, every website you visit, every transaction you make runs on cloud infrastructure built and maintained by cloud engineers. With the global cloud market hitting $912 billion in 2025 and projected to reach $1.6 trillion by 2030, the demand for skilled cloud professionals is accelerating faster than the supply. Entry-level cloud engineers already start at $90K–$115K — and the AWS Solutions Architect certification alone raises salaries by $15,000+. Whether you want to architect systems at scale, automate infrastructure with code, secure cloud environments, or build serverless applications — this is your complete starting point.
+            </p>
+            <div class="hero-stats">
+                <div><span class="hs-val">$135K</span><div class="hs-lbl">Avg US Cloud Engineer Salary</div></div>
+                <div><span class="hs-val">23%</span><div class="hs-lbl">Job Growth by 2031</div></div>
+                <div><span class="hs-val">$1.6T</span><div class="hs-lbl">Cloud Market by 2030</div></div>
+            </div>
+        </div>
+
+        <!-- Hero image card -->
+        <div class="hero-img-card fade">
+            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=85" alt="Cloud Computing Data Center" loading="eager">
+            <div class="hero-img-overlay"></div>
+            <div class="hero-label">☁️ Cloud Computing</div>
+            <div class="hero-chips">
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-cyan"></span>AWS · Azure · Google Cloud</div>
+                    <div class="chip"><span class="chip-dot cd-green"></span>Terraform · Kubernetes</div>
+                </div>
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-amber"></span>DevOps · CI/CD · Docker</div>
+                    <div class="chip"><span class="chip-dot cd-purple"></span>Serverless · Microservices</div>
+                </div>
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-blue"></span>Cloud Engineer → Architect → CTO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Phase by Phase</div>
+        <h2 class="cy-title fade">Learning Roadmap</h2>
+        <p class="cy-sub fade">Nine phases from zero to production-ready cloud engineer. Each includes the exact topics, tools, and real courses used by working cloud professionals today.</p>
+
+        <div class="zz-wrap">
+
+            <!-- ROW 1 -->
+            <div class="zz-row fade">
+                <div class="zz-phase-card" data-num="01">
+                    <div class="zz-card-header"><span class="zz-icon">🖥️</span>
+                        <div><div class="zz-phase">Phase 1 · Weeks 1–3</div><div class="zz-name">IT & Networking Fundamentals</div></div>
+                    </div>
+                    <div class="zz-desc">Cloud is not magic — it is sophisticated networking and virtualization. Before touching any cloud provider, understand how computers, networks, and operating systems actually work. This foundation prevents the most common cloud pitfalls.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Linux CLI & Bash</span>
+                        <span class="zz-topic">TCP/IP & DNS</span>
+                        <span class="zz-topic">HTTP/S & Ports</span>
+                        <span class="zz-topic">VPCs & Subnets</span>
+                        <span class="zz-topic">Firewalls & Security Groups</span>
+                        <span class="zz-topic">Virtualization basics</span>
+                        <span class="zz-topic">SSH & Remote Access</span>
+                        <span class="zz-topic">OSI Model</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/computer-networking" target="_blank">Bits & Bytes of Computer Networking</a> — Google / Coursera (Free Audit)</li>
+                        <li><a href="https://linuxjourney.com/" target="_blank">Linux Journey</a> — linuxjourney.com (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="02">
+                    <div class="zz-card-header"><span class="zz-icon">☁️</span>
+                        <div><div class="zz-phase">Phase 2 · Weeks 4–6</div><div class="zz-name">Cloud Fundamentals & Core Services</div></div>
+                    </div>
+                    <div class="zz-desc">Learn what the cloud actually is — IaaS, PaaS, SaaS — and get hands-on with one major provider. AWS leads with 31% market share, making it the best starting point for most learners entering the field.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">IaaS / PaaS / SaaS</span>
+                        <span class="zz-topic">AWS EC2 / Azure VM / GCP CE</span>
+                        <span class="zz-topic">Object Storage (S3 / Blob)</span>
+                        <span class="zz-topic">Cloud Databases (RDS)</span>
+                        <span class="zz-topic">IAM & Access Control</span>
+                        <span class="zz-topic">Regions & Availability Zones</span>
+                        <span class="zz-topic">Billing & Cost Management</span>
+                        <span class="zz-topic">Cloud Console & CLI</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/aws-cloud-technical-essentials" target="_blank">AWS Cloud Technical Essentials</a> — AWS / Coursera (Free Audit)</li>
+                        <li><a href="https://learn.microsoft.com/en-us/training/paths/az-900-describe-cloud-concepts/" target="_blank">Azure Fundamentals Learning Path</a> — Microsoft Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="03">
+                    <div class="zz-card-header"><span class="zz-icon">🐍</span>
+                        <div><div class="zz-phase">Phase 3 · Weeks 7–9</div><div class="zz-name">Scripting & Automation</div></div>
+                    </div>
+                    <div class="zz-desc">Manual cloud configuration doesn't scale. Every serious cloud engineer automates — from spinning up servers to managing configurations. Python and Bash are the two essential scripting languages for cloud automation work.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Python for Cloud Automation</span>
+                        <span class="zz-topic">Bash Scripting</span>
+                        <span class="zz-topic">AWS CLI / Azure CLI</span>
+                        <span class="zz-topic">Boto3 (AWS SDK)</span>
+                        <span class="zz-topic">PowerShell (Azure)</span>
+                        <span class="zz-topic">cron & scheduling</span>
+                        <span class="zz-topic">Git & Version Control</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/python-for-applied-data-science-ai" target="_blank">Python for Developers</a> — IBM / Coursera (Free Audit)</li>
+                        <li><a href="https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/" target="_blank">Bash Scripting Full Tutorial</a> — freeCodeCamp (Free)</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector right -->
+            <div class="zz-connector"></div>
+
+            <!-- ROW 2 reversed -->
+            <div class="zz-row reverse fade">
+                <div class="zz-phase-card" data-num="04">
+                    <div class="zz-card-header"><span class="zz-icon">🏗️</span>
+                        <div><div class="zz-phase">Phase 4 · Weeks 10–13</div><div class="zz-name">Infrastructure as Code (IaC)</div></div>
+                    </div>
+                    <div class="zz-desc">Infrastructure as Code is how modern cloud teams manage everything. Instead of clicking through consoles, you define your entire infrastructure in code — versioned, repeatable, and reviewable like software. Terraform is the industry standard.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Terraform fundamentals</span>
+                        <span class="zz-topic">HCL syntax & modules</span>
+                        <span class="zz-topic">Terraform state management</span>
+                        <span class="zz-topic">AWS CloudFormation</span>
+                        <span class="zz-topic">Azure ARM / Bicep</span>
+                        <span class="zz-topic">Ansible basics</span>
+                        <span class="zz-topic">Configuration Management</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://developer.hashicorp.com/terraform/tutorials" target="_blank">Terraform Official Tutorials</a> — HashiCorp (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/terraform-foundations" target="_blank">Terraform Foundations</a> — Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="05">
+                    <div class="zz-card-header"><span class="zz-icon">🐳</span>
+                        <div><div class="zz-phase">Phase 5 · Months 4–5</div><div class="zz-name">Containers & Kubernetes</div></div>
+                    </div>
+                    <div class="zz-desc">Containers are how modern applications are built and deployed. Docker packages apps into portable units; Kubernetes orchestrates thousands of them at scale. These are non-negotiable skills for every cloud engineer — appearing in 65%+ of cloud job postings.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Docker fundamentals</span>
+                        <span class="zz-topic">Dockerfile & Images</span>
+                        <span class="zz-topic">Docker Compose</span>
+                        <span class="zz-topic">Kubernetes Architecture</span>
+                        <span class="zz-topic">Pods, Services, Deployments</span>
+                        <span class="zz-topic">Helm Charts</span>
+                        <span class="zz-topic">EKS / AKS / GKE</span>
+                        <span class="zz-topic">Container Security</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/ibm-containers-docker-kubernetes-openshift" target="_blank">Containers, Docker, Kubernetes & OpenShift</a> — IBM / Coursera (Free)</li>
+                        <li><a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/" target="_blank">Kubernetes Official Tutorials</a> — Kubernetes.io (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="06">
+                    <div class="zz-card-header"><span class="zz-icon">⚙️</span>
+                        <div><div class="zz-phase">Phase 6 · Month 6</div><div class="zz-name">DevOps & CI/CD Pipelines</div></div>
+                    </div>
+                    <div class="zz-desc">DevOps bridges development and operations — automating the entire software delivery process from code commit to production deployment. Cloud engineers with DevOps skills earn 20–30% more than those without, and it is now a baseline requirement at most companies.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">CI/CD principles</span>
+                        <span class="zz-topic">GitHub Actions</span>
+                        <span class="zz-topic">Jenkins</span>
+                        <span class="zz-topic">AWS CodePipeline</span>
+                        <span class="zz-topic">GitOps (ArgoCD)</span>
+                        <span class="zz-topic">Blue/Green Deployments</span>
+                        <span class="zz-topic">Automated Testing in Pipeline</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/devops-cloud-and-agile-foundations" target="_blank">DevOps, Cloud & Agile Foundations</a> — IBM / Coursera (Free Audit)</li>
+                        <li><a href="https://www.coursera.org/learn/continuous-delivery-devops" target="_blank">Continuous Delivery & DevOps</a> — UVA / Coursera (Free Audit)</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector left -->
+            <div class="zz-connector from-right"></div>
+
+            <!-- ROW 3 -->
+            <div class="zz-row row3 fade">
+                <div class="zz-phase-card" data-num="07">
+                    <div class="zz-card-header"><span class="zz-icon">🔒</span>
+                        <div><div class="zz-phase">Phase 7 · Month 7</div><div class="zz-name">Cloud Security & Compliance</div></div>
+                    </div>
+                    <div class="zz-desc">Security is the fastest-growing segment of cloud computing and adds a 20–25% salary premium. Every cloud engineer must understand identity management, encryption, network security, and compliance frameworks — one misconfigured permission can expose an entire company's data.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">IAM (Advanced)</span>
+                        <span class="zz-topic">Zero Trust Architecture</span>
+                        <span class="zz-topic">Encryption at Rest & Transit</span>
+                        <span class="zz-topic">AWS Security Hub</span>
+                        <span class="zz-topic">Azure Defender</span>
+                        <span class="zz-topic">SIEM in Cloud</span>
+                        <span class="zz-topic">SOC2 / HIPAA / ISO 27001</span>
+                        <span class="zz-topic">Secret Management (Vault)</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/palo-alto-networks-cloud-security-fundamentals" target="_blank">Cloud Security Fundamentals</a> — Palo Alto / Coursera (Free Audit)</li>
+                        <li><a href="https://www.coursera.org/learn/aws-fundamentals-addressing-security-risk" target="_blank">AWS Fundamentals: Addressing Security Risk</a> — AWS / Coursera (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="08">
+                    <div class="zz-card-header"><span class="zz-icon">📡</span>
+                        <div><div class="zz-phase">Phase 8 · Month 8</div><div class="zz-name">Monitoring, Observability & Serverless</div></div>
+                    </div>
+                    <div class="zz-desc">You can't manage what you can't measure. Production cloud systems require robust monitoring, logging, and alerting. Serverless takes automation further — letting you run code without managing any servers at all, reducing operational overhead dramatically.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">CloudWatch / Azure Monitor</span>
+                        <span class="zz-topic">Prometheus & Grafana</span>
+                        <span class="zz-topic">ELK Stack basics</span>
+                        <span class="zz-topic">Distributed Tracing</span>
+                        <span class="zz-topic">AWS Lambda</span>
+                        <span class="zz-topic">Azure Functions</span>
+                        <span class="zz-topic">Event-Driven Architecture</span>
+                        <span class="zz-topic">Cost Optimization</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/aws-lambda-serverless" target="_blank">AWS Lambda & Serverless Architecture</a> — Coursera</li>
+                        <li><a href="https://learn.microsoft.com/en-us/training/paths/monitor-azure-resources/" target="_blank">Monitor Azure Resources</a> — Microsoft Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="09" style="border-color:rgba(65,105,225,.35);">
+                    <div class="zz-card-header"><span class="zz-icon">🎯</span>
+                        <div><div class="zz-phase">Phase 9 · Month 9+</div><div class="zz-name">Choose Your Specialization</div></div>
+                    </div>
+                    <div class="zz-desc">You now have the complete cloud engineering foundation. Pick the track that matches your interests — each is a distinct career with its own tools, certification path, and salary ceiling.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic" style="color:#0ea5e9;border-color:rgba(14,165,233,.25);background:rgba(14,165,233,.06);">☁️ Cloud Architecture</span>
+                        <span class="zz-topic" style="color:#ea580c;border-color:rgba(249,115,22,.25);background:rgba(249,115,22,.06);">⚙️ DevOps / Platform Eng</span>
+                        <span class="zz-topic" style="color:#16a34a;border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.06);">🔒 Cloud Security</span>
+                        <span class="zz-topic" style="color:#dc2626;border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.06);">🌐 Multi-Cloud / FinOps</span>
+                        <span class="zz-topic" style="color:#7c3aed;border-color:rgba(124,58,237,.25);background:rgba(124,58,237,.06);">🤖 AI/ML on Cloud</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">↓ Detailed below</div><ul>
+                        <li><a href="#specializations">View all specializations</a> — skills, tools, and importance</li>
+                        <li><a href="#certifications">View certifications</a> — matched to your chosen track</li>
+                    </ul></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ SPECIALIZATIONS ══ -->
+<section id="specializations" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Choose Your Domain</div>
+        <h2 class="cy-title fade">Specializations</h2>
+        <p class="cy-sub fade">Cloud engineering branches into five distinct disciplines. Each demands a different mindset and commands its own premium in the job market.</p>
+
+        <div class="spec-grid">
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="Cloud Architecture" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Cloud Architecture</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">☁️ Cloud Solutions Architecture</div>
+                    <div class="spec-tag">Architect · Design at Scale</div>
+                    <div class="spec-importance">Cloud architects design the entire technical vision of an organization's cloud infrastructure — choosing services, defining patterns, ensuring scalability, and balancing cost against performance. This is the highest-paid specialization in cloud, with AWS Solutions Architect certification holders averaging $149K–$200K and senior architects commanding $200K–$332K. Cloud architects combine deep technical expertise with business strategy thinking — a rare combination the market richly rewards.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-sky">AWS SAA / SAP</span>
+                        <span class="spec-skill sk-sky">Azure AZ-305</span>
+                        <span class="spec-skill sk-sky">System Design</span>
+                        <span class="spec-skill sk-sky">High Availability</span>
+                        <span class="spec-skill sk-sky">Disaster Recovery</span>
+                        <span class="spec-skill sk-sky">Cost Architecture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&q=80" alt="DevOps Platform Engineering" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">DevOps / Platform</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">⚙️ DevOps & Platform Engineering</div>
+                    <div class="spec-tag">DevOps · Automate Everything</div>
+                    <div class="spec-importance">DevOps engineers build and maintain the pipelines, platforms, and automation tooling that allow development teams to ship software continuously and reliably. Platform engineers take this further by building internal developer platforms as a product. Cloud engineers with DevOps expertise earn 20–30% more than peers without it. With Kubernetes, Terraform, and GitHub Actions being requested in the majority of senior cloud job postings, this is the most in-demand specialization in day-to-day cloud engineering work.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-orange">Kubernetes (CKA)</span>
+                        <span class="spec-skill sk-orange">Terraform / Pulumi</span>
+                        <span class="spec-skill sk-orange">ArgoCD / GitOps</span>
+                        <span class="spec-skill sk-orange">GitHub Actions</span>
+                        <span class="spec-skill sk-orange">Helm</span>
+                        <span class="spec-skill sk-orange">Platform Engineering</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80" alt="Cloud Security" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Cloud Security</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🔒 Cloud Security Engineering</div>
+                    <div class="spec-tag">Security · The Fastest-Growing Segment</div>
+                    <div class="spec-importance">Cloud security is the fastest-growing segment of cloud computing and the biggest skills gap in the industry. Cloud security engineers earn an average of $136,485 — and specialists in regulated industries (finance, healthcare, government) command significantly more. With 85% of enterprises adopting cloud-first strategies, the attack surface is expanding faster than defenses. Engineers who understand both cloud infrastructure and security are some of the most sought-after professionals globally in 2025.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-red">AWS Security Specialty</span>
+                        <span class="spec-skill sk-red">Zero Trust</span>
+                        <span class="spec-skill sk-red">CSPM Tools</span>
+                        <span class="spec-skill sk-red">HashiCorp Vault</span>
+                        <span class="spec-skill sk-red">Compliance (SOC2)</span>
+                        <span class="spec-skill sk-red">SIEM in Cloud</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Multi-Cloud FinOps" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Multi-Cloud / FinOps</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🌐 Multi-Cloud & FinOps</div>
+                    <div class="spec-tag">Multi-Cloud · Maximize Value, Minimize Cost</div>
+                    <div class="spec-importance">As enterprises mature their cloud strategies, they increasingly adopt multi-cloud architectures using AWS, Azure, and GCP simultaneously. FinOps (Financial Operations for Cloud) is an emerging discipline focused on optimizing cloud costs — a critical concern as companies collectively waste $17.6 billion in unused cloud resources annually. Multi-cloud specialists with FinOps expertise are among the highest-paid niche professionals in cloud, particularly at large enterprises with significant cloud spend.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-green">Multi-Cloud Strategy</span>
+                        <span class="spec-skill sk-green">FinOps Framework</span>
+                        <span class="spec-skill sk-green">AWS Cost Explorer</span>
+                        <span class="spec-skill sk-green">Anthos / Arc</span>
+                        <span class="spec-skill sk-green">Cost Optimization</span>
+                        <span class="spec-skill sk-green">Cloud Governance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="AI ML on Cloud" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">AI / ML on Cloud</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🤖 AI/ML Cloud Engineering</div>
+                    <div class="spec-tag">AI + Cloud · The Premium Combination</div>
+                    <div class="spec-importance">The combination of cloud and AI/ML skills is the single highest-premium specialization in all of tech. Cloud engineers who can deploy, manage, and optimize ML workloads on AWS SageMaker, Azure ML, or Google Vertex AI command salaries 40–60% above baseline. As every company races to embed AI into their products, the engineers who understand how to run these workloads at scale in the cloud are in extraordinary demand — and there are not nearly enough of them.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-violet">AWS SageMaker</span>
+                        <span class="spec-skill sk-violet">Azure ML Studio</span>
+                        <span class="spec-skill sk-violet">Google Vertex AI</span>
+                        <span class="spec-skill sk-violet">MLOps Pipelines</span>
+                        <span class="spec-skill sk-violet">GPU Clusters</span>
+                        <span class="spec-skill sk-violet">Kubeflow</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Recognized</div>
+        <h2 class="cy-title fade">Certifications</h2>
+        <p class="cy-sub fade">Cloud certifications have one of the highest ROI of any tech credential. The AWS Solutions Architect cert alone adds $15,000+ to your salary — and each advanced cert can push you 15–35% higher.</p>
+
+        <div class="fade">
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-green">// Beginner — Build The Foundation</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Cloud Practitioner</span><span class="cert-pill pill-g">CLF-C02</span></div>
+                        <div class="cert-body">The official AWS entry-level certification. Covers cloud concepts, AWS services, security, architecture, pricing, and support. No technical experience required — the ideal starting point for anyone entering the cloud field.</div>
+                        <div class="cert-meta">Cost: <strong>~$100</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-cloud-practitioner/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Azure Fundamentals</span><span class="cert-pill pill-g">AZ-900</span></div>
+                        <div class="cert-body">Azure's entry-level cert covering cloud concepts, Azure services, security, privacy, compliance, and pricing. The starting point for 65% of Azure career paths — no prerequisites required and highly accessible for complete beginners.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Cloud Digital Leader</span><span class="cert-pill pill-g">CDL</span></div>
+                        <div class="cert-body">Google Cloud's foundational certification covering GCP services, digital transformation, and Google Cloud capabilities. Ideal first credential for those who want to start on GCP's career path before committing to an associate or professional cert.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/cloud-digital-leader" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM Cloud Essentials</span><span class="cert-pill pill-g">IBM-CE</span></div>
+                        <div class="cert-body">IBM's free cloud fundamentals badge covering IaaS, PaaS, SaaS, virtualization, and cloud deployment models. A solid first credential for learners who want hands-on IBM Cloud exposure alongside studying for AWS or Azure.</div>
+                        <div class="cert-meta">Cost: <strong>Free</strong></div>
+                        <a href="https://www.coursera.org/learn/ibm-cloud-essentials" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-amber">// Intermediate — Prove Your Skills</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Solutions Architect Associate</span><span class="cert-pill pill-a">SAA-C03</span></div>
+                        <div class="cert-body">The most popular IT certification in the world. Validates ability to design resilient, high-performing, secure, and cost-optimized AWS architectures. Adds $15,000+ to annual salary and is required or preferred in the majority of cloud engineer job postings.</div>
+                        <div class="cert-meta">Cost: <strong>~$150</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Azure Administrator Associate</span><span class="cert-pill pill-a">AZ-104</span></div>
+                        <div class="cert-body">Validates skills in implementing, managing, and monitoring Azure environments. Covers identities, governance, storage, compute, virtual networks, and monitoring. The standard intermediate Azure certification for cloud administrators and engineers.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Associate Cloud Engineer</span><span class="cert-pill pill-a">ACE</span></div>
+                        <div class="cert-body">Validates ability to deploy applications, monitor operations, and manage enterprise solutions on Google Cloud. Covers Compute Engine, GKE, App Engine, Cloud Storage, and Cloud SQL. Essential for engineers targeting GCP-heavy environments.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/cloud-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Certified Kubernetes Administrator</span><span class="cert-pill pill-a">CKA</span></div>
+                        <div class="cert-body">The gold standard Kubernetes certification. A 100% hands-on exam where you must complete real tasks in a live Kubernetes cluster. Required at most companies using container orchestration. DevOps and cloud engineers with CKA earn 20–25% more than peers without it.</div>
+                        <div class="cert-meta">Cost: <strong>~$395</strong></div>
+                        <a href="https://www.cncf.io/certification/cka/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-red">// Advanced — Elite Level</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Solutions Architect Professional</span><span class="cert-pill pill-r">SAP-C02</span></div>
+                        <div class="cert-body">The most prestigious AWS certification. Validates advanced skills in designing distributed systems, migrating complex enterprise workloads, and architecting cost-optimized scalable solutions. AWS Architects with this cert command $180K–$250K+ in the US market.</div>
+                        <div class="cert-meta">Cost: <strong>~$300</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-solutions-architect-professional/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Azure Solutions Architect Expert</span><span class="cert-pill pill-r">AZ-305</span></div>
+                        <div class="cert-body">Microsoft's gold standard for cloud architects. Validates expertise in designing Azure infrastructure including compute, network, storage, and security solutions. Adds a 30–35% salary increase over baseline — the highest-premium Azure certification available.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-solutions-architect/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Cloud Professional Architect</span><span class="cert-pill pill-r">PCA</span></div>
+                        <div class="cert-body">Google's flagship architect certification. Validates ability to design, develop, and manage robust, secure, scalable, highly available GCP solutions. One of the highest-paying certifications in cloud globally — holders average $175K+ in the US.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/cloud-architect" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">HashiCorp Terraform Associate</span><span class="cert-pill pill-r">TF-003</span></div>
+                        <div class="cert-body">The official Terraform certification from HashiCorp — the creator of Terraform. Validates knowledge of IaC concepts, Terraform configuration, state management, and module usage. A career-accelerating credential for any cloud engineer working with infrastructure automation.</div>
+                        <div class="cert-meta">Cost: <strong>~$70</strong></div>
+                        <a href="https://www.hashicorp.com/certification/terraform-associate" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CAREER TIMELINE ══ -->
+<section id="career-timeline" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">From Student to Expert</div>
+        <h2 class="cy-title fade">Career Growth Timeline</h2>
+        <p class="cy-sub fade">Cloud engineering has one of the clearest and fastest salary progression paths in all of tech — entry-level starts at $90K+ and the ceiling is extraordinary for architects and specialists.</p>
+
+        <div class="career-track">
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--blue);background:var(--blue);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Learning Phase</div>
+                    <div class="ct-period" style="color:var(--blue);">Months 1–6 — Foundations, Linux, Scripting & First Platform</div>
+                    <div class="ct-title">Building Your Cloud Foundation</div>
+                    <div class="ct-desc">Learn Linux, networking, and Python scripting. Sign up for AWS free tier and complete hands-on labs. Earn the AWS Cloud Practitioner or Azure Fundamentals cert — they cost $100–$165 and signal to employers that you are serious. Start building a home lab or personal cloud project. Begin your TF (Terraform) and Docker journey by month 4. Document everything publicly on GitHub and LinkedIn.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Linux & networking solid</span>
+                        <span class="ct-gain"><span class="ok">✓</span>AWS CLF or AZ-900 earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>First cloud project deployed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Docker fundamentals learned</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--purple);background:var(--purple);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">First Opportunity</div>
+                    <div class="ct-period" style="color:var(--purple);">Months 6–10 — Internship / Junior Cloud Support</div>
+                    <div class="ct-title">Your First Cloud Role</div>
+                    <span class="ct-salary cs-purple">💼 $55K–$80K (Cloud Support / Internship)</span>
+                    <div class="ct-desc">Apply for cloud support engineer roles, junior DevOps positions, or cloud internships. AWS Cloud Practitioner plus hands-on project experience is enough to get interviews at smaller companies and managed service providers. While working, study intensively for AWS Solutions Architect Associate or Azure AZ-104 — these are the certifications that unlock the mid-level salary jump. Simultaneously learn Terraform and Kubernetes basics.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First cloud role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>SAA-C03 or AZ-104 in progress</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Terraform hands-on</span>
+                        <span class="ct-gain"><span class="ok">✓</span>GitHub portfolio published</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#f59e0b;background:#f59e0b;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Early Career</div>
+                    <div class="ct-period" style="color:#d97706;">Year 1 — Junior / Associate Cloud Engineer</div>
+                    <div class="ct-title">Cloud Engineer / Junior DevOps / AWS Engineer</div>
+                    <span class="ct-salary cs-amber">💰 $90K–$115K</span>
+                    <div class="ct-desc">You are now a working cloud engineer. Daily work involves managing infrastructure, writing Terraform modules, troubleshooting cloud systems, setting up CI/CD pipelines, and supporting development teams. The SAA-C03 certification at this level significantly accelerates your progression. Begin specializing — DevOps for automation, Security for premium, or Architecture for the highest long-term ceiling.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>SAA-C03 or AZ-104 earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Terraform in daily use</span>
+                        <span class="ct-gain"><span class="ok">✓</span>CI/CD pipelines built</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Specialization chosen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#ef4444;background:#ef4444;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Career Growth</div>
+                    <div class="ct-period" style="color:#ef4444;">Year 2–3 — Mid-Level Cloud Engineer</div>
+                    <div class="ct-title">Cloud Engineer / DevOps Engineer / Platform Engineer</div>
+                    <span class="ct-salary cs-red">💰 $115K–$145K</span>
+                    <div class="ct-desc">With 2 years of experience and an associate-level certification, you are a productive mid-level engineer. You design solutions independently, build reusable infrastructure modules, lead junior engineers, and present architecture recommendations. The CKA certification at this stage differentiates you significantly. Multi-cloud exposure (using AWS + Azure or GCP) adds an additional salary premium. Many engineers reach this level within 18–24 months with focused effort.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Mid-level role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>CKA or DevOps cert pursued</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Leading infrastructure projects</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Multi-cloud exposure</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#16a34a;background:#16a34a;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Senior Level</div>
+                    <div class="ct-period" style="color:#16a34a;">Year 3–5 — Senior Cloud Engineer / Cloud Architect</div>
+                    <div class="ct-title">Senior Cloud Engineer / Cloud Architect / DevOps Lead</div>
+                    <span class="ct-salary cs-green">💰 $145K–$185K</span>
+                    <div class="ct-desc">Senior cloud engineers are the technical backbone of infrastructure teams. You architect multi-account cloud environments, define security baselines, set team standards, and own the most complex infrastructure challenges. AWS Solutions Architect Professional or Azure AZ-305 at this level adds 30–35% to your compensation and opens doors to architect roles. Cloud architects design entire enterprise cloud strategies and are among the highest-paid engineers in technology.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Senior / Architect role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>SAP or AZ-305 earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Enterprise architecture owned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Cost optimization driving</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#0ea5e9;background:#0ea5e9;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Expert / Leadership</div>
+                    <div class="ct-period" style="color:#0ea5e9;">Year 5+ — Principal / Cloud Architect / CTO Track</div>
+                    <div class="ct-title">Principal Cloud Architect / Head of Infrastructure / VP Engineering / CTO</div>
+                    <span class="ct-salary cs-cyan">💰 $190K–$332K+</span>
+                    <div class="ct-desc">Principal cloud architects and heads of infrastructure at major companies earn $190K–$332K+ in base salary alone. The combination of cloud architecture expertise with AI/ML workload knowledge is the single highest-premium specialization in the field today. Independent cloud consultants with architect-level expertise charge $200–$400/hr. CTOs at cloud-native companies — many of whom came from cloud engineering backgrounds — regularly earn $300K–$600K in total compensation.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Principal or VP role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Cloud strategy ownership</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Consulting at $200+/hr</span>
+                        <span class="ct-gain"><span class="ok">✓</span>$200K+ achievable</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outcome-banner fade">
+            <div class="ob-stats">
+                <div class="ob-item"><span class="ob-val">$90K</span><div class="ob-lbl">Junior (Year 1)</div></div>
+                <div class="ob-item"><span class="ob-val">$130K</span><div class="ob-lbl">Mid-level (Year 2–3)</div></div>
+                <div class="ob-item"><span class="ob-val">$165K+</span><div class="ob-lbl">Senior (Year 3–5)</div></div>
+                <div class="ob-item"><span class="ob-val">23%</span><div class="ob-lbl">Job growth by 2031</div></div>
+                <div class="ob-item"><span class="ob-val">$1.6T</span><div class="ob-lbl">Market size by 2030</div></div>
+            </div>
+            <div class="ob-note">
+                Cloud computing is not a trend — it is the permanent infrastructure of the modern world. <strong>62% of cloud engineering positions allow full remote work</strong>, making this one of the most flexible careers in tech. Entry-level cloud engineers already start at $90K+, and the AWS Solutions Architect certification alone can add $15,000+ annually. With 85% of enterprises adopting cloud-first strategies by 2025 and the market projected to grow from $912 billion to $1.6 trillion by 2030, <strong>the demand for cloud professionals will only accelerate</strong>. Engineers who specialize in security, AI/ML workloads, or multi-cloud architecture are entering one of the tightest talent markets in all of technology — with compensation to match. <strong>The global cloud shortage is not closing anytime soon — and every skill you build today compounds into extraordinary value tomorrow.</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REMOTE JOBS ══ -->
+<section id="jobs" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Hired</div>
+        <h2 class="cy-title fade">Remote Internships & Jobs</h2>
+        <p class="cy-sub fade">Cloud engineering has one of the highest concentrations of remote positions in all of tech — 62% of cloud roles are fully remote. These platforms connect you with opportunities at every level.</p>
+
+        <div class="jobs-grid">
+            <div class="jobs-col fade">
+                <h3>🎓 Internships & Entry Roles</h3>
+                <p>Cloud internships and junior support roles are the most common entry point. Even without a degree, a foundational certification and a real project are often enough to get interviews at smaller companies and MSPs.</p>
+                <div class="job-links">
+                    <a href="https://www.linkedin.com/jobs/cloud-engineer-jobs/?f_WT=2&f_E=1" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💼</span><div><div class="jl-name">LinkedIn Jobs</div><span class="jl-cat">Remote Cloud Engineer Internships</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.indeed.com/q-remote-cloud-engineer-intern-jobs.html" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🔍</span><div><div class="jl-name">Indeed</div><span class="jl-cat">Cloud Engineering Internships — Remote</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.internshala.com/internships/cloud-computing-internship" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎯</span><div><div class="jl-name">Internshala</div><span class="jl-cat">Cloud Computing Internships (South Asia)</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://aws.amazon.com/careers/students/" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">☁️</span><div><div class="jl-name">AWS Student Programs</div><span class="jl-cat">AWS Internships & Student Opportunities</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://careers.microsoft.com/students/us/en/job/cloudandengineeringops" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🟦</span><div><div class="jl-name">Microsoft Careers</div><span class="jl-cat">Azure Engineering Student Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="jobs-col fade">
+                <h3>🌍 Remote Full-Time Roles</h3>
+                <p>Cloud roles are among the most remote-friendly in tech. These boards specialize in cloud, DevOps, and infrastructure roles across all experience levels globally.</p>
+                <div class="job-links">
+                    <a href="https://remoteok.com/remote-cloud-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏠</span><div><div class="jl-name">Remote OK</div><span class="jl-cat">Remote-First Cloud Engineering Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://weworkremotely.com/categories/remote-devops-sysadmin-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🌐</span><div><div class="jl-name">We Work Remotely</div><span class="jl-cat">Remote DevOps & Cloud Sysadmin Jobs</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.glassdoor.com/Job/remote-cloud-engineer-jobs-SRCH_KO0,21.htm" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏢</span><div><div class="jl-name">Glassdoor</div><span class="jl-cat">Cloud Engineer Jobs + Salary Insights</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.dice.com/jobs?q=cloud+engineer&locationFilters=Remote" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎲</span><div><div class="jl-name">Dice</div><span class="jl-cat">Tech-Focused Remote Cloud Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://wellfound.com/jobs?role=devops-engineer" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🚀</span><div><div class="jl-name">Wellfound (AngelList)</div><span class="jl-cat">DevOps & Cloud Roles at Startups</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/pages.js"></script>
+<script>injectFooter('');</script>
+</body>
+</html>

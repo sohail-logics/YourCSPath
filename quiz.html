@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your CS Path — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- shared project styles (footer, modals, dark-mode vars, etc.) -->
+    <link rel="stylesheet" href="../homepage-style.css">
+    <link rel="stylesheet" href="../pages.css">
+
+    <style>
+        /* ══════════════════════════════════════
+           PAGE-LEVEL VARIABLES & OVERRIDES
+        ══════════════════════════════════════ */
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg, #4169E1 0%, #5b4fc6 100%);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+            --radius: 12px;
+        }
+        body { background: var(--bg); }
+
+        /* ── subtle radial bg glow ── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background:
+                radial-gradient(ellipse 560px 360px at 88% -4%,  rgba(65,105,225,.055) 0%, transparent 70%),
+                radial-gradient(ellipse 440px 320px at -4% 88%,  rgba(91,79,198,.045)  0%, transparent 70%);
+        }
+
+        /* ══════════════════════════════════════
+           LAYOUT
+        ══════════════════════════════════════ */
+        .page-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;          /* narrower — suits vertical form */
+            margin: 0 auto;
+            padding: 104px 1.25rem 5rem;
+        }
+
+        /* ══════════════════════════════════════
+           PAGE HEADER  (no eyebrow / badge)
+        ══════════════════════════════════════ */
+        .page-header { margin-bottom: 1.8rem; }
+
+        .page-title {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -.024em;
+            color: var(--text);
+            line-height: 1.18;
+            margin-bottom: .45rem;
+        }
+        .page-title .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-desc {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .9rem;
+            color: var(--muted);
+            line-height: 1.72;
+        }
+
+        /* ══════════════════════════════════════
+           FORM CARD
+        ══════════════════════════════════════ */
+        .form-card {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 2rem 2rem 1.7rem;
+            box-shadow: 0 4px 28px rgba(65,105,225,.07), 0 1px 4px rgba(0,0,0,.04);
+            position: relative;
+            overflow: hidden;
+        }
+        /* gradient top bar */
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--grad);
+            border-radius: 18px 18px 0 0;
+        }
+
+        /* ── section label ── */
+        .fsec {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin: 1.6rem 0 1rem;
+        }
+        .fsec:first-of-type { margin-top: 0; }
+        .fsec::before { content: ''; width: 13px; height: 2px; background: var(--blue); flex-shrink: 0; }
+        .fsec::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        /* ── VERTICAL stacked fields ── */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: .38rem;
+            margin-bottom: .95rem;
+        }
+        .field:last-of-type { margin-bottom: 0; }
+
+        .field-label {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: .38rem;
+            flex-wrap: wrap;
+            line-height: 1.3;
+        }
+        /* question number chip */
+        .qn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .59rem;
+            font-weight: 600;
+            color: var(--blue);
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.17);
+            padding: .07rem .38rem;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ── custom select wrapper ── */
+        .sw { position: relative; }
+        .sw::after {
+            content: '';
+            position: absolute;
+            right: .85rem; top: 50%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--muted);
+            pointer-events: none;
+            transition: transform .2s, border-top-color .2s;
+        }
+        .sw:focus-within::after {
+            transform: translateY(-50%) rotate(180deg);
+            border-top-color: var(--blue);
+        }
+
+        select,
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: .65rem .9rem;
+            background: var(--bg);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'Epilogue', sans-serif;
+            font-size: .84rem;
+            color: var(--text);
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+        select.ph { color: var(--muted); }
+
+        select:hover,
+        input:hover { border-color: rgba(65,105,225,.38); }
+
+        select:focus,
+        input:focus {
+            border-color: var(--blue);
+            background: var(--surf);
+            box-shadow: 0 0 0 3px rgba(65,105,225,.1);
+        }
+
+        /* ── validation error ── */
+        .field.err select,
+        .field.err input {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239,68,68,.09);
+        }
+        .ferr {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .73rem;
+            color: #dc2626;
+            display: none;
+        }
+        .field.err .ferr { display: block; }
+
+        /* ── submit row ── */
+        .submit-row {
+            margin-top: 1.8rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .8rem;
+        }
+        .submit-note {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .63rem;
+            color: var(--muted);
+            letter-spacing: .04em;
+        }
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: .48rem;
+            background: var(--grad);
+            color: #fff;
+            font-family: 'Epilogue', sans-serif;
+            font-size: .9rem;
+            font-weight: 700;
+            padding: .75rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(65,105,225,.27);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .btn-submit:hover  { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(65,105,225,.37); }
+        .btn-submit:active { transform: translateY(0); }
+        .btn-submit svg    { width: 15px; height: 15px; }
+
+        /* ══════════════════════════════════════
+           RESULTS SECTION
+        ══════════════════════════════════════ */
+        #resultsSection { display: none; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .au  { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) both; }
+        .au2 { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .1s  both; }
+        .au3 { animation: fadeUp .45s cubic-bezier(.22,1,.36,1) .18s both; }
+
+        /* greeting */
+        .res-done {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #16a34a;
+            background: rgba(22,163,74,.07);
+            border: 1px solid rgba(22,163,74,.22);
+            padding: .27rem .8rem;
+            border-radius: 4px;
+            margin-bottom: .8rem;
+        }
+        .res-title {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            font-weight: 800;
+            letter-spacing: -.022em;
+            color: var(--text);
+            margin-bottom: .35rem;
+            line-height: 1.2;
+        }
+        .res-title .nhl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* user summary pills */
+        .upills { display: flex; flex-wrap: wrap; gap: .38rem; margin: .65rem 0 .5rem; }
+        .upill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .62rem;
+            font-weight: 500;
+            padding: .22rem .65rem;
+            border-radius: 4px;
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.15);
+            color: var(--blue);
+        }
+        .res-sub {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 1.9rem;
+        }
+
+        /* section heading */
+        .sec-lbl {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .62rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+        .sec-lbl::before { content: ''; width: 13px; height: 2px; background: var(--blue); }
+
+        /* ══════════════════════════════════════
+           TOP 3 PATH CARDS  — one per row,
+           matching landing page path-card style
+        ══════════════════════════════════════ */
+        .top3 {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .prc {
+            background: var(--surf);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform .28s, box-shadow .28s, border-color .28s;
+        }
+        .prc:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(65,105,225,.13);
+            border-color: rgba(65,105,225,.3);
+        }
+        /* top accent bar (colour set per-card in JS) */
+        .prc-bar {
+            height: 4px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .prc-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.1rem;
+            padding: 1.2rem 1.3rem 1rem;
+        }
+
+        /* left: rank + icon */
+        .prc-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .45rem;
+            flex-shrink: 0;
+        }
+        .prc-rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .58rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            padding: .18rem .52rem;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .rr1 { background: rgba(65,105,225,.1);   color: var(--blue);   border: 1px solid rgba(65,105,225,.22); }
+        .rr2 { background: rgba(91,79,198,.08);   color: var(--purple); border: 1px solid rgba(91,79,198,.2); }
+        .rr3 { background: rgba(100,116,139,.08); color: #64748b;       border: 1px solid rgba(100,116,139,.2); }
+
+        .prc-icon { font-size: 1.75rem; line-height: 1; }
+
+        /* right: text content */
+        .prc-content { flex: 1; min-width: 0; }
+        .prc-name {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .96rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: .12rem;
+        }
+        .prc-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .58rem;
+            color: var(--muted);
+            margin-bottom: .5rem;
+            letter-spacing: .02em;
+        }
+        .prc-why {
+            font-family: 'Epilogue', sans-serif;
+            font-size: .8rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        /* score bar (right side of card inner) */
+        .prc-score {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: .38rem;
+            padding-top: .1rem;
+        }
+        .score-display {
+            display: flex;
+            align-items: baseline;
+            gap: .15rem;
+        }
+        .score-num {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .score-den {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .65rem;
+            color: var(--muted);
+        }
+        .sbar-track {
+            width: 72px;
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .sbar-fill {
+            height: 100%;
+            border-radius: 3px;
+            width: 0;
+            transition: width 1.1s cubic-bezier(.22,1,.36,1);
+        }
+
+        /* card footer CTA */
+        .prc-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .62rem 1.3rem;
+            border-top: 1px solid var(--border);
+            background: var(--lb);
+            font-family: 'Epilogue', sans-serif;
+            font-size: .76rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+        .prc-footer svg {
+            width: 12px; height: 12px;
+            transition: transform .2s;
+        }
+        .prc:hover .prc-footer svg { transform: translateX(3px); }
+
+        /* ── retake ── */
+        .retake-row { display: flex; justify-content: center; margin-top: 1.6rem; }
+        .btn-retake {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'Epilogue', sans-serif;
+            font-size: .83rem;
+            font-weight: 600;
+            color: var(--muted);
+            background: none;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: .52rem 1.25rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .btn-retake:hover { border-color: rgba(65,105,225,.3); color: var(--blue); }
+
+        /* ══════════════════════════════════════
+           DARK MODE OVERRIDES
+        ══════════════════════════════════════ */
+        body.dark-mode select,
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="number"] {
+            background: #0f1419;
+            border-color: #2a3148;
+            color: #e8eaed;
+        }
+        body.dark-mode select.ph { color: #8899bb; }
+        body.dark-mode select:focus,
+        body.dark-mode input:focus { background: #1a1f2e; }
+        body.dark-mode .prc-footer { background: rgba(65,105,225,.08); }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════ */
+        @media (max-width: 520px) {
+            .form-card   { padding: 1.4rem 1.1rem; }
+            .prc-inner   { flex-wrap: wrap; }
+            .prc-score   { flex-direction: row; align-items: center; gap: .7rem; }
+            .submit-row  { flex-direction: column; align-items: stretch; }
+            .btn-submit  { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV (uses homepage-style.css header/nav) ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="../logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="../../index.html">Explore Paths</a></li>
+            <li><a href="../../index.html" class="cta-button">← Home</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ══ MAIN ══ -->
+<main class="page-wrap">
+
+    <!-- ── page header (no eyebrow badge) ── -->
+    <div class="page-header">
+        <h1 class="page-title">
+            Answer these questions and we'll<br>
+            <span class="hl">find the right CS path for you.</span>
+        </h1>
+        <p class="page-desc">
+            Fill in all 11 fields below — 3 quick personal questions followed by 8 interest &amp; mindset questions.
+            Hit <strong>Find My Path</strong> and we'll instantly score all 6 CS career paths by how well they match your profile.
+        </p>
+    </div>
+
+    <!-- ══ FORM ══ -->
+    <div id="formSection">
+        <div class="form-card">
+            <form id="pathForm" novalidate>
+
+                <!-- ── ABOUT YOU ── -->
+                <div class="fsec">About You</div>
+
+                <div class="field" id="fw-name">
+                    <label class="field-label">
+                        <span class="qn">Q1</span> Your Name
+                    </label>
+                    <input type="text" id="i-name" placeholder="e.g. Ali Hassan" autocomplete="off">
+                    <span class="ferr">Please enter your name.</span>
+                </div>
+
+                <div class="field" id="fw-age">
+                    <label class="field-label">
+                        <span class="qn">Q2</span> Your Age
+                    </label>
+                    <input type="number" id="i-age" placeholder="e.g. 20" min="13" max="65">
+                    <span class="ferr">Please enter a valid age (13–65).</span>
+                </div>
+
+                <div class="field" id="fw-level">
+                    <label class="field-label">
+                        <span class="qn">Q3</span> Current Level
+                    </label>
+                    <div class="sw">
+                        <select id="i-level" class="ph">
+                            <option value="" disabled selected>Select your level</option>
+                            <option value="highschool">High School Student</option>
+                            <option value="undergrad">Undergraduate Student</option>
+                            <option value="grad">Graduate / Postgrad Student</option>
+                            <option value="selflearner">Self-taught Learner</option>
+                            <option value="professional">Working Professional</option>
+                            <option value="bootcamp">Bootcamp Attendee</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select your level.</span>
+                </div>
+
+                <!-- ── INTERESTS & MINDSET ── -->
+                <div class="fsec">Your Interests &amp; Mindset</div>
+
+                <div class="field" id="fw-q4">
+                    <label class="field-label">
+                        <span class="qn">Q4</span> How comfortable are you with math &amp; statistics?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q4" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="love">I love math — equations feel natural to me</option>
+                            <option value="okay">I'm okay — I can handle it when needed</option>
+                            <option value="struggle">I struggle, but I'm willing to learn</option>
+                            <option value="avoid">I'd rather avoid heavy math</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q5">
+                    <label class="field-label">
+                        <span class="qn">Q5</span> What is your current programming experience?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q5" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="strong">Strong — I've built real projects</option>
+                            <option value="some">Some — I know basics of at least one language</option>
+                            <option value="little">A little — I've done a few tutorials</option>
+                            <option value="none">None yet — completely new to coding</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q6">
+                    <label class="field-label">
+                        <span class="qn">Q6</span> Which type of problem excites you most?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q6" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="security">Catching hackers &amp; protecting systems</option>
+                            <option value="intelligence">Teaching machines to think and learn</option>
+                            <option value="data">Finding hidden stories inside huge datasets</option>
+                            <option value="building">Building apps &amp; websites people use daily</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q7">
+                    <label class="field-label">
+                        <span class="qn">Q7</span> What work environment suits you best?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q7" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="solo">Deep solo focus — I prefer working independently</option>
+                            <option value="collab">Collaborative — I thrive in a team</option>
+                            <option value="mixed">Mixed — I like both depending on the task</option>
+                            <option value="client">Client-facing — I enjoy presenting &amp; explaining</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q8">
+                    <label class="field-label">
+                        <span class="qn">Q8</span> Which sounds most like your dream project?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q8" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="pentest">Running a penetration test &amp; writing a security report</option>
+                            <option value="aimodel">Training an AI model that generates creative content</option>
+                            <option value="dashboard">Building a live business analytics dashboard</option>
+                            <option value="webapp">Launching a full-stack web app used by thousands</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q9">
+                    <label class="field-label">
+                        <span class="qn">Q9</span> How do you feel about constant learning as the field evolves?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q9" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="love">I love it — staying cutting-edge energises me</option>
+                            <option value="okay">I'm fine with it — it's part of the job</option>
+                            <option value="selective">Selectively — I'll learn what I need, when I need it</option>
+                            <option value="prefer-stable">I'd prefer a field with stable, long-lasting skills</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q10">
+                    <label class="field-label">
+                        <span class="qn">Q10</span> Which salary &amp; growth path appeals most?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q10" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="highceiling">High ceiling — I want the biggest possible upside ($200K+)</option>
+                            <option value="faststart">Fast start — decent pay early with stable progression</option>
+                            <option value="broad">Broad demand — I want to be hireable everywhere</option>
+                            <option value="freelance">Freelance potential — I want to work on my own terms</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <div class="field" id="fw-q11">
+                    <label class="field-label">
+                        <span class="qn">Q11</span> Late but high growth — or quick start &amp; early earning?
+                    </label>
+                    <div class="sw">
+                        <select id="i-q11" class="ph">
+                            <option value="" disabled selected>Choose an option</option>
+                            <option value="late-high">Late but high growth — invest time for a massive payoff</option>
+                            <option value="quick-earn">Quick start &amp; early earning — I want income soon</option>
+                            <option value="balanced">Balanced — moderate ramp-up with solid mid-term returns</option>
+                            <option value="flexible">Flexible — I'd adapt depending on the opportunity</option>
+                        </select>
+                    </div>
+                    <span class="ferr">Please select an option.</span>
+                </div>
+
+                <!-- ── SUBMIT ── -->
+                <div class="submit-row">
+                    <span class="submit-note">No account needed · Results appear instantly</span>
+                    <button type="submit" class="btn-submit">
+                        Find My Path
+                        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/>
+                        </svg>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div><!-- /formSection -->
+
+    <!-- ══ RESULTS ══ -->
+    <div id="resultsSection">
+
+        <div class="au">
+            <div class="res-done">✓ Analysis Complete</div>
+            <h2 class="res-title">
+                Here's your match,&nbsp;<span class="nhl" id="rName">—</span>
+            </h2>
+            <div class="upills" id="rPills"></div>
+            <p class="res-sub" id="rSub"></p>
+        </div>
+
+        <div class="au2">
+            <div class="sec-lbl">Your Top 3 Career Paths</div>
+            <div class="top3" id="top3"></div>
+        </div>
+
+        <div class="au3">
+            <div class="retake-row">
+                <button class="btn-retake" id="btnRetake">↺ Retake the Quiz</button>
+            </div>
+        </div>
+
+    </div><!-- /resultsSection -->
+
+</main>
+
+<!-- ══ SHARED: footer + dark-mode toggle (from pages.js / pages.css) ══ -->
+<script src="../pages.js"></script>
+<script>injectFooter('../');</script>
+
+<!-- ══ QUIZ LOGIC ══ -->
+<script src="form-logic.js"></script>
+</body>
+</html>

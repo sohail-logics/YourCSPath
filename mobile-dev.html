@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Development — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="/pages.css">
+
+    <style>
+
+        /* ── VARIABLES ── */
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg,#4169E1,#5b4fc6);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+        }
+
+        /* ── DARK MODE ── */
+        body.dark-mode .cy-section,
+        body.dark-mode section { background-color: var(--bg) !important; }
+        body.dark-mode .cy-section[style*="var(--surf)"] { background: var(--surf) !important; }
+        body.dark-mode .zz-phase-card,
+        body.dark-mode .spec-card,
+        body.dark-mode .cert-card,
+        body.dark-mode .ct-content,
+        body.dark-mode .job-link,
+        body.dark-mode .outcome-banner { background: var(--surf) !important; border-color: var(--border) !important; }
+        body.dark-mode .hero-section { background: var(--surf) !important; }
+       
+
+        /* ── HERO — split layout, light bg ── */
+        .hero-section {
+            margin-top: 80px;
+            background: var(--surf);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 3rem;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .1em;
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.25);
+            color: var(--blue);
+            padding: .38rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.3rem;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+        .hero-section h1 {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: var(--text);
+            margin-bottom: 1.1rem;
+        }
+        .hero-section h1 .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: .98rem;
+            color: var(--muted);
+            line-height: 1.78;
+            margin-bottom: 2rem;
+            font-family: 'Epilogue', sans-serif;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1.6rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .hs-val {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        .hs-lbl { font-size: .76rem; color: var(--muted); margin-top: .1rem; font-family:'Epilogue',sans-serif; }
+
+       /* ── HERO IMAGE CARD ── */
+.hero-img-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    animation: fadeInRight .8s ease-out .2s both;
+    position: relative;
+}
+@keyframes fadeInRight {
+    from { opacity:0; transform:translateX(30px); }
+    to   { opacity:1; transform:translateX(0); }
+}
+.hero-img-card img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    display: block;
+}
+.hero-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(65,105,225,.28) 0%, rgba(91,79,198,.2) 100%);
+}
+.hero-label {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: rgba(255,255,255,.9);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: rgba(65,105,225,.65);
+    backdrop-filter: blur(6px);
+    padding: .32rem .85rem;
+    border-radius: 4px;
+    z-index: 2;
+}
+.hero-chips {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 1.4rem;
+    right: 1.4rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+}
+.chip-row { display: flex; gap: .55rem; flex-wrap: wrap; }
+.chip {
+    background: rgba(10,14,30,.62);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 7px;
+    padding: .42rem .95rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .71rem;
+    color: rgba(255,255,255,.9);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: .42rem;
+}
+.chip-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.cd-green  { background: #00ff88; }
+.cd-blue   { background: #79c0ff; }
+.cd-amber  { background: #ffd700; }
+.cd-purple { background: #d2a8ff; }
+
+        /* ── SHARED SECTION ── */
+        .cy-section { padding: 4.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+        .cy-inner { max-width: 1200px; margin: 0 auto; }
+        .cy-label {
+            font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500;
+            letter-spacing:.12em; text-transform:uppercase; color:var(--blue);
+            margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cy-label::before { content:''; width:16px; height:2px; background:var(--blue); }
+        .cy-title {
+            font-family:'Epilogue',sans-serif; font-size:clamp(1.55rem,2.5vw,2.1rem);
+            font-weight:800; letter-spacing:-.02em; margin-bottom:.4rem; color:var(--text);
+        }
+        .cy-sub {
+            font-size:.93rem; color:var(--muted); max-width:560px;
+            line-height:1.7; margin-bottom:2.8rem; font-family:'Epilogue',sans-serif;
+        }
+        .fade { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
+        .fade.on { opacity:1; transform:none; }
+
+        /* ── SNAKE ROADMAP ── */
+        .zz-wrap { position:relative; }
+        .zz-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+            margin-bottom: 0;
+        }
+        .zz-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: calc(16.66% + 18px);
+            right: calc(16.66% + 18px);
+            height: 3px;
+            background: linear-gradient(90deg, #4169E1, #5b4fc6, #9650ff);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .zz-row.reverse::before { background: linear-gradient(90deg, #9650ff, #f59e0b, #ef4444); }
+        .zz-row.row3::before {
+            background: linear-gradient(90deg, #ef4444, #16a34a);
+            right: calc(16.66% + 18px);
+        }
+        .zz-connector {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(16.66% + 6px);
+            height: 60px;
+        }
+        .zz-connector.from-right {
+            justify-content: flex-start;
+            padding-left: calc(16.66% + 6px);
+            padding-right: 0;
+        }
+        .zz-connector::before {
+            content: '';
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, #9650ff, #f59e0b);
+            display: block; border-radius: 2px;
+        }
+        .zz-connector.from-right::before { background: linear-gradient(180deg, #ef4444, #16a34a); }
+
+        .zz-phase-card {
+            background: var(--surf);
+            border: 2px solid rgba(65,105,225,.2);
+            border-radius: 14px;
+            padding: 1.8rem 1.8rem 1.6rem;
+            margin: 0 18px;
+            position: relative;
+            z-index: 1;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+            box-shadow: 0 2px 14px rgba(65,105,225,.07);
+        }
+        .zz-phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(65,105,225,.14);
+            border-color: rgba(65,105,225,.45);
+        }
+        .zz-phase-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -16px; left: 50%;
+            transform: translateX(-50%);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .68rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3; line-height: 32px; text-align: center;
+            box-shadow: 0 3px 10px rgba(65,105,225,.35);
+        }
+        .zz-row.reverse { direction: rtl; }
+        .zz-row.reverse .zz-phase-card { direction: ltr; }
+
+        .zz-card-header { display:flex; align-items:center; gap:.65rem; margin-bottom:.55rem; padding-top:.6rem; }
+        .zz-icon { font-size:1.4rem; flex-shrink:0; }
+        .zz-phase { font-family:'JetBrains Mono',monospace; font-size:.61rem; color:var(--muted); letter-spacing:.05em; margin-bottom:.12rem; }
+        .zz-name  { font-family:'Epilogue',sans-serif; font-size:.92rem; font-weight:800; color:var(--text); line-height:1.2; }
+        .zz-desc  { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.75rem; font-family:'Epilogue',sans-serif; }
+        .zz-topics { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+        .zz-topic {
+            font-family:'JetBrains Mono',monospace; font-size:.6rem;
+            background:var(--lb); border:1px solid rgba(65,105,225,.15);
+            color:var(--blue); padding:.18rem .48rem; border-radius:3px;
+        }
+        .zz-courses { border-top:1px solid var(--border); padding-top:.65rem; }
+        .zz-courses-label { font-family:'JetBrains Mono',monospace; font-size:.58rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-bottom:.32rem; }
+        .zz-courses ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.25rem; }
+        .zz-courses ul li { font-size:.77rem; color:var(--muted); font-family:'Epilogue',sans-serif; padding-left:.9rem; position:relative; }
+        .zz-courses ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue); font-size:.65rem; top:.06rem; }
+        .zz-courses ul li a { color:var(--blue); text-decoration:none; font-weight:600; }
+        .zz-courses ul li a:hover { text-decoration:underline; }
+
+        /* ── SPECIALIZATIONS ── */
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.4rem; }
+        .spec-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:14px; overflow:hidden; transition:transform .3s,box-shadow .3s;
+        }
+        .spec-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
+        .spec-img-wrap { width:100%; height:180px; overflow:hidden; position:relative; }
+        .spec-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+        .spec-card:hover .spec-img-wrap img { transform:scale(1.05); }
+        .spec-img-overlay {
+            position:absolute; inset:0;
+            background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.55) 100%);
+        }
+        .spec-img-label {
+            position:absolute; bottom:.9rem; left:1rem;
+            font-family:'JetBrains Mono',monospace; font-size:.68rem;
+            font-weight:700; color:rgba(255,255,255,.9);
+            letter-spacing:.08em; text-transform:uppercase;
+        }
+        .spec-body { padding:1.3rem 1.5rem; }
+        .spec-name { font-family:'Epilogue',sans-serif; font-size:.98rem; font-weight:800; color:var(--text); margin-bottom:.2rem; }
+        .spec-tag  { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); margin-bottom:.55rem; }
+        .spec-importance { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:.9rem; font-family:'Epilogue',sans-serif; }
+        .spec-skills { display:flex; flex-wrap:wrap; gap:.38rem; }
+        .spec-skill { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem; border-radius:4px; border:1px solid; font-weight:500; }
+        .sk-ios    { background:rgba(65,105,225,.07);  border-color:rgba(65,105,225,.18);  color:var(--blue); }
+        .sk-android{ background:rgba(22,163,74,.07);   border-color:rgba(22,163,74,.22);   color:#16a34a; }
+        .sk-flutter{ background:rgba(14,165,233,.07);  border-color:rgba(14,165,233,.22);  color:#0ea5e9; }
+        .sk-rn     { background:rgba(91,79,198,.07);   border-color:rgba(91,79,198,.22);   color:var(--purple); }
+        .sk-gaming { background:rgba(245,158,11,.07);  border-color:rgba(245,158,11,.22);  color:#d97706; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-tier { margin-bottom:3rem; }
+        .cert-tier:last-child { margin-bottom:0; }
+        .tier-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.2rem; }
+        .tier-badge { font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:.3rem .8rem; border-radius:4px; }
+        .tb-green { background:#dcfce7; color:#16a34a; }
+        .tb-amber { background:#fef3c7; color:#d97706; }
+        .tb-red   { background:#fee2e2; color:#dc2626; }
+        .tier-line { flex:1; height:1px; background:var(--border); }
+        .cert-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+        .cert-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:12px; padding:1.4rem 1.4rem 1.2rem;
+            display:flex; flex-direction:column; gap:.45rem;
+            transition:border-color .2s,transform .2s,box-shadow .2s;
+        }
+        .cert-card:hover { border-color:rgba(65,105,225,.4); transform:translateY(-3px); box-shadow:0 10px 28px rgba(65,105,225,.1); }
+        .cert-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+        .cert-name { font-size:.9rem; font-weight:700; color:var(--text); font-family:'Epilogue',sans-serif; }
+        .cert-pill { font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; padding:.16rem .48rem; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .pill-g { background:#dcfce7; color:#16a34a; }
+        .pill-a { background:#fef3c7; color:#d97706; }
+        .pill-r { background:#fee2e2; color:#dc2626; }
+        .cert-body { font-size:.8rem; color:var(--muted); line-height:1.6; font-family:'Epilogue',sans-serif; flex:1; }
+        .cert-meta { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); }
+        .cert-meta strong { color:var(--text); }
+        .cert-site { font-family:'Epilogue',sans-serif; font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; padding-top:.45rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:.3rem; text-decoration:none; }
+        .cert-site::before { content:'🔗'; font-size:.7rem; }
+        .cert-site:hover { opacity:.75; }
+
+        /* ── CAREER TIMELINE ── */
+        .career-track { display:flex; flex-direction:column; position:relative; }
+        .career-track::before { content:''; position:absolute; left:26px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--blue),var(--purple),#f59e0b,#ef4444,#16a34a,#0ea5e9); }
+        .ct-item { display:flex; gap:1.4rem; padding:0 0 2.2rem; position:relative; }
+        .ct-item:last-child { padding-bottom:0; }
+        .ct-left { width:52px; flex-shrink:0; display:flex; justify-content:center; }
+        .ct-dot  { width:15px; height:15px; border-radius:50%; border:3px solid var(--bg); box-shadow:0 0 0 2px currentColor; margin-top:5px; }
+        .ct-content { flex:1; background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.3rem 1.5rem; transition:box-shadow .25s; }
+        .ct-content:hover { box-shadow:0 8px 22px rgba(65,105,225,.08); }
+        .ct-stage  { font-size:.68rem; font-family:'JetBrains Mono',monospace; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+        .ct-period { font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.05em; margin-bottom:.2rem; }
+        .ct-title  { font-family:'Epilogue',sans-serif; font-size:1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .ct-salary { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700; padding:.22rem .6rem; border-radius:4px; margin-bottom:.55rem; }
+        .cs-blue   { background:rgba(65,105,225,.08); color:var(--blue);   border:1px solid rgba(65,105,225,.2); }
+        .cs-purple { background:rgba(91,79,198,.08);  color:var(--purple);  border:1px solid rgba(91,79,198,.2); }
+        .cs-amber  { background:rgba(245,158,11,.08); color:#d97706;        border:1px solid rgba(245,158,11,.2); }
+        .cs-red    { background:rgba(239,68,68,.08);  color:#dc2626;        border:1px solid rgba(239,68,68,.2); }
+        .cs-green  { background:rgba(22,163,74,.08);  color:#16a34a;        border:1px solid rgba(22,163,74,.2); }
+        .cs-cyan   { background:rgba(14,165,233,.08); color:#0ea5e9;        border:1px solid rgba(14,165,233,.2); }
+        .ct-desc  { font-size:.86rem; color:var(--muted); line-height:1.65; font-family:'Epilogue',sans-serif; margin-bottom:.75rem; }
+        .ct-gains { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .ct-gain  { font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.28rem; background:var(--bg); border:1px solid var(--border); padding:.2rem .6rem; border-radius:4px; font-family:'Epilogue',sans-serif; }
+        .ok { color:#16a34a; font-weight:700; }
+
+        /* ── OUTCOME ── */
+        .outcome-banner { background:linear-gradient(135deg,rgba(65,105,225,.06),rgba(91,79,198,.06)); border:1px solid rgba(65,105,225,.15); border-radius:14px; padding:2rem 2.2rem; margin-top:3rem; }
+        .ob-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1.2rem 1.8rem; margin-bottom:1.3rem; }
+        .ob-item  { text-align:center; }
+        .ob-val   { font-family:'Epilogue',sans-serif; font-size:1.4rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        .ob-lbl   { font-size:.72rem; color:var(--muted); margin-top:.12rem; font-family:'Epilogue',sans-serif; }
+        .ob-note  { padding-top:1.2rem; border-top:1px solid rgba(65,105,225,.12); font-size:.88rem; color:var(--muted); line-height:1.8; font-family:'Epilogue',sans-serif; }
+        .ob-note strong { color:var(--text); }
+
+        /* ── JOBS ── */
+        .jobs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+        .jobs-col h3 { font-family:'Epilogue',sans-serif; font-size:1.1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .jobs-col p  { font-size:.84rem; color:var(--muted); margin-bottom:.9rem; font-family:'Epilogue',sans-serif; line-height:1.6; }
+        .job-links { display:flex; flex-direction:column; gap:.5rem; }
+        .job-link  { display:flex; align-items:center; justify-content:space-between; background:var(--surf); border:1px solid var(--border); border-radius:9px; padding:.85rem 1rem; text-decoration:none; transition:border-color .2s,transform .2s; color:var(--text); }
+        .job-link:hover { border-color:rgba(65,105,225,.4); transform:translateY(-2px); }
+        .jl-left  { display:flex; align-items:center; gap:.7rem; }
+        .jl-icon  { font-size:1.2rem; }
+        .jl-name  { font-family:'Epilogue',sans-serif; font-size:.88rem; font-weight:700; }
+        .jl-cat   { font-family:'JetBrains Mono',monospace; font-size:.63rem; color:var(--muted); display:block; margin-top:.08rem; }
+        .jl-arrow { color:var(--blue); font-size:.95rem; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) {
+            .cert-row { grid-template-columns:repeat(2,1fr); }
+        }
+        @media(max-width:900px) {
+            .hero-inner { grid-template-columns:1fr; }
+           .hero-img-card { display:none; }
+            .zz-row, .zz-row.reverse, .zz-row.row3 { grid-template-columns:1fr; direction:ltr; }
+            .zz-row::before { display:none; }
+            .zz-connector { display:none; }
+            .zz-phase-card { margin:0 0 1.8rem; }
+            .jobs-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px) {
+            .cy-section { padding:3rem 1.2rem; }
+            .hero-section { padding:2.5rem 1.2rem; }
+            .hero-stats { gap:1.2rem; }
+            .cert-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#specializations">Specializations</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#career-timeline">Timeline</a></li>
+            <li><a href="#jobs">Remote Jobs</a></li>
+            <li><a href="index.html" class="cta-button">← All Paths</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    </nav>
+</header>
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="yourcspath-landing.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- ══ HERO — split layout ══ -->
+<section class="hero-section">
+    <div class="hero-inner">
+        <div class="fade">
+            <div class="hero-badge">📱 CAREER PATH · MOBILE APP DEVELOPMENT</div>
+            <h1>Build Apps for<br><span class="hl">7.6 Billion</span><br>Smartphones.</h1>
+            <p class="hero-desc">
+                Mobile app development is one of the most creative, impactful, and financially rewarding careers in technology. With over 7.6 billion smartphone users globally, a $613 billion app market, and businesses racing to go mobile-first — skilled developers who can build fast, beautiful, production-ready apps for iOS and Android are in relentless demand. Whether you want to craft native iOS experiences in Swift, build Android apps with Kotlin, or ship to both platforms at once with Flutter or React Native — your apps will live in people's pockets, shape daily habits, and reach audiences of millions. This roadmap is your complete starting point.
+            </p>
+            <div class="hero-stats">
+                <div><span class="hs-val">$126K</span><div class="hs-lbl">Median US Salary</div></div>
+                <div><span class="hs-val">$613B</span><div class="hs-lbl">Global App Market (2025)</div></div>
+                <div><span class="hs-val">21%</span><div class="hs-lbl">Job Growth (BLS)</div></div>
+            </div>
+        </div>
+
+        <!-- Hero image card -->
+<div class="hero-img-card fade">
+    <img
+        src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=85"
+        alt="Mobile App Development"
+        loading="eager"
+    >
+    <div class="hero-img-overlay"></div>
+    <div class="hero-label">📱 Mobile App Development</div>
+    <div class="hero-chips">
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-green"></span>Swift · Kotlin · Dart</div>
+            <div class="chip"><span class="chip-dot cd-blue"></span>SwiftUI · Compose</div>
+        </div>
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-amber"></span>Flutter · React Native · Expo</div>
+            <div class="chip"><span class="chip-dot cd-purple"></span>Firebase · REST APIs</div>
+        </div>
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-green"></span>App Store · Google Play · $613B Market</div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Step by Step</div>
+        <h2 class="cy-title fade">Learning Roadmap</h2>
+        <p class="cy-sub fade">Nine phases from complete beginner to shipping real apps on the App Store and Google Play. Each phase has topics, tools, and real courses linked directly.</p>
+
+        <div class="zz-wrap">
+
+            <!-- ROW 1 — phases 1,2,3 left→right -->
+            <div class="zz-row fade">
+                <div class="zz-phase-card" data-num="01">
+                    <div class="zz-card-header"><span class="zz-icon">💡</span>
+                        <div><div class="zz-phase">Phase 1 · Weeks 1–3</div><div class="zz-name">Programming Fundamentals</div></div>
+                    </div>
+                    <div class="zz-desc">Before writing your first app, master the universal programming concepts that apply across every platform. Data structures, logic, and algorithms are the foundation every great mobile developer stands on.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Variables & Data Types</span><span class="zz-topic">Control Flow</span>
+                        <span class="zz-topic">Functions & Scope</span><span class="zz-topic">OOP Concepts</span>
+                        <span class="zz-topic">Collections & Arrays</span><span class="zz-topic">Recursion</span>
+                        <span class="zz-topic">Git & Version Control</span><span class="zz-topic">Command Line</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://cs50.harvard.edu/x/" target="_blank">CS50x — Introduction to Computer Science</a> — Harvard (Free)</li>
+                        <li><a href="https://www.coursera.org/specializations/python-3-programming" target="_blank">Python 3 Programming Specialization</a> — U. Michigan / Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="02">
+                    <div class="zz-card-header"><span class="zz-icon">🎨</span>
+                        <div><div class="zz-phase">Phase 2 · Weeks 4–5</div><div class="zz-name">UI/UX Design Principles</div></div>
+                    </div>
+                    <div class="zz-desc">Great mobile apps are defined by experience, not just code. Learn Apple's Human Interface Guidelines and Google's Material Design — the two systems that govern how billions of users expect apps to look and feel.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Apple HIG</span><span class="zz-topic">Material Design 3</span>
+                        <span class="zz-topic">Figma Prototyping</span><span class="zz-topic">Color Theory</span>
+                        <span class="zz-topic">Typography for Mobile</span><span class="zz-topic">Accessibility (a11y)</span>
+                        <span class="zz-topic">Responsive Layouts</span><span class="zz-topic">User Research Basics</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/ui-ux-design" target="_blank">UI/UX Design Specialization</a> — CalArts / Coursera (Free audit)</li>
+                        <li><a href="https://www.figma.com/resources/learn-design/" target="_blank">Learn Design with Figma</a> — Figma (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="03">
+                    <div class="zz-card-header"><span class="zz-icon">🍎</span>
+                        <div><div class="zz-phase">Phase 3 · Weeks 6–10</div><div class="zz-name">iOS Development with Swift</div></div>
+                    </div>
+                    <div class="zz-desc">Swift is Apple's modern, safe, and expressive programming language for iOS, macOS, watchOS, and tvOS. Learn to build real apps with SwiftUI — Apple's declarative UI framework that has transformed how iOS apps are built.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Swift Fundamentals</span><span class="zz-topic">SwiftUI Views</span>
+                        <span class="zz-topic">State & Binding</span><span class="zz-topic">Navigation & Sheets</span>
+                        <span class="zz-topic">Xcode IDE</span><span class="zz-topic">UIKit basics</span>
+                        <span class="zz-topic">Core Data</span><span class="zz-topic">Simulator & Debugging</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://developer.apple.com/tutorials/swiftui/" target="_blank">SwiftUI Tutorials</a> — Apple (Free)</li>
+                        <li><a href="https://www.udemy.com/course/ios-13-app-development-bootcamp/" target="_blank">iOS & Swift — The Complete Bootcamp</a> — Angela Yu / Udemy</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- vertical connector right → -->
+            <div class="zz-connector"></div>
+
+            <!-- ROW 2 — phases 4,5,6 right→left -->
+            <div class="zz-row reverse fade">
+                <div class="zz-phase-card" data-num="04">
+                    <div class="zz-card-header"><span class="zz-icon">🤖</span>
+                        <div><div class="zz-phase">Phase 4 · Weeks 11–15</div><div class="zz-name">Android Development with Kotlin</div></div>
+                    </div>
+                    <div class="zz-desc">Android powers 72% of global smartphones. Kotlin is Google's officially preferred language — concise, safe, and 100% interoperable with Java. Learn to build modern Android apps using Jetpack Compose, Google's declarative UI toolkit.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Kotlin Fundamentals</span><span class="zz-topic">Jetpack Compose</span>
+                        <span class="zz-topic">Android Studio</span><span class="zz-topic">ViewModel & LiveData</span>
+                        <span class="zz-topic">Room Database</span><span class="zz-topic">Navigation Component</span>
+                        <span class="zz-topic">Material 3 Components</span><span class="zz-topic">Coroutines & Flow</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://developer.android.com/courses/android-basics-compose/course" target="_blank">Android Basics with Compose</a> — Google (Free)</li>
+                        <li><a href="https://www.udemy.com/course/the-complete-android-kotlin-developer-course/" target="_blank">The Complete Android Kotlin Developer</a> — Udemy</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="05">
+                    <div class="zz-card-header"><span class="zz-icon">🐦</span>
+                        <div><div class="zz-phase">Phase 5 · Months 4–5</div><div class="zz-name">Cross-Platform with Flutter</div></div>
+                    </div>
+                    <div class="zz-desc">Flutter lets you write one codebase and ship to iOS, Android, Web, and Desktop simultaneously. It's the fastest-growing framework — Google's own product — with 42% market share in 2025 and salaries 7% higher than React Native on average.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Dart Language</span><span class="zz-topic">Flutter Widgets</span>
+                        <span class="zz-topic">State Management (Riverpod)</span><span class="zz-topic">Animations</span>
+                        <span class="zz-topic">Firebase Integration</span><span class="zz-topic">Navigation 2.0</span>
+                        <span class="zz-topic">Platform Channels</span><span class="zz-topic">pub.dev packages</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://docs.flutter.dev/get-started/learn-more" target="_blank">Flutter Official Documentation & Codelabs</a> — Google (Free)</li>
+                        <li><a href="https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/" target="_blank">Flutter & Dart — The Complete Guide</a> — Maximilian / Udemy</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="06">
+                    <div class="zz-card-header"><span class="zz-icon">⚛️</span>
+                        <div><div class="zz-phase">Phase 6 · Month 5</div><div class="zz-name">React Native (Optional Track)</div></div>
+                    </div>
+                    <div class="zz-desc">React Native is Meta's JavaScript-based cross-platform framework — the choice for teams already working in JavaScript and React. Powers apps at Meta, Shopify, Microsoft, and Airbnb. More job postings than Flutter, making it the most employed cross-platform skill.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">JavaScript / TypeScript</span><span class="zz-topic">React fundamentals</span>
+                        <span class="zz-topic">React Native Core</span><span class="zz-topic">Expo framework</span>
+                        <span class="zz-topic">React Navigation</span><span class="zz-topic">Redux / Zustand</span>
+                        <span class="zz-topic">Native Modules</span><span class="zz-topic">New Architecture</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://reactnative.dev/docs/getting-started" target="_blank">React Native Official Docs</a> — Meta (Free)</li>
+                        <li><a href="https://www.udemy.com/course/react-native-the-practical-guide/" target="_blank">React Native — The Practical Guide</a> — Maximilian / Udemy</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- vertical connector left ← -->
+            <div class="zz-connector from-right"></div>
+
+            <!-- ROW 3 — phases 7,8,9 left→right -->
+            <div class="zz-row row3 fade">
+                <div class="zz-phase-card" data-num="07">
+                    <div class="zz-card-header"><span class="zz-icon">🔌</span>
+                        <div><div class="zz-phase">Phase 7 · Months 6–7</div><div class="zz-name">Backend & APIs</div></div>
+                    </div>
+                    <div class="zz-desc">Real apps don't live in isolation. Learn how to connect your apps to the internet, authenticate users, store data in the cloud, and push notifications — the backend skills that turn a prototype into a real product.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">REST APIs & JSON</span><span class="zz-topic">Firebase (Auth, Firestore)</span>
+                        <span class="zz-topic">GraphQL basics</span><span class="zz-topic">AsyncStorage / SQLite</span>
+                        <span class="zz-topic">Push Notifications (FCM)</span><span class="zz-topic">OAuth & JWT</span>
+                        <span class="zz-topic">AWS Amplify / Supabase</span><span class="zz-topic">WebSockets</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://firebase.google.com/learn" target="_blank">Firebase Learning Pathways</a> — Google (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/apis" target="_blank">APIs</a> — Meta / Coursera (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="08">
+                    <div class="zz-card-header"><span class="zz-icon">🧪</span>
+                        <div><div class="zz-phase">Phase 8 · Month 8</div><div class="zz-name">Testing, Performance & Publishing</div></div>
+                    </div>
+                    <div class="zz-desc">An app that crashes loses users permanently. Learn to write tests, profile performance, optimize memory, and navigate the App Store and Google Play review process — the finishing line between a portfolio project and a live product.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Unit & Widget Tests</span><span class="zz-topic">Integration Testing</span>
+                        <span class="zz-topic">Instruments (iOS Profiler)</span><span class="zz-topic">Android Profiler</span>
+                        <span class="zz-topic">App Store Connect</span><span class="zz-topic">Google Play Console</span>
+                        <span class="zz-topic">CI/CD with GitHub Actions</span><span class="zz-topic">Crash Reporting (Sentry)</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://developer.apple.com/videos/play/wwdc2021/10291/" target="_blank">Distribute Apps in Xcode</a> — Apple WWDC (Free)</li>
+                        <li><a href="https://www.udemy.com/course/flutter-advanced-course/" target="_blank">Flutter Advanced — Build & Deploy</a> — Udemy</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="09">
+                    <div class="zz-card-header"><span class="zz-icon">🎯</span>
+                        <div><div class="zz-phase">Phase 9 · Month 9+</div><div class="zz-name">Choose Your Specialization</div></div>
+                    </div>
+                    <div class="zz-desc">You are now ready to go deep. Each specialization is a distinct career with its own tools, community, and salary ceiling — pick the one that matches your platform interest and long-term goals.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic" style="color:var(--blue);border-color:rgba(65,105,225,.25);background:rgba(65,105,225,.06);">🍎 iOS / Swift Expert</span>
+                        <span class="zz-topic" style="color:#16a34a;border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.06);">🤖 Android / Kotlin Expert</span>
+                        <span class="zz-topic" style="color:#0ea5e9;border-color:rgba(14,165,233,.25);background:rgba(14,165,233,.06);">🐦 Flutter Specialist</span>
+                        <span class="zz-topic" style="color:var(--purple);border-color:rgba(91,79,198,.25);background:rgba(91,79,198,.06);">⚛️ React Native Lead</span>
+                        <span class="zz-topic" style="color:#d97706;border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.06);">🎮 Mobile Gaming</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">↓ Detailed below</div><ul>
+                        <li><a href="#specializations">View all specializations</a> — with skills, tools, and importance</li>
+                        <li><a href="#certifications">View certifications</a> — matched to your chosen track</li>
+                    </ul></div>
+                </div>
+            </div>
+
+        </div><!-- end zz-wrap -->
+    </div>
+</section>
+
+<!-- ══ SPECIALIZATIONS ══ -->
+<section id="specializations" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Choose Your Domain</div>
+        <h2 class="cy-title fade">Specializations</h2>
+        <p class="cy-sub fade">After the foundation, you pick your platform and go deep. Each track has its own ecosystem, hiring market, and salary ceiling.</p>
+
+        <div class="spec-grid">
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" alt="iOS Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">iOS / Swift</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🍎 iOS Development</div>
+                    <div class="spec-tag">Swift · SwiftUI · Apple Ecosystem</div>
+                    <div class="spec-importance">iOS developers build for the world's most valuable app ecosystem — Apple's App Store generates 63–65% of global app store revenue despite having fewer users than Android. iOS users spend significantly more on apps, making iOS the premium track. Senior iOS developers at Apple, Google, and top-tier startups earn $160K–$220K+. Cupertino alone averages $153K for iOS developers — the highest city salary for any mobile specialization.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-ios">Swift 5.9+</span>
+                        <span class="spec-skill sk-ios">SwiftUI</span>
+                        <span class="spec-skill sk-ios">UIKit</span>
+                        <span class="spec-skill sk-ios">Xcode</span>
+                        <span class="spec-skill sk-ios">Core Data / SwiftData</span>
+                        <span class="spec-skill sk-ios">App Store Connect</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=600&q=80" alt="Android Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Android / Kotlin</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🤖 Android Development</div>
+                    <div class="spec-tag">Kotlin · Jetpack Compose · Google</div>
+                    <div class="spec-importance">Android commands 72% of global smartphone market share — the largest installed base in human history. Android developers have the widest reach of any platform: emerging markets in Asia, Africa, and Latin America run almost entirely on Android. Google's Jetpack Compose has modernized Android development, and Kotlin Multiplatform is opening new career horizons. Senior Android developers at FAANG companies earn $170K–$250K in total compensation.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-android">Kotlin</span>
+                        <span class="spec-skill sk-android">Jetpack Compose</span>
+                        <span class="spec-skill sk-android">Android Studio</span>
+                        <span class="spec-skill sk-android">MVVM Architecture</span>
+                        <span class="spec-skill sk-android">Kotlin Multiplatform</span>
+                        <span class="spec-skill sk-android">Google Play Console</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80" alt="Flutter Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Flutter</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🐦 Flutter Specialist</div>
+                    <div class="spec-tag">Dart · Cross-Platform · Google Backed</div>
+                    <div class="spec-importance">Flutter is the fastest-growing mobile framework — 42% market share in 2025, backed by Google, and used by over 1 million apps worldwide. Flutter developers command salaries averaging 7% higher than equivalent React Native developers. With a single codebase deploying to iOS, Android, Web, and Desktop simultaneously, Flutter dramatically reduces company costs — making Flutter developers extremely attractive to startups and enterprises alike.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-flutter">Dart</span>
+                        <span class="spec-skill sk-flutter">Flutter Widgets</span>
+                        <span class="spec-skill sk-flutter">Riverpod / Bloc</span>
+                        <span class="spec-skill sk-flutter">Firebase</span>
+                        <span class="spec-skill sk-flutter">Animations API</span>
+                        <span class="spec-skill sk-flutter">Platform Channels</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&q=80" alt="React Native Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">React Native</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">⚛️ React Native Specialist</div>
+                    <div class="spec-tag">JavaScript · Meta Ecosystem · Most Jobs</div>
+                    <div class="spec-importance">React Native has the most job postings of any cross-platform framework — 6,413 US LinkedIn postings vs Flutter's 1,068. Used by Meta, Shopify, Microsoft, and Airbnb for flagship apps. For developers already familiar with JavaScript and React, React Native is the fastest path to shipping cross-platform mobile apps professionally. The new architecture (JSI, Fabric, TurboModules) brings performance on par with native apps.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-rn">JavaScript / TypeScript</span>
+                        <span class="spec-skill sk-rn">React Native Core</span>
+                        <span class="spec-skill sk-rn">Expo</span>
+                        <span class="spec-skill sk-rn">React Navigation</span>
+                        <span class="spec-skill sk-rn">Redux / Zustand</span>
+                        <span class="spec-skill sk-rn">New Architecture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=600&q=80" alt="Mobile Gaming" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Mobile Gaming</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🎮 Mobile Gaming</div>
+                    <div class="spec-tag">Unity · Unreal · Games = 64% of App Revenue</div>
+                    <div class="spec-importance">Mobile games represent 64% of all app revenue — the single largest segment of the entire app economy. Unity powers over 70% of all mobile games worldwide. Game developers with Unity and mobile publishing experience are among the most creatively fulfilled engineers in the industry. Top mobile game studios at EA, Supercell, and King pay senior mobile game developers $140K–$200K, and successful indie developers earn millions through the App Store.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-gaming">Unity 3D</span>
+                        <span class="spec-skill sk-gaming">C# Scripting</span>
+                        <span class="spec-skill sk-gaming">Game Physics</span>
+                        <span class="spec-skill sk-gaming">In-App Purchases</span>
+                        <span class="spec-skill sk-gaming">Ad Integration</span>
+                        <span class="spec-skill sk-gaming">AR (ARKit / ARCore)</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Recognized</div>
+        <h2 class="cy-title fade">Certifications</h2>
+        <p class="cy-sub fade">In mobile development, portfolio apps matter most — but these credentials from Google, Meta, and Apple sharpen your skills and signal seriousness to employers.</p>
+
+        <div class="fade">
+            <!-- BEGINNER -->
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-green">// Beginner — Build The Foundation</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Meta Android Developer</span><span class="cert-pill pill-g">META-AND</span></div>
+                        <div class="cert-body">Meta's official professional certificate covering mobile development fundamentals, Android programming in Kotlin, React Native, and real capstone projects. Designed for complete beginners with no prior experience.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/meta-android-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Meta iOS Developer</span><span class="cert-pill pill-g">META-IOS</span></div>
+                        <div class="cert-body">Meta's professional iOS certificate covering Swift programming, SwiftUI, Xcode, and publishing to the App Store. Backed by Meta's engineering expertise and directly applicable to real iOS engineering roles.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/meta-ios-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Android Developer</span><span class="cert-pill pill-g">GAAD</span></div>
+                        <div class="cert-body">Google's official Android Associate Developer certification. The industry-recognized credential for Android developers — validates proficiency in Kotlin, Jetpack, architecture components, and material design. Required for many enterprise Android roles.</div>
+                        <div class="cert-meta">Cost: <strong>~$149</strong></div>
+                        <a href="https://developers.google.com/certification/associate-android-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM iOS & Android Dev Certificate</span><span class="cert-pill pill-g">IBM-MOB</span></div>
+                        <div class="cert-body">IBM's comprehensive mobile development program on Coursera covering both iOS with Swift and Android with Java/Kotlin. Includes hybrid development, REST APIs, and deployment. Great all-in-one starter certificate for mobile beginners.</div>
+                        <div class="cert-meta">Cost: <strong>~$59/month</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ibm-ios-android-mobile-app-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERMEDIATE -->
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-amber">// Intermediate — Prove Your Skills</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Meta React Native Specialization</span><span class="cert-pill pill-a">META-RN</span></div>
+                        <div class="cert-body">Deep-dive into React Native by Meta — the framework that powers Facebook, Instagram, and Messenger. Covers components, hooks, navigation, native modules, and releasing apps to both stores. Great for JavaScript developers transitioning to mobile.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/specializations/meta-react-native" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Flutter Development Bootcamp</span><span class="cert-pill pill-a">FLUTTER</span></div>
+                        <div class="cert-body">Angela Yu's comprehensive Flutter bootcamp — 28+ hours of Dart and Flutter covering widgets, state, Firebase, APIs, animations, and App Store publishing. The most popular Flutter course globally with 4.7/5 stars from 90,000+ students.</div>
+                        <div class="cert-meta">Cost: <strong>~$15–$20 (Udemy)</strong></div>
+                        <a href="https://www.udemy.com/course/flutter-bootcamp-with-dart/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">iOS App Developer Bootcamp</span><span class="cert-pill pill-a">IOS-BOOT</span></div>
+                        <div class="cert-body">Angela Yu's iOS bootcamp — covers Swift, SwiftUI, UIKit, Core Data, networking, and App Store submission. One of the most celebrated iOS learning resources online, trusted by thousands of developers who landed their first iOS role.</div>
+                        <div class="cert-meta">Cost: <strong>~$15–$20 (Udemy)</strong></div>
+                        <a href="https://www.udemy.com/course/ios-13-app-development-bootcamp/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Unity Mobile Game Dev</span><span class="cert-pill pill-a">UNITY-MOB</span></div>
+                        <div class="cert-body">Unity's official certification pathway for mobile game developers. Covers C#, 2D/3D game design, physics, animations, ads, and in-app purchases for iOS and Android. Unity powers 70%+ of all mobile games globally — this cert opens studios worldwide.</div>
+                        <div class="cert-meta">Cost: <strong>~$150 (exam)</strong></div>
+                        <a href="https://unity.com/products/unity-certifications" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADVANCED -->
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-red">// Advanced — Elite Level</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Professional Android Developer</span><span class="cert-pill pill-r">GPAD</span></div>
+                        <div class="cert-body">Google's advanced Android certification — validates expertise in Jetpack Compose, advanced Kotlin patterns, architecture, testing, and complex UI. The gold standard for senior Android developers seeking roles at FAANG and top product companies.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://developers.google.com/certification/associate-android-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Mobile Developer Specialty</span><span class="cert-pill pill-r">AWS-MOB</span></div>
+                        <div class="cert-body">Validates ability to build, deploy, and debug cloud-connected mobile apps on AWS using Amplify, Cognito, AppSync, and Lambda. Essential for mobile developers building production apps that need scalable serverless backends.</div>
+                        <div class="cert-meta">Cost: <strong>~$300</strong></div>
+                        <a href="https://aws.amazon.com/certification/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Apple WWDC Certificates</span><span class="cert-pill pill-r">WWDC</span></div>
+                        <div class="cert-body">Apple's annual developer conference knowledge — while not a formal cert, completing WWDC labs and challenges provides deep knowledge of the latest iOS APIs (VisionOS, AI features, SwiftData). Highly respected by iOS hiring teams at Apple-centric companies.</div>
+                        <div class="cert-meta">Cost: <strong>Free</strong></div>
+                        <a href="https://developer.apple.com/wwdc/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Unity Expert Gameplay Programmer</span><span class="cert-pill pill-r">UNITY-EXP</span></div>
+                        <div class="cert-body">Unity's highest-level certification — validates expert knowledge of C#, performance optimization, shader programming, and large-scale mobile game architecture. Holders are eligible for principal engineer and technical director roles at major game studios globally.</div>
+                        <div class="cert-meta">Cost: <strong>~$250</strong></div>
+                        <a href="https://unity.com/products/unity-certifications" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ CAREER TIMELINE ══ -->
+<section id="career-timeline" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">From Student to Expert</div>
+        <h2 class="cy-title fade">Career Growth Timeline</h2>
+        <p class="cy-sub fade">A realistic picture of your mobile development journey — from first line of Swift or Kotlin to shipping apps used by millions.</p>
+
+        <div class="career-track">
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--blue);background:var(--blue);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Learning Phase</div>
+                    <div class="ct-period" style="color:var(--blue);">Months 1–6 — Foundation, Platform & First Apps</div>
+                    <div class="ct-title">Building Your Mobile Foundation</div>
+                    <div class="ct-desc">Study programming fundamentals, pick your primary platform (iOS or Android), and build 4–5 real apps. Ship at least one app to the App Store or Google Play — even a simple one. Document your apps publicly on GitHub. Earn your Meta or Google certification. Follow Apple WWDC sessions and Android dev blog. Start applying by month 5 — mobile portfolios get attention faster than most tech disciplines.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Platform chosen & core skills solid</span>
+                        <span class="ct-gain"><span class="ok">✓</span>First app live on App/Play Store</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Meta or Google cert earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>GitHub portfolio published</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--purple);background:var(--purple);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">First Opportunity</div>
+                    <div class="ct-period" style="color:var(--purple);">Months 6–10 — Internship / Junior Role</div>
+                    <div class="ct-title">Your First Mobile Dev Job</div>
+                    <span class="ct-salary cs-purple">💼 $40K–$70K (Internship) · $66K–$90K (Junior)</span>
+                    <div class="ct-desc">Apply for mobile development internships or junior iOS / Android / Flutter roles. A real shipped app on the stores dramatically improves interview rates. Freelance mobile projects on Upwork or Toptal ($50–$100/hr) are a valid entry path while job hunting. Begin learning your second platform or cross-platform framework — versatile mobile developers are significantly more hireable than single-platform specialists at entry level.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First mobile role or internship</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Second platform learning started</span>
+                        <span class="ct-gain"><span class="ok">✓</span>First freelance client (optional)</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Flutter or RN in progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#f59e0b;background:#f59e0b;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Early Career</div>
+                    <div class="ct-period" style="color:#d97706;">Year 1 — Junior Mobile Engineer</div>
+                    <div class="ct-title">iOS Engineer / Android Engineer / Flutter Developer</div>
+                    <span class="ct-salary cs-amber">💰 $80K–$110K</span>
+                    <div class="ct-desc">You are shipping features in a real app used by real users — one of the most viscerally rewarding experiences in software engineering. You are fixing bugs, implementing design specs, and integrating backend APIs. Start owning whole features end-to-end. Deepen your specialization and pursue a cross-platform framework. At this stage, engineers who can ship independently are valued above those who always need guidance.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First full-time role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Features shipped to millions</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Specialization deepening</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Cross-platform skills added</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#ef4444;background:#ef4444;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Career Growth</div>
+                    <div class="ct-period" style="color:#ef4444;">Year 2–3 — Mid-Level Mobile Engineer</div>
+                    <div class="ct-title">Mobile Engineer / iOS Engineer / Flutter Lead</div>
+                    <span class="ct-salary cs-red">💰 $110K–$150K</span>
+                    <div class="ct-desc">Mid-level mobile engineers own entire modules, architect solutions, and start mentoring juniors. You are making architectural decisions: which state management approach to use, how to structure navigation, how to optimize startup time. Engineers with dual-platform fluency (iOS + Android or Flutter) command a premium above single-platform peers. At this stage, side projects and apps you've independently shipped dramatically distinguish you.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Mid-level role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Owning modules end-to-end</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Dual-platform or Flutter fluent</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Mentoring junior devs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#16a34a;background:#16a34a;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Senior Level</div>
+                    <div class="ct-period" style="color:#16a34a;">Year 3–5 — Senior Mobile Engineer</div>
+                    <div class="ct-title">Senior iOS / Android / Flutter Engineer · Mobile Tech Lead</div>
+                    <span class="ct-salary cs-green">💰 $140K–$190K</span>
+                    <div class="ct-desc">Senior mobile engineers design the architecture of entire apps, lead platform migrations (e.g. UIKit → SwiftUI, or native → Flutter), and set the technical standards for a full team. At companies like Apple, Google, Meta, and Airbnb, senior mobile engineers earn $200K–$350K in total compensation. Freelance consulting at $100–$200/hr becomes very realistic at this level, opening substantial additional income streams.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Senior role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Leading architecture decisions</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Consulting opportunities open</span>
+                        <span class="ct-gain"><span class="ok">✓</span>App with 100K+ active users</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#0ea5e9;background:#0ea5e9;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Expert / Leadership</div>
+                    <div class="ct-period" style="color:#0ea5e9;">Year 5+ — Staff / Principal / Indie Founder</div>
+                    <div class="ct-title">Staff Engineer · Head of Mobile · Independent App Developer</div>
+                    <span class="ct-salary cs-cyan">💰 $180K–$280K+ · Unlimited (Indie)</span>
+                    <div class="ct-desc">The ceiling in mobile development is multidimensional. Staff and principal mobile engineers at top tech companies earn $250K–$400K+ in total compensation. But mobile also offers a unique path unavailable in most software disciplines: building your own apps and selling them independently. Successful indie app developers earn anywhere from side income to millions annually through the App Store — the creative ceiling is truly limitless. Every year, new indie developers hit the top charts.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Staff / Principal role or Indie</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Industry recognition</span>
+                        <span class="ct-gain"><span class="ok">✓</span>$200K+ or own app revenue</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Speaking / open source</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outcome-banner fade">
+            <div class="ob-stats">
+                <div class="ob-item"><span class="ob-val">$80K</span><div class="ob-lbl">Starting (Year 1)</div></div>
+                <div class="ob-item"><span class="ob-val">$126K</span><div class="ob-lbl">Mid-level (Year 2–3)</div></div>
+                <div class="ob-item"><span class="ob-val">$160K+</span><div class="ob-lbl">Senior (Year 3–5)</div></div>
+                <div class="ob-item"><span class="ob-val">21%</span><div class="ob-lbl">Job growth (BLS)</div></div>
+                <div class="ob-item"><span class="ob-val">$613B</span><div class="ob-lbl">Market size 2025</div></div>
+            </div>
+            <div class="ob-note">
+                Mobile development offers something rare in software engineering: <strong>the ability to ship a product from your laptop directly into the pockets of millions of people.</strong> With 7.6 billion smartphone users, a $613 billion app market growing toward $674 billion by 2027, and 70%+ of developers working remotely, this is one of the most accessible and far-reaching careers in technology. After 3–5 years, you will have shipped real apps with real users, built architecture for production systems, and developed a portfolio that speaks louder than any resume. Whether your ambition is climbing to Staff Engineer at a FAANG company, leading mobile at a fast-growing startup, or building your own indie app empire — <strong>mobile development is a career where creativity and engineering combine to create outsized impact and income.</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REMOTE JOBS ══ -->
+<section id="jobs" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Hired</div>
+        <h2 class="cy-title fade">Remote Internships & Jobs</h2>
+        <p class="cy-sub fade">Mobile development is one of the most remote-friendly disciplines in all of tech. These platforms connect you with opportunities from your first internship to senior engineering roles worldwide.</p>
+
+        <div class="jobs-grid">
+            <div class="jobs-col fade">
+                <h3>🎓 Remote Internships & Entry Roles</h3>
+                <p>Mobile internships are extremely competitive — a shipped app on the App Store or Google Play is often the single most effective differentiator in getting an interview.</p>
+                <div class="job-links">
+                    <a href="https://www.linkedin.com/jobs/mobile-developer-jobs/?f_WT=2&f_E=1" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💼</span><div><div class="jl-name">LinkedIn Jobs</div><span class="jl-cat">Remote Mobile Dev Internships</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.indeed.com/q-remote-mobile-app-developer-intern-jobs.html" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🔍</span><div><div class="jl-name">Indeed</div><span class="jl-cat">Mobile App Dev Intern — Remote</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.internshala.com/internships/android-app-development-internship" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎯</span><div><div class="jl-name">Internshala</div><span class="jl-cat">Mobile Dev Internships (South Asia)</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.upwork.com/hire/mobile-developers/" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💰</span><div><div class="jl-name">Upwork</div><span class="jl-cat">Freelance Mobile Projects — Earn While Learning</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://wellfound.com/jobs?role=mobile-engineer&remote=true" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🚀</span><div><div class="jl-name">Wellfound (AngelList)</div><span class="jl-cat">Mobile Roles at Startups</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="jobs-col fade">
+                <h3>🌍 Remote Full-Time Jobs</h3>
+                <p>Senior mobile engineers enjoy some of the highest remote work rates in tech — over 70% work remotely or in hybrid roles. These boards specialize in mobile roles at all levels.</p>
+                <div class="job-links">
+                    <a href="https://remoteok.com/remote-mobile-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏠</span><div><div class="jl-name">Remote OK</div><span class="jl-cat">Remote-First Mobile Engineering Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.glassdoor.com/Job/remote-mobile-developer-jobs-SRCH_KO0,23.htm" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏢</span><div><div class="jl-name">Glassdoor</div><span class="jl-cat">Remote Mobile Jobs + Salary Insights</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.dice.com/jobs?q=mobile+developer&locationFilters=Remote" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎲</span><div><div class="jl-name">Dice</div><span class="jl-cat">Tech-Focused Remote Mobile Dev Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://toptal.com/mobile" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">⭐</span><div><div class="jl-name">Toptal</div><span class="jl-cat">Elite Freelance Mobile Engineering</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.iosdevjobs.com" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">📱</span><div><div class="jl-name">iOS Dev Jobs</div><span class="jl-cat">Dedicated iOS Engineering Job Board</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/pages.js"></script>
+<script>injectFooter('');</script>
+</body>
+</html>

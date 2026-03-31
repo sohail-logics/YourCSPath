@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="/pages.css">
+
+    <style>
+
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg,#4169E1,#5b4fc6);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+        }
+
+        /* ── DARK MODE ── */
+        body.dark-mode .cy-section,
+        body.dark-mode section { background-color: var(--bg) !important; }
+        body.dark-mode .cy-section[style*="var(--surf)"] { background: var(--surf) !important; }
+        body.dark-mode .zz-phase-card,
+        body.dark-mode .spec-card,
+        body.dark-mode .cert-card,
+        body.dark-mode .ct-content,
+        body.dark-mode .job-link,
+        body.dark-mode .outcome-banner { background: var(--surf) !important; border-color: var(--border) !important; }
+        body.dark-mode .hero-section { background: var(--surf) !important; }
+        body.dark-mode .hero-terminal { background: #0d1117 !important; border-color: #2a3148 !important; }
+        body.dark-mode .terminal-bar  { background: #161b22 !important; }
+
+        /* ── HERO — split layout ── */
+        .hero-section {
+            margin-top: 80px;
+            background: var(--surf);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 3rem;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .1em;
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.25);
+            color: var(--blue);
+            padding: .38rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.3rem;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+        .hero-section h1 {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: var(--text);
+            margin-bottom: 1.1rem;
+        }
+        .hero-section h1 .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: .98rem;
+            color: var(--muted);
+            line-height: 1.78;
+            margin-bottom: 2rem;
+            font-family: 'Epilogue', sans-serif;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1.6rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .hs-val {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        .hs-lbl { font-size: .76rem; color: var(--muted); margin-top: .1rem; font-family:'Epilogue',sans-serif; }
+
+        /* ── HERO IMAGE CARD ── */
+        .hero-img-card {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,.18);
+            animation: fadeInRight .8s ease-out .2s both;
+            position: relative;
+        }
+        @keyframes fadeInRight {
+            from { opacity:0; transform:translateX(30px); }
+            to   { opacity:1; transform:translateX(0); }
+        }
+        .hero-img-card img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(65,105,225,.28) 0%, rgba(91,79,198,.2) 100%);
+        }
+        .hero-label {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: rgba(255,255,255,.9);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(65,105,225,.65);
+            backdrop-filter: blur(6px);
+            padding: .32rem .85rem;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .hero-chips {
+            position: absolute;
+            bottom: 1.4rem;
+            left: 1.4rem;
+            right: 1.4rem;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+        }
+        .chip-row { display: flex; gap: .55rem; flex-wrap: wrap; }
+        .chip {
+            background: rgba(10,14,30,.62);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 7px;
+            padding: .42rem .95rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .71rem;
+            color: rgba(255,255,255,.9);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: .42rem;
+        }
+        .chip-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+        .cd-green  { background: #00ff88; }
+        .cd-blue   { background: #79c0ff; }
+        .cd-amber  { background: #ffd700; }
+        .cd-purple { background: #d2a8ff; }
+
+        /* ── SHARED SECTION ── */
+        .cy-section { padding: 4.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+        .cy-inner { max-width: 1200px; margin: 0 auto; }
+        .cy-label {
+            font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500;
+            letter-spacing:.12em; text-transform:uppercase; color:var(--blue);
+            margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cy-label::before { content:''; width:16px; height:2px; background:var(--blue); }
+        .cy-title { font-family:'Epilogue',sans-serif; font-size:clamp(1.55rem,2.5vw,2.1rem); font-weight:800; letter-spacing:-.02em; margin-bottom:.4rem; color:var(--text); }
+        .cy-sub { font-size:.93rem; color:var(--muted); max-width:560px; line-height:1.7; margin-bottom:2.8rem; font-family:'Epilogue',sans-serif; }
+        .fade { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
+        .fade.on { opacity:1; transform:none; }
+
+        /* ── SNAKE ROADMAP ── */
+        .zz-wrap { position:relative; }
+        .zz-row { display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; margin-bottom:0; }
+        .zz-row::before {
+            content:''; position:absolute; top:50%;
+            left:calc(16.66% + 18px); right:calc(16.66% + 18px);
+            height:3px; background:linear-gradient(90deg,#4169E1,#5b4fc6,#9650ff);
+            transform:translateY(-50%); z-index:0;
+        }
+        .zz-row.reverse::before { background:linear-gradient(90deg,#9650ff,#f59e0b,#ef4444); }
+        .zz-row.row3::before { background:linear-gradient(90deg,#ef4444,#16a34a); right:calc(16.66% + 18px); }
+        .zz-connector { display:flex; justify-content:flex-end; padding-right:calc(16.66% + 6px); height:60px; }
+        .zz-connector.from-right { justify-content:flex-start; padding-left:calc(16.66% + 6px); padding-right:0; }
+        .zz-connector::before { content:''; width:3px; height:100%; background:linear-gradient(180deg,#9650ff,#f59e0b); display:block; border-radius:2px; }
+        .zz-connector.from-right::before { background:linear-gradient(180deg,#ef4444,#16a34a); }
+        .zz-phase-card {
+            background:var(--surf); border:2px solid rgba(65,105,225,.2); border-radius:14px;
+            padding:1.8rem 1.8rem 1.6rem; margin:0 18px; position:relative; z-index:1;
+            transition:transform .25s,box-shadow .25s,border-color .25s;
+            box-shadow:0 2px 14px rgba(65,105,225,.07);
+        }
+        .zz-phase-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(65,105,225,.14); border-color:rgba(65,105,225,.45); }
+        .zz-phase-card::before {
+            content:attr(data-num); position:absolute; top:-16px; left:50%;
+            transform:translateX(-50%); width:32px; height:32px; border-radius:50%;
+            background:var(--grad); color:white; font-family:'JetBrains Mono',monospace;
+            font-size:.68rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+            z-index:3; line-height:32px; text-align:center; box-shadow:0 3px 10px rgba(65,105,225,.35);
+        }
+        .zz-row.reverse { direction:rtl; }
+        .zz-row.reverse .zz-phase-card { direction:ltr; }
+        .zz-card-header { display:flex; align-items:center; gap:.65rem; margin-bottom:.55rem; padding-top:.6rem; }
+        .zz-icon { font-size:1.4rem; flex-shrink:0; }
+        .zz-phase { font-family:'JetBrains Mono',monospace; font-size:.61rem; color:var(--muted); letter-spacing:.05em; margin-bottom:.12rem; }
+        .zz-name  { font-family:'Epilogue',sans-serif; font-size:.92rem; font-weight:800; color:var(--text); line-height:1.2; }
+        .zz-desc  { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.75rem; font-family:'Epilogue',sans-serif; }
+        .zz-topics { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+        .zz-topic { font-family:'JetBrains Mono',monospace; font-size:.6rem; background:var(--lb); border:1px solid rgba(65,105,225,.15); color:var(--blue); padding:.18rem .48rem; border-radius:3px; }
+        .zz-courses { border-top:1px solid var(--border); padding-top:.65rem; }
+        .zz-courses-label { font-family:'JetBrains Mono',monospace; font-size:.58rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-bottom:.32rem; }
+        .zz-courses ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.25rem; }
+        .zz-courses ul li { font-size:.77rem; color:var(--muted); font-family:'Epilogue',sans-serif; padding-left:.9rem; position:relative; }
+        .zz-courses ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue); font-size:.65rem; top:.06rem; }
+        .zz-courses ul li a { color:var(--blue); text-decoration:none; font-weight:600; }
+        .zz-courses ul li a:hover { text-decoration:underline; }
+
+        /* ── SPECIALIZATIONS ── */
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.4rem; }
+        .spec-card { background:var(--surf); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:transform .3s,box-shadow .3s; }
+        .spec-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
+        .spec-img-wrap { width:100%; height:180px; overflow:hidden; position:relative; }
+        .spec-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+        .spec-card:hover .spec-img-wrap img { transform:scale(1.05); }
+        .spec-img-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.58) 100%); }
+        .spec-img-label { position:absolute; bottom:.9rem; left:1rem; font-family:'JetBrains Mono',monospace; font-size:.68rem; font-weight:700; color:rgba(255,255,255,.9); letter-spacing:.08em; text-transform:uppercase; }
+        .spec-body { padding:1.3rem 1.5rem; }
+        .spec-name { font-family:'Epilogue',sans-serif; font-size:.98rem; font-weight:800; color:var(--text); margin-bottom:.2rem; }
+        .spec-tag  { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); margin-bottom:.55rem; }
+        .spec-importance { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:.9rem; font-family:'Epilogue',sans-serif; }
+        .spec-skills { display:flex; flex-wrap:wrap; gap:.38rem; }
+        .spec-skill { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem; border-radius:4px; border:1px solid; font-weight:500; }
+        .sk-emerald { background:rgba(16,185,129,.07); border-color:rgba(16,185,129,.22); color:#059669; }
+        .sk-blue    { background:rgba(65,105,225,.07);  border-color:rgba(65,105,225,.18);  color:var(--blue); }
+        .sk-indigo  { background:rgba(99,102,241,.07);  border-color:rgba(99,102,241,.22);  color:#6366f1; }
+        .sk-rose    { background:rgba(244,63,94,.07);   border-color:rgba(244,63,94,.22);   color:#e11d48; }
+        .sk-amber   { background:rgba(245,158,11,.07);  border-color:rgba(245,158,11,.18);  color:#d97706; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-tier { margin-bottom:3rem; }
+        .cert-tier:last-child { margin-bottom:0; }
+        .tier-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.2rem; }
+        .tier-badge { font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:.3rem .8rem; border-radius:4px; }
+        .tb-green { background:#dcfce7; color:#16a34a; }
+        .tb-amber { background:#fef3c7; color:#d97706; }
+        .tb-red   { background:#fee2e2; color:#dc2626; }
+        .tier-line { flex:1; height:1px; background:var(--border); }
+        .cert-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+        .cert-card { background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.4rem 1.4rem 1.2rem; display:flex; flex-direction:column; gap:.45rem; transition:border-color .2s,transform .2s,box-shadow .2s; }
+        .cert-card:hover { border-color:rgba(65,105,225,.4); transform:translateY(-3px); box-shadow:0 10px 28px rgba(65,105,225,.1); }
+        .cert-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+        .cert-name { font-size:.9rem; font-weight:700; color:var(--text); font-family:'Epilogue',sans-serif; }
+        .cert-pill { font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; padding:.16rem .48rem; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .pill-g { background:#dcfce7; color:#16a34a; }
+        .pill-a { background:#fef3c7; color:#d97706; }
+        .pill-r { background:#fee2e2; color:#dc2626; }
+        .cert-body { font-size:.8rem; color:var(--muted); line-height:1.6; font-family:'Epilogue',sans-serif; flex:1; }
+        .cert-meta { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); }
+        .cert-meta strong { color:var(--text); }
+        .cert-site { font-family:'Epilogue',sans-serif; font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; padding-top:.45rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:.3rem; text-decoration:none; }
+        .cert-site::before { content:'🔗'; font-size:.7rem; }
+        .cert-site:hover { opacity:.75; }
+
+        /* ── CAREER TIMELINE ── */
+        .career-track { display:flex; flex-direction:column; position:relative; }
+        .career-track::before { content:''; position:absolute; left:26px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--blue),var(--purple),#f59e0b,#ef4444,#16a34a,#0ea5e9); }
+        .ct-item { display:flex; gap:1.4rem; padding:0 0 2.2rem; position:relative; }
+        .ct-item:last-child { padding-bottom:0; }
+        .ct-left { width:52px; flex-shrink:0; display:flex; justify-content:center; }
+        .ct-dot  { width:15px; height:15px; border-radius:50%; border:3px solid var(--bg); box-shadow:0 0 0 2px currentColor; margin-top:5px; }
+        .ct-content { flex:1; background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.3rem 1.5rem; transition:box-shadow .25s; }
+        .ct-content:hover { box-shadow:0 8px 22px rgba(65,105,225,.08); }
+        .ct-stage  { font-size:.68rem; font-family:'JetBrains Mono',monospace; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+        .ct-period { font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.05em; margin-bottom:.2rem; }
+        .ct-title  { font-family:'Epilogue',sans-serif; font-size:1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .ct-salary { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700; padding:.22rem .6rem; border-radius:4px; margin-bottom:.55rem; }
+        .cs-blue   { background:rgba(65,105,225,.08); color:var(--blue);   border:1px solid rgba(65,105,225,.2); }
+        .cs-purple { background:rgba(91,79,198,.08);  color:var(--purple);  border:1px solid rgba(91,79,198,.2); }
+        .cs-amber  { background:rgba(245,158,11,.08); color:#d97706;        border:1px solid rgba(245,158,11,.2); }
+        .cs-red    { background:rgba(239,68,68,.08);  color:#dc2626;        border:1px solid rgba(239,68,68,.2); }
+        .cs-green  { background:rgba(22,163,74,.08);  color:#16a34a;        border:1px solid rgba(22,163,74,.2); }
+        .cs-cyan   { background:rgba(14,165,233,.08); color:#0ea5e9;        border:1px solid rgba(14,165,233,.2); }
+        .ct-desc  { font-size:.86rem; color:var(--muted); line-height:1.65; font-family:'Epilogue',sans-serif; margin-bottom:.75rem; }
+        .ct-gains { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .ct-gain  { font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.28rem; background:var(--bg); border:1px solid var(--border); padding:.2rem .6rem; border-radius:4px; font-family:'Epilogue',sans-serif; }
+        .ok { color:#16a34a; font-weight:700; }
+
+        /* ── OUTCOME ── */
+        .outcome-banner { background:linear-gradient(135deg,rgba(65,105,225,.06),rgba(91,79,198,.06)); border:1px solid rgba(65,105,225,.15); border-radius:14px; padding:2rem 2.2rem; margin-top:3rem; }
+        .ob-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1.2rem 1.8rem; margin-bottom:1.3rem; }
+        .ob-item  { text-align:center; }
+        .ob-val   { font-family:'Epilogue',sans-serif; font-size:1.4rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        .ob-lbl   { font-size:.72rem; color:var(--muted); margin-top:.12rem; font-family:'Epilogue',sans-serif; }
+        .ob-note  { padding-top:1.2rem; border-top:1px solid rgba(65,105,225,.12); font-size:.88rem; color:var(--muted); line-height:1.8; font-family:'Epilogue',sans-serif; }
+        .ob-note strong { color:var(--text); }
+
+        /* ── JOBS ── */
+        .jobs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+        .jobs-col h3 { font-family:'Epilogue',sans-serif; font-size:1.1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .jobs-col p  { font-size:.84rem; color:var(--muted); margin-bottom:.9rem; font-family:'Epilogue',sans-serif; line-height:1.6; }
+        .job-links { display:flex; flex-direction:column; gap:.5rem; }
+        .job-link  { display:flex; align-items:center; justify-content:space-between; background:var(--surf); border:1px solid var(--border); border-radius:9px; padding:.85rem 1rem; text-decoration:none; transition:border-color .2s,transform .2s; color:var(--text); }
+        .job-link:hover { border-color:rgba(65,105,225,.4); transform:translateY(-2px); }
+        .jl-left  { display:flex; align-items:center; gap:.7rem; }
+        .jl-icon  { font-size:1.2rem; }
+        .jl-name  { font-family:'Epilogue',sans-serif; font-size:.88rem; font-weight:700; }
+        .jl-cat   { font-family:'JetBrains Mono',monospace; font-size:.63rem; color:var(--muted); display:block; margin-top:.08rem; }
+        .jl-arrow { color:var(--blue); font-size:.95rem; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) { .cert-row { grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:900px) {
+            .hero-inner { grid-template-columns:1fr; }
+            .hero-img-card { display:none; }
+            .zz-row,.zz-row.reverse,.zz-row.row3 { grid-template-columns:1fr; direction:ltr; }
+            .zz-row::before { display:none; }
+            .zz-connector { display:none; }
+            .zz-phase-card { margin:0 0 1.8rem; }
+            .jobs-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px) {
+            .cy-section { padding:3rem 1.2rem; }
+            .hero-section { padding:2.5rem 1.2rem; }
+            .hero-stats { gap:1.2rem; }
+            .cert-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#specializations">Specializations</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#career-timeline">Timeline</a></li>
+            <li><a href="#jobs">Remote Jobs</a></li>
+            <li><a href="index.html" class="cta-button">← All Paths</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    </nav>
+</header>
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="yourcspath-landing.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section">
+    <div class="hero-inner">
+        <div class="fade">
+            <div class="hero-badge">📊 CAREER PATH · DATA SCIENCE</div>
+            <h1>Turn Raw Data<br>into <span class="hl">Powerful Decisions.</span></h1>
+            <p class="hero-desc">
+                Data Science is the art and science of extracting meaning from data — and every organization on earth is drowning in it. From predicting customer behavior at Netflix and detecting fraud at banks, to accelerating drug discovery in healthcare and optimizing logistics at Amazon, data scientists are the translators between raw numbers and real-world impact. With a median salary of $112,590 and employment projected to grow 34% through 2034 — much faster than any other occupation — this is one of the most future-proof careers you can build.
+            </p>
+            <div class="hero-stats">
+                <div><span class="hs-val">$112K</span><div class="hs-lbl">Median US Salary (BLS)</div></div>
+                <div><span class="hs-val">34%</span><div class="hs-lbl">Job Growth (2024–2034)</div></div>
+                <div><span class="hs-val">23.4K</span><div class="hs-lbl">Annual Job Openings</div></div>
+            </div>
+        </div>
+
+        <!-- Hero image card -->
+        <div class="hero-img-card fade">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=85" alt="Data Science Analytics Dashboard" loading="eager">
+            <div class="hero-img-overlay"></div>
+            <div class="hero-label">📊 Data Science</div>
+            <div class="hero-chips">
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-green"></span>Python · SQL · R</div>
+                    <div class="chip"><span class="chip-dot cd-blue"></span>Statistics & Probability</div>
+                </div>
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-amber"></span>Tableau · Power BI · Matplotlib</div>
+                    <div class="chip"><span class="chip-dot cd-purple"></span>Machine Learning · Scikit-learn</div>
+                </div>
+                <div class="chip-row">
+                    <div class="chip"><span class="chip-dot cd-green"></span>Data Analyst → Data Scientist → ML Engineer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Phase by Phase</div>
+        <h2 class="cy-title fade">Learning Roadmap</h2>
+        <p class="cy-sub fade">Nine structured phases from complete beginner to production-ready data scientist. Each includes topics, tools, and real courses to guide you forward.</p>
+
+        <div class="zz-wrap">
+
+            <!-- ROW 1 -->
+            <div class="zz-row fade">
+                <div class="zz-phase-card" data-num="01">
+                    <div class="zz-card-header"><span class="zz-icon">🔢</span>
+                        <div><div class="zz-phase">Phase 1 · Weeks 1–4</div><div class="zz-name">Math & Statistics Foundations</div></div>
+                    </div>
+                    <div class="zz-desc">Data science is applied mathematics. A solid grasp of probability, statistics, and linear algebra is what separates a person who runs a model from one who truly understands what the model is doing — and why it fails.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Descriptive Statistics</span>
+                        <span class="zz-topic">Probability Theory</span>
+                        <span class="zz-topic">Normal Distribution</span>
+                        <span class="zz-topic">Hypothesis Testing</span>
+                        <span class="zz-topic">P-values & Confidence Intervals</span>
+                        <span class="zz-topic">Bayes' Theorem</span>
+                        <span class="zz-topic">Linear Algebra basics</span>
+                        <span class="zz-topic">A/B Testing</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank">Statistics & Probability</a> — Khan Academy (Free)</li>
+                        <li><a href="https://www.coursera.org/specializations/statistics" target="_blank">Statistics with Python Specialization</a> — U. of Michigan / Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="02">
+                    <div class="zz-card-header"><span class="zz-icon">🐍</span>
+                        <div><div class="zz-phase">Phase 2 · Weeks 5–8</div><div class="zz-name">Python for Data Science</div></div>
+                    </div>
+                    <div class="zz-desc">Python is the undisputed language of data science. Learn the language itself and the core libraries that power every data pipeline — from loading a CSV to building a machine learning model from scratch.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Python Fundamentals</span>
+                        <span class="zz-topic">NumPy & Arrays</span>
+                        <span class="zz-topic">Pandas DataFrames</span>
+                        <span class="zz-topic">Data Cleaning</span>
+                        <span class="zz-topic">Matplotlib & Seaborn</span>
+                        <span class="zz-topic">Jupyter Notebooks</span>
+                        <span class="zz-topic">Scikit-learn basics</span>
+                        <span class="zz-topic">Working with APIs</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/python-for-applied-data-science-ai" target="_blank">Python for Data Science, AI & Development</a> — IBM / Coursera (Free)</li>
+                        <li><a href="https://www.kaggle.com/learn/python" target="_blank">Python & Pandas</a> — Kaggle Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="03">
+                    <div class="zz-card-header"><span class="zz-icon">🗄️</span>
+                        <div><div class="zz-phase">Phase 3 · Weeks 9–11</div><div class="zz-name">SQL & Data Querying</div></div>
+                    </div>
+                    <div class="zz-desc">Nearly every data science job interview includes SQL. It is the universal language of databases — and most business data lives in relational databases that you query with SQL before any analysis can begin.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">SELECT, WHERE, ORDER BY</span>
+                        <span class="zz-topic">Aggregations & GROUP BY</span>
+                        <span class="zz-topic">INNER / LEFT / RIGHT JOINs</span>
+                        <span class="zz-topic">Subqueries & CTEs</span>
+                        <span class="zz-topic">Window Functions</span>
+                        <span class="zz-topic">PostgreSQL / MySQL</span>
+                        <span class="zz-topic">Indexing & Performance</span>
+                        <span class="zz-topic">SQL + Pandas integration</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.kaggle.com/learn/intro-to-sql" target="_blank">Intro to SQL & Advanced SQL</a> — Kaggle Learn (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/sql-for-data-science" target="_blank">SQL for Data Science</a> — UC Davis / Coursera (Free Audit)</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector -->
+            <div class="zz-connector"></div>
+
+            <!-- ROW 2 reversed -->
+            <div class="zz-row reverse fade">
+                <div class="zz-phase-card" data-num="04">
+                    <div class="zz-card-header"><span class="zz-icon">📊</span>
+                        <div><div class="zz-phase">Phase 4 · Weeks 12–14</div><div class="zz-name">Data Visualization & EDA</div></div>
+                    </div>
+                    <div class="zz-desc">Exploratory data analysis is how you understand a dataset before modelling. Visualization turns numbers into stories — and data storytelling is one of the most valued skills in every data science job posting.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Matplotlib & Seaborn</span>
+                        <span class="zz-topic">Plotly (interactive)</span>
+                        <span class="zz-topic">Tableau basics</span>
+                        <span class="zz-topic">Power BI dashboards</span>
+                        <span class="zz-topic">EDA methodology</span>
+                        <span class="zz-topic">Distribution analysis</span>
+                        <span class="zz-topic">Correlation & heatmaps</span>
+                        <span class="zz-topic">Outlier detection</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/data-visualization-with-python" target="_blank">Data Visualization with Python</a> — IBM / Coursera (Free)</li>
+                        <li><a href="https://www.kaggle.com/learn/data-visualization" target="_blank">Data Visualization</a> — Kaggle Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="05">
+                    <div class="zz-card-header"><span class="zz-icon">🧠</span>
+                        <div><div class="zz-phase">Phase 5 · Months 4–5</div><div class="zz-name">Machine Learning</div></div>
+                    </div>
+                    <div class="zz-desc">This is the core of data science. Learn the classic supervised and unsupervised algorithms that power recommendation systems, fraud detection, churn prediction, and price forecasting across every industry on earth.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Linear & Logistic Regression</span>
+                        <span class="zz-topic">Decision Trees</span>
+                        <span class="zz-topic">Random Forest & Gradient Boosting</span>
+                        <span class="zz-topic">XGBoost / LightGBM</span>
+                        <span class="zz-topic">K-Means Clustering</span>
+                        <span class="zz-topic">Dimensionality Reduction (PCA)</span>
+                        <span class="zz-topic">Model Evaluation (AUC, F1)</span>
+                        <span class="zz-topic">Feature Engineering</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Machine Learning Specialization</a> — Andrew Ng / Stanford / Coursera</li>
+                        <li><a href="https://www.kaggle.com/learn/intermediate-machine-learning" target="_blank">Intermediate Machine Learning</a> — Kaggle Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="06">
+                    <div class="zz-card-header"><span class="zz-icon">🔬</span>
+                        <div><div class="zz-phase">Phase 6 · Month 6</div><div class="zz-name">Feature Engineering & Model Tuning</div></div>
+                    </div>
+                    <div class="zz-desc">The difference between a good model and a great model is rarely the algorithm — it is the data preparation and tuning. This phase teaches you how to squeeze maximum performance out of your models.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Feature Selection</span>
+                        <span class="zz-topic">Encoding Categoricals</span>
+                        <span class="zz-topic">Handling Missing Data</span>
+                        <span class="zz-topic">Cross-validation</span>
+                        <span class="zz-topic">Hyperparameter Tuning</span>
+                        <span class="zz-topic">Grid Search / Optuna</span>
+                        <span class="zz-topic">Pipelines in Scikit-learn</span>
+                        <span class="zz-topic">Ensemble Methods</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.kaggle.com/learn/feature-engineering" target="_blank">Feature Engineering</a> — Kaggle Learn (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/machine-learning-projects" target="_blank">Structuring Machine Learning Projects</a> — DeepLearning.AI / Coursera</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector -->
+            <div class="zz-connector from-right"></div>
+
+            <!-- ROW 3 -->
+            <div class="zz-row row3 fade">
+                <div class="zz-phase-card" data-num="07">
+                    <div class="zz-card-header"><span class="zz-icon">🔗</span>
+                        <div><div class="zz-phase">Phase 7 · Month 7</div><div class="zz-name">Deep Learning & Advanced ML</div></div>
+                    </div>
+                    <div class="zz-desc">Deep learning unlocks problems that classical ML cannot solve — image classification, text generation, and time series forecasting at scale. Even data scientists who don't specialize in DL need to understand these techniques.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Neural Network basics</span>
+                        <span class="zz-topic">TensorFlow / Keras</span>
+                        <span class="zz-topic">PyTorch introduction</span>
+                        <span class="zz-topic">CNNs (image tasks)</span>
+                        <span class="zz-topic">RNNs & LSTMs</span>
+                        <span class="zz-topic">Transformers & Attention</span>
+                        <span class="zz-topic">Transfer Learning</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/deep-learning" target="_blank">Deep Learning Specialization</a> — Andrew Ng / DeepLearning.AI</li>
+                        <li><a href="https://www.fast.ai/" target="_blank">Practical Deep Learning for Coders</a> — fast.ai (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="08">
+                    <div class="zz-card-header"><span class="zz-icon">☁️</span>
+                        <div><div class="zz-phase">Phase 8 · Month 8</div><div class="zz-name">Big Data & Cloud Platforms</div></div>
+                    </div>
+                    <div class="zz-desc">Real-world data doesn't fit in a laptop's memory. Learn how to work with big data tools and cloud platforms that process terabytes of data at scale — the infrastructure that powers production data science at every major company.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Apache Spark (PySpark)</span>
+                        <span class="zz-topic">Hadoop ecosystem</span>
+                        <span class="zz-topic">AWS S3 & SageMaker</span>
+                        <span class="zz-topic">Google BigQuery</span>
+                        <span class="zz-topic">Azure ML Studio</span>
+                        <span class="zz-topic">Data Pipelines & ETL</span>
+                        <span class="zz-topic">Apache Airflow</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/big-data-analysis" target="_blank">Introduction to Big Data with Spark and Hadoop</a> — IBM / Coursera (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/aws-machine-learning" target="_blank">AWS Machine Learning Foundations</a> — AWS / Coursera (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="09" style="border-color:rgba(65,105,225,.35);">
+                    <div class="zz-card-header"><span class="zz-icon">🎯</span>
+                        <div><div class="zz-phase">Phase 9 · Month 9+</div><div class="zz-name">Choose Your Specialization</div></div>
+                    </div>
+                    <div class="zz-desc">You now have a complete data science foundation. Pick the domain that excites you most — each is a distinct career with its own tools, market demand, and salary ceiling.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic" style="color:#059669;border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.06);">📊 Data Analysis & BI</span>
+                        <span class="zz-topic" style="color:var(--blue);border-color:rgba(65,105,225,.25);background:rgba(65,105,225,.06);">🔧 Data Engineering</span>
+                        <span class="zz-topic" style="color:#6366f1;border-color:rgba(99,102,241,.25);background:rgba(99,102,241,.06);">🧠 ML / AI Scientist</span>
+                        <span class="zz-topic" style="color:#e11d48;border-color:rgba(244,63,94,.25);background:rgba(244,63,94,.06);">📈 Business Intelligence</span>
+                        <span class="zz-topic" style="color:#d97706;border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.06);">🔍 Research Science</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">↓ Detailed below</div><ul>
+                        <li><a href="#specializations">View all specializations</a> — with skills, tools, and importance</li>
+                        <li><a href="#certifications">View certifications</a> — matched to your chosen track</li>
+                    </ul></div>
+                </div>
+            </div>
+
+        </div><!-- end zz-wrap -->
+    </div>
+</section>
+
+<!-- ══ SPECIALIZATIONS ══ -->
+<section id="specializations" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Choose Your Domain</div>
+        <h2 class="cy-title fade">Specializations</h2>
+        <p class="cy-sub fade">Data science is an umbrella field — after the foundation, it branches into five distinct disciplines each with its own career trajectory and salary ceiling.</p>
+
+        <div class="spec-grid">
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=600&q=80" alt="Data Analysis" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Data Analysis</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">📊 Data Analysis & BI</div>
+                    <div class="spec-tag">Analyst · The Most Accessible Entry Point</div>
+                    <div class="spec-importance">Data analysts are the most in-demand entry-level data professionals — accounting for 18% of all data job postings. They clean, query, and visualize data to answer business questions. Every company regardless of size needs analysts, making this the fastest track from study to your first job. Strong SQL, Excel, and Tableau skills plus a portfolio can get you hired within 6 months.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-emerald">SQL (Advanced)</span>
+                        <span class="spec-skill sk-emerald">Excel / Google Sheets</span>
+                        <span class="spec-skill sk-emerald">Tableau / Power BI</span>
+                        <span class="spec-skill sk-emerald">Python (Pandas)</span>
+                        <span class="spec-skill sk-emerald">Data Storytelling</span>
+                        <span class="spec-skill sk-emerald">A/B Testing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Data Engineering" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Data Engineering</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🔧 Data Engineering</div>
+                    <div class="spec-tag">Engineer · Build the Pipelines</div>
+                    <div class="spec-importance">Data engineers build the infrastructure that data scientists rely on — pipelines, databases, and data warehouses that move and store data reliably. Data engineers are among the highest-paid professionals in the data space, often earning more than data scientists at the same level of experience. With 20% of all data job postings targeting engineers, the demand is enormous and the skills gap is significant.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-blue">Apache Spark</span>
+                        <span class="spec-skill sk-blue">Kafka</span>
+                        <span class="spec-skill sk-blue">dbt (data build tool)</span>
+                        <span class="spec-skill sk-blue">Airflow</span>
+                        <span class="spec-skill sk-blue">Snowflake / Redshift</span>
+                        <span class="spec-skill sk-blue">AWS / GCP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80" alt="ML / AI Scientist" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">ML / AI Science</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🧠 ML / AI Data Scientist</div>
+                    <div class="spec-tag">Scientist · Predictive Modelling at Scale</div>
+                    <div class="spec-importance">The core data scientist role that most people envision — building predictive models, running experiments, and turning complex datasets into business decisions. ML skills add a 25% salary premium over baseline data science. Specialists with deep learning or NLP expertise earn 30% above market rate. This is the highest-ceiling specialization within data science for those who want to work at the intersection of research and engineering.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-indigo">Scikit-learn</span>
+                        <span class="spec-skill sk-indigo">TensorFlow / PyTorch</span>
+                        <span class="spec-skill sk-indigo">XGBoost</span>
+                        <span class="spec-skill sk-indigo">Experiment Design</span>
+                        <span class="spec-skill sk-indigo">Model Deployment</span>
+                        <span class="spec-skill sk-indigo">MLflow</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Business Intelligence" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Business Intelligence</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">📈 Business Intelligence</div>
+                    <div class="spec-tag">BI · Data-Driven Decision Making</div>
+                    <div class="spec-importance">BI analysts sit at the intersection of data and business strategy, turning dashboards and reports into decisions. Every Fortune 500 company maintains a dedicated BI team. BI specialists who understand both the technical and business sides command salaries rivalling software engineers. With tools like Tableau, Power BI, and Looker, BI professionals are in demand across finance, retail, healthcare, and logistics equally.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-rose">Tableau</span>
+                        <span class="spec-skill sk-rose">Power BI</span>
+                        <span class="spec-skill sk-rose">Looker / Metabase</span>
+                        <span class="spec-skill sk-rose">SQL (Advanced)</span>
+                        <span class="spec-skill sk-rose">KPI Design</span>
+                        <span class="spec-skill sk-rose">Business Acumen</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Research Science" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Research Science</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🔍 Research Science</div>
+                    <div class="spec-tag">Research · Pushing the Frontier</div>
+                    <div class="spec-importance">Research scientists work at the bleeding edge of what's possible — publishing papers, inventing new algorithms, and solving problems that have no established solution yet. Companies like DeepMind, Meta AI, OpenAI, and Google Brain employ research scientists at $200K–$500K+. While typically requiring a PhD for the most elite roles, many industry research positions are accessible to strong self-taught engineers with a portfolio of publications or notable projects.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-amber">Research Methodology</span>
+                        <span class="spec-skill sk-amber">Academic Writing</span>
+                        <span class="spec-skill sk-amber">PyTorch (deep)</span>
+                        <span class="spec-skill sk-amber">arXiv / Papers with Code</span>
+                        <span class="spec-skill sk-amber">Experiment Design</span>
+                        <span class="spec-skill sk-amber">Statistical Rigor</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Recognized</div>
+        <h2 class="cy-title fade">Certifications</h2>
+        <p class="cy-sub fade">In data science, a strong portfolio matters more than certs — but these credentials from Google, IBM, Microsoft, and AWS signal seriousness and unlock more interview opportunities.</p>
+
+        <div class="fade">
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-green">// Beginner — Build The Foundation</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Data Analytics Certificate</span><span class="cert-pill pill-g">GDA</span></div>
+                        <div class="cert-body">Google's 8-course program on Coursera covering data cleaning, analysis, visualization, and SQL. One of the most recognized entry-level data credentials — backed by Google's hiring network and built for complete beginners.</div>
+                        <div class="cert-meta">Cost: <strong>~$300 total</strong></div>
+                        <a href="https://grow.google/certificates/data-analytics/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM Data Science Professional Certificate</span><span class="cert-pill pill-g">IBM-DS</span></div>
+                        <div class="cert-body">Ten-course IBM program covering Python, SQL, data visualization, machine learning, and applied data science projects. The most comprehensive beginner data science certificate available on Coursera.</div>
+                        <div class="cert-meta">Cost: <strong>~$59/month</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ibm-data-science" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Power BI Data Analyst</span><span class="cert-pill pill-g">PL-300</span></div>
+                        <div class="cert-body">Official Microsoft certification for Power BI analysts. Covers data preparation, model building, dashboard design, and report deployment. The most in-demand BI certification globally for business analytics roles.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/power-bi-data-analyst-associate/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Tableau Desktop Specialist</span><span class="cert-pill pill-g">TDS</span></div>
+                        <div class="cert-body">Salesforce/Tableau's entry-level certification for data visualization. Validates ability to connect data sources, create charts, and build dashboards. Widely required in data analyst job postings across all industries.</div>
+                        <div class="cert-meta">Cost: <strong>~$250</strong></div>
+                        <a href="https://www.tableau.com/learn/certification/desktop-specialist" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-amber">// Intermediate — Prove Your Skills</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM Data Engineering Professional</span><span class="cert-pill pill-a">IBM-DE</span></div>
+                        <div class="cert-body">Comprehensive 16-course program covering SQL, NoSQL, Big Data, Spark, ETL pipelines, Airflow, Kafka, and cloud data warehouses. The go-to credential for aspiring data engineers entering the field.</div>
+                        <div class="cert-meta">Cost: <strong>~$59/month</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ibm-data-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Azure Data Scientist Associate</span><span class="cert-pill pill-a">DP-100</span></div>
+                        <div class="cert-body">Covers designing and implementing data science solutions on Azure ML including experiment tracking, model training, deployment, and monitoring with MLflow. Highly valued for data scientists working in enterprise environments.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-data-scientist/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Databricks Certified Data Engineer Associate</span><span class="cert-pill pill-a">DB-DE</span></div>
+                        <div class="cert-body">Validates skills in building data pipelines with Apache Spark and Delta Lake on the Databricks platform. Increasingly required at companies running modern data lakehouses — one of the fastest-growing credentials in data engineering.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://www.databricks.com/learn/certification/data-engineer-associate" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Machine Learning Specialization</span><span class="cert-pill pill-a">ML-SPEC</span></div>
+                        <div class="cert-body">The gold standard ML credential by Andrew Ng and Stanford. Covers supervised learning, unsupervised learning, recommenders, and RL. Used by over 5 million learners worldwide — the most respected ML certificate in the industry.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-red">// Advanced — Expert Level</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Certified ML Specialty</span><span class="cert-pill pill-r">AWS-MLS</span></div>
+                        <div class="cert-body">Validates end-to-end ML knowledge on AWS — data engineering, modelling, evaluation, and MLOps deployment using SageMaker. Requires 1–2 years of hands-on experience and is the most comprehensive cloud ML certification available.</div>
+                        <div class="cert-meta">Cost: <strong>~$300</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-machine-learning-specialty/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Cloud Professional Data Engineer</span><span class="cert-pill pill-r">GCP-DE</span></div>
+                        <div class="cert-body">Google's advanced data engineering certification covering BigQuery, Dataflow, Pub/Sub, Bigtable, and ML integration on GCP. Highly valued at organizations running large-scale data infrastructure on Google Cloud.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/data-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Cloudera Certified Data Engineer</span><span class="cert-pill pill-r">CDE</span></div>
+                        <div class="cert-body">Industry-recognized certification for enterprise data engineers working with Hadoop, Spark, and Cloudera Data Platform. Required or preferred at large financial institutions, telcos, and government organizations running on-premise big data infrastructure.</div>
+                        <div class="cert-meta">Cost: <strong>~$295</strong></div>
+                        <a href="https://www.cloudera.com/services-and-support/training/certification.html" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Harvard Data Science Professional</span><span class="cert-pill pill-r">HDS</span></div>
+                        <div class="cert-body">Nine-course HarvardX program covering R, probability, inference, regression, machine learning, and capstone projects. One of the most academically rigorous and globally prestigious data science certificates available online.</div>
+                        <div class="cert-meta">Cost: <strong>~$300 total</strong></div>
+                        <a href="https://www.edx.org/professional-certificate/harvardx-data-science" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CAREER TIMELINE ══ -->
+<section id="career-timeline" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">From Student to Expert</div>
+        <h2 class="cy-title fade">Career Growth Timeline</h2>
+        <p class="cy-sub fade">A realistic picture of your data science journey. The field is unique in that you can enter as a data analyst and progress to data scientist — each stage building directly on the last.</p>
+
+        <div class="career-track">
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--blue);background:var(--blue);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Learning Phase</div>
+                    <div class="ct-period" style="color:var(--blue);">Months 1–6 — Foundations, Python, SQL & Visualization</div>
+                    <div class="ct-title">Building Your Data Foundation</div>
+                    <div class="ct-desc">Study statistics, Python, SQL, and data visualization. Build 3–5 real projects using public datasets from Kaggle and government sources. Start competing in Kaggle competitions — even participation shows initiative. Earn Google Data Analytics or IBM Data Science certificate. Begin applying for data analyst roles at month 5 — you already have enough skills to be productive in many entry-level positions.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Python & SQL solid</span>
+                        <span class="ct-gain"><span class="ok">✓</span>3 Kaggle projects done</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Google or IBM cert earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>LinkedIn portfolio active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--purple);background:var(--purple);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">First Job</div>
+                    <div class="ct-period" style="color:var(--purple);">Months 6–12 — Data Analyst / Junior Data Scientist</div>
+                    <div class="ct-title">Your First Data Role</div>
+                    <span class="ct-salary cs-purple">💰 $65K–$95K (Analyst) · $80K–$105K (Junior Data Scientist)</span>
+                    <div class="ct-desc">Data analyst is the most accessible first data role and the natural entry point to data science. You are cleaning data, writing SQL queries, building dashboards, and answering business questions. While working, continue learning ML — the Andrew Ng Machine Learning Specialization is the standard progression. Many analysts make the full transition to data scientist within 12–18 months in this role.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First data role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>SQL used daily in production</span>
+                        <span class="ct-gain"><span class="ok">✓</span>ML Specialization in progress</span>
+                        <span class="ct-gain"><span class="ok">✓</span>First dashboard shipped</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#f59e0b;background:#f59e0b;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Early Career</div>
+                    <div class="ct-period" style="color:#d97706;">Year 1–2 — Data Scientist</div>
+                    <div class="ct-title">Data Scientist</div>
+                    <span class="ct-salary cs-amber">💰 $100K–$130K</span>
+                    <div class="ct-desc">You are now building and deploying predictive models that directly influence business decisions. You run A/B experiments, build recommendation systems, detect anomalies, and forecast demand. ML skills add a 25% salary premium at this level. Cloud certification (AWS ML or Azure DP-100) significantly expands your opportunities at larger companies. Start picking your specialization — BI, data engineering, or ML science.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First model in production</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Specialization deepening</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Cloud cert in progress</span>
+                        <span class="ct-gain"><span class="ok">✓</span>A/B experiments running</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#ef4444;background:#ef4444;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Career Growth</div>
+                    <div class="ct-period" style="color:#ef4444;">Year 2–4 — Senior Data Scientist / Lead Analyst</div>
+                    <div class="ct-title">Senior Data Scientist / Data Engineering Lead / BI Manager</div>
+                    <span class="ct-salary cs-red">💰 $130K–$165K</span>
+                    <div class="ct-desc">Senior data scientists own complete analytical systems — from data collection through modelling, deployment, and monitoring. You are defining the team's technical direction, mentoring junior staff, and presenting findings to executives. Deep learning or NLP expertise at this stage adds a 30% salary premium. Many seniors begin transitioning into staff or principal roles or moving into people management.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Senior role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Leading analytical strategy</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Advanced cloud cert earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Presenting to executives</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#16a34a;background:#16a34a;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Expert Level</div>
+                    <div class="ct-period" style="color:#16a34a;">Year 4–6 — Principal / Staff / Director</div>
+                    <div class="ct-title">Principal Data Scientist / Director of Data Science / Head of Analytics</div>
+                    <span class="ct-salary cs-green">💰 $160K–$220K</span>
+                    <div class="ct-desc">Principal and staff-level data scientists define data strategy across entire organizations. Directors of Data Science oversee teams of 10–30 analysts and scientists, establish data governance, and align technical capabilities with business goals. Top-paying industries for this level include finance, pharmaceuticals, and tech. FAANG data science directors and principal scientists earn $250K–$400K in total compensation.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Principal or Director role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Team of 10+ managed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Data strategy ownership</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Conference speaking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#0ea5e9;background:#0ea5e9;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Leadership</div>
+                    <div class="ct-period" style="color:#0ea5e9;">Year 6+ — CDO / VP / Chief Data Officer</div>
+                    <div class="ct-title">Chief Data Officer / VP of Data Science / Research Scientist</div>
+                    <span class="ct-salary cs-cyan">💰 $200K–$450K+</span>
+                    <div class="ct-desc">The ceiling in data science is extraordinary. Chief Data Officers at Fortune 500 companies earn $250K–$600K. Research scientists at AI labs like DeepMind and Google Brain earn $300K–$700K in total compensation. The top 10% of data scientists in the US earn over $194,410 in base salary alone — and that number climbs significantly when equity and bonuses are included. The BLS projects 23,400 new data scientist openings every year for the next decade.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>CDO or VP Data role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Industry thought leader</span>
+                        <span class="ct-gain"><span class="ok">✓</span>$200K+ base achievable</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Consulting opportunities</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outcome-banner fade">
+            <div class="ob-stats">
+                <div class="ob-item"><span class="ob-val">$80K</span><div class="ob-lbl">Analyst (Year 1)</div></div>
+                <div class="ob-item"><span class="ob-val">$112K</span><div class="ob-lbl">Data Scientist (Year 2)</div></div>
+                <div class="ob-item"><span class="ob-val">$160K+</span><div class="ob-lbl">Senior (Year 4)</div></div>
+                <div class="ob-item"><span class="ob-val">34%</span><div class="ob-lbl">Job growth (BLS)</div></div>
+                <div class="ob-item"><span class="ob-val">23.4K</span><div class="ob-lbl">New jobs/year</div></div>
+            </div>
+            <div class="ob-note">
+                Data science stands out as one of the most accessible paths to a six-figure salary in technology. <strong>The median salary is $112,590</strong> according to the US Bureau of Labor Statistics — and the top 10% earn over $194,410. What makes this field uniquely compelling is the clear progression: you can enter as a data analyst with just Python and SQL skills, earn $65K–$80K, and grow into a full data scientist role within 12–18 months. <strong>Every company in every industry now needs data professionals</strong> — from healthcare and finance to logistics, retail, and government. Unlike many technical careers, data science rewards curiosity, storytelling ability, and domain expertise just as much as pure coding skills. With 34% projected job growth through 2034 and 23,400 new openings every single year, <strong>data science is among the safest long-term career bets in all of technology.</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REMOTE JOBS ══ -->
+<section id="jobs" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Hired</div>
+        <h2 class="cy-title fade">Remote Internships & Jobs</h2>
+        <p class="cy-sub fade">Data science is one of the most remote-friendly careers in tech. These platforms connect you with opportunities from entry-level analyst roles to senior data scientist positions worldwide.</p>
+
+        <div class="jobs-grid">
+            <div class="jobs-col fade">
+                <h3>🎓 Internships & Entry Roles</h3>
+                <p>Build real experience before graduating. Data analyst internships are the most common entry point and accessible even before completing a full data science program.</p>
+                <div class="job-links">
+                    <a href="https://www.linkedin.com/jobs/data-science-jobs/?f_WT=2&f_E=1" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💼</span><div><div class="jl-name">LinkedIn Jobs</div><span class="jl-cat">Remote Data Science Internships</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.kaggle.com/jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">📊</span><div><div class="jl-name">Kaggle Jobs</div><span class="jl-cat">Data Science & Analytics Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.indeed.com/q-remote-data-science-intern-jobs.html" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🔍</span><div><div class="jl-name">Indeed</div><span class="jl-cat">Data Science Intern — Remote</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.internshala.com/internships/data-science-internship" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎯</span><div><div class="jl-name">Internshala</div><span class="jl-cat">Data Science Internships (South Asia)</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.datascienceweekly.org/data-science-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">📰</span><div><div class="jl-name">Data Science Weekly</div><span class="jl-cat">Curated DS Job Listings</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="jobs-col fade">
+                <h3>🌍 Remote Full-Time Jobs</h3>
+                <p>Data science roles are among the most remote-friendly in all of tech. These boards specialize in data roles across analytics, engineering, and science at all experience levels.</p>
+                <div class="job-links">
+                    <a href="https://remoteok.com/remote-data-science-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏠</span><div><div class="jl-name">Remote OK</div><span class="jl-cat">Remote-First Data Science Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.glassdoor.com/Job/remote-data-scientist-jobs-SRCH_KO0,21.htm" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏢</span><div><div class="jl-name">Glassdoor</div><span class="jl-cat">Remote DS Jobs + Salary Insights</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://wellfound.com/jobs?role=data-scientist" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🚀</span><div><div class="jl-name">Wellfound (AngelList)</div><span class="jl-cat">Data Roles at Tech Startups</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.dice.com/jobs?q=data+scientist&locationFilters=Remote" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎲</span><div><div class="jl-name">Dice</div><span class="jl-cat">Tech-Focused Remote Data Science</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://aijobs.net" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🤖</span><div><div class="jl-name">AI Jobs</div><span class="jl-cat">AI & Data Science Job Board</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/pages.js"></script>
+<script>injectFooter('');</script>
+</body>
+</html>

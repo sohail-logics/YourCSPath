@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI / ML Engineering — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="pages.css">
+
+    <style>
+
+        /* ── VARIABLES ── */
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg,#4169E1,#5b4fc6);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+        }
+
+        /* ── DARK MODE ── */
+        body.dark-mode .cy-section,
+        body.dark-mode section { background-color: var(--bg) !important; }
+        body.dark-mode .cy-section[style*="var(--surf)"] { background: var(--surf) !important; }
+        body.dark-mode .zz-phase-card,
+        body.dark-mode .spec-card,
+        body.dark-mode .cert-card,
+        body.dark-mode .ct-content,
+        body.dark-mode .job-link,
+        body.dark-mode .outcome-banner { background: var(--surf) !important; border-color: var(--border) !important; }
+        body.dark-mode .hero-section { background: var(--surf) !important; }
+
+       /* ── HERO ── */
+.hero-section {
+    margin-top: 80px;
+    background: var(--surf);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 3rem;
+}
+.hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .1em;
+    background: var(--lb);
+    border: 1px solid rgba(65,105,225,.25);
+    color: var(--blue);
+    padding: .38rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.3rem;
+    width: fit-content;
+}
+.hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: #16a34a;
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.hero-section h1 {
+    font-family: 'Epilogue', sans-serif;
+    font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.025em;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+}
+.hero-section h1 .hl {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-desc {
+    font-size: .98rem;
+    color: var(--muted);
+    line-height: 1.78;
+    margin-bottom: 2rem;
+    font-family: 'Epilogue', sans-serif;
+}
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+.hs-val {
+    font-family: 'Epilogue', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+}
+.hs-lbl { font-size: .76rem; color: var(--muted); margin-top: .1rem; font-family:'Epilogue',sans-serif; }
+
+/* ── HERO RIGHT — image card with chips ── */
+.hero-img-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    animation: fadeInRight .8s ease-out .2s both;
+    position: relative;
+}
+@keyframes fadeInRight {
+    from { opacity:0; transform:translateX(30px); }
+    to   { opacity:1; transform:translateX(0); }
+}
+.hero-img-card img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    display: block;
+}
+.hero-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(65,105,225,.3) 0%,
+        rgba(91,79,198,.2) 100%
+    );
+}
+.hero-label {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: rgba(255,255,255,.9);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: rgba(65,105,225,.65);
+    backdrop-filter: blur(6px);
+    padding: .32rem .85rem;
+    border-radius: 4px;
+    z-index: 2;
+}
+.hero-chips {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 1.4rem;
+    right: 1.4rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+}
+.chip-row { display: flex; gap: .55rem; flex-wrap: wrap; }
+.chip {
+    background: rgba(10,14,30,.62);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 7px;
+    padding: .42rem .95rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .71rem;
+    color: rgba(255,255,255,.9);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: .42rem;
+}
+.chip-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.cd-green  { background: #00ff88; }
+.cd-blue   { background: #79c0ff; }
+.cd-amber  { background: #ffd700; }
+.cd-purple { background: #d2a8ff; }
+        /* ── SHARED SECTION ── */
+        .cy-section { padding: 4.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+        .cy-inner { max-width: 1200px; margin: 0 auto; }
+        .cy-label {
+            font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500;
+            letter-spacing:.12em; text-transform:uppercase; color:var(--blue);
+            margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cy-label::before { content:''; width:16px; height:2px; background:var(--blue); }
+        .cy-title {
+            font-family:'Epilogue',sans-serif; font-size:clamp(1.55rem,2.5vw,2.1rem);
+            font-weight:800; letter-spacing:-.02em; margin-bottom:.4rem; color:var(--text);
+        }
+        .cy-sub {
+            font-size:.93rem; color:var(--muted); max-width:560px;
+            line-height:1.7; margin-bottom:2.8rem; font-family:'Epilogue',sans-serif;
+        }
+        .fade { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
+        .fade.on { opacity:1; transform:none; }
+
+        /* ── SNAKE ROADMAP ── */
+        .zz-wrap { position:relative; }
+        .zz-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+            margin-bottom: 0;
+        }
+        .zz-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: calc(16.66% + 18px);
+            right: calc(16.66% + 18px);
+            height: 3px;
+            background: linear-gradient(90deg, #4169E1, #5b4fc6, #9650ff);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .zz-row.reverse::before { background: linear-gradient(90deg, #9650ff, #f59e0b, #ef4444); }
+        .zz-row.row3::before {
+            background: linear-gradient(90deg, #ef4444, #16a34a);
+            right: calc(16.66% + 18px);
+        }
+        .zz-connector {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(16.66% + 6px);
+            height: 60px;
+        }
+        .zz-connector.from-right {
+            justify-content: flex-start;
+            padding-left: calc(16.66% + 6px);
+            padding-right: 0;
+        }
+        .zz-connector::before {
+            content: ''; width: 3px; height: 100%;
+            background: linear-gradient(180deg, #9650ff, #f59e0b);
+            display: block; border-radius: 2px;
+        }
+        .zz-connector.from-right::before { background: linear-gradient(180deg, #ef4444, #16a34a); }
+
+        .zz-phase-card {
+            background: var(--surf);
+            border: 2px solid rgba(65,105,225,.2);
+            border-radius: 14px;
+            padding: 1.8rem 1.8rem 1.6rem;
+            margin: 0 18px;
+            position: relative;
+            z-index: 1;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+            box-shadow: 0 2px 14px rgba(65,105,225,.07);
+        }
+        .zz-phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(65,105,225,.14);
+            border-color: rgba(65,105,225,.45);
+        }
+        .zz-phase-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -16px; left: 50%;
+            transform: translateX(-50%);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .68rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3; line-height: 32px; text-align: center;
+            box-shadow: 0 3px 10px rgba(65,105,225,.35);
+        }
+        .zz-row.reverse { direction: rtl; }
+        .zz-row.reverse .zz-phase-card { direction: ltr; }
+
+        .zz-card-header { display:flex; align-items:center; gap:.65rem; margin-bottom:.55rem; padding-top:.6rem; }
+        .zz-icon { font-size:1.4rem; flex-shrink:0; }
+        .zz-phase { font-family:'JetBrains Mono',monospace; font-size:.61rem; color:var(--muted); letter-spacing:.05em; margin-bottom:.12rem; }
+        .zz-name  { font-family:'Epilogue',sans-serif; font-size:.92rem; font-weight:800; color:var(--text); line-height:1.2; }
+        .zz-desc  { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.75rem; font-family:'Epilogue',sans-serif; }
+        .zz-topics { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+        .zz-topic {
+            font-family:'JetBrains Mono',monospace; font-size:.6rem;
+            background:var(--lb); border:1px solid rgba(65,105,225,.15);
+            color:var(--blue); padding:.18rem .48rem; border-radius:3px;
+        }
+        .zz-courses { border-top:1px solid var(--border); padding-top:.65rem; }
+        .zz-courses-label { font-family:'JetBrains Mono',monospace; font-size:.58rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-bottom:.32rem; }
+        .zz-courses ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.25rem; }
+        .zz-courses ul li { font-size:.77rem; color:var(--muted); font-family:'Epilogue',sans-serif; padding-left:.9rem; position:relative; }
+        .zz-courses ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue); font-size:.65rem; top:.06rem; }
+        .zz-courses ul li a { color:var(--blue); text-decoration:none; font-weight:600; }
+        .zz-courses ul li a:hover { text-decoration:underline; }
+
+        /* ── SPECIALIZATIONS ── */
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.4rem; }
+        .spec-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:14px; overflow:hidden; transition:transform .3s,box-shadow .3s;
+        }
+        .spec-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
+        .spec-img-wrap { width:100%; height:180px; overflow:hidden; position:relative; }
+        .spec-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+        .spec-card:hover .spec-img-wrap img { transform:scale(1.05); }
+        .spec-img-overlay {
+            position:absolute; inset:0;
+            background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.58) 100%);
+        }
+        .spec-img-label {
+            position:absolute; bottom:.9rem; left:1rem;
+            font-family:'JetBrains Mono',monospace; font-size:.68rem;
+            font-weight:700; color:rgba(255,255,255,.9);
+            letter-spacing:.08em; text-transform:uppercase;
+        }
+        .spec-body { padding:1.3rem 1.5rem; }
+        .spec-name { font-family:'Epilogue',sans-serif; font-size:.98rem; font-weight:800; color:var(--text); margin-bottom:.2rem; }
+        .spec-tag  { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); margin-bottom:.55rem; }
+        .spec-importance { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:.9rem; font-family:'Epilogue',sans-serif; }
+        .spec-skills { display:flex; flex-wrap:wrap; gap:.38rem; }
+        .spec-skill { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem; border-radius:4px; border:1px solid; font-weight:500; }
+        .sk-violet { background:rgba(124,58,237,.07);  border-color:rgba(124,58,237,.22);  color:#7c3aed; }
+        .sk-blue   { background:rgba(65,105,225,.07);  border-color:rgba(65,105,225,.18);  color:var(--blue); }
+        .sk-teal   { background:rgba(20,184,166,.07);  border-color:rgba(20,184,166,.18);  color:#0d9488; }
+        .sk-orange { background:rgba(249,115,22,.07);  border-color:rgba(249,115,22,.22);  color:#ea580c; }
+        .sk-pink   { background:rgba(236,72,153,.07);  border-color:rgba(236,72,153,.22);  color:#db2777; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-tier { margin-bottom:3rem; }
+        .cert-tier:last-child { margin-bottom:0; }
+        .tier-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.2rem; }
+        .tier-badge { font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:.3rem .8rem; border-radius:4px; }
+        .tb-green { background:#dcfce7; color:#16a34a; }
+        .tb-amber { background:#fef3c7; color:#d97706; }
+        .tb-red   { background:#fee2e2; color:#dc2626; }
+        .tier-line { flex:1; height:1px; background:var(--border); }
+        .cert-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+        .cert-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:12px; padding:1.4rem 1.4rem 1.2rem;
+            display:flex; flex-direction:column; gap:.45rem;
+            transition:border-color .2s,transform .2s,box-shadow .2s;
+        }
+        .cert-card:hover { border-color:rgba(65,105,225,.4); transform:translateY(-3px); box-shadow:0 10px 28px rgba(65,105,225,.1); }
+        .cert-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+        .cert-name { font-size:.9rem; font-weight:700; color:var(--text); font-family:'Epilogue',sans-serif; }
+        .cert-pill { font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; padding:.16rem .48rem; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .pill-g { background:#dcfce7; color:#16a34a; }
+        .pill-a { background:#fef3c7; color:#d97706; }
+        .pill-r { background:#fee2e2; color:#dc2626; }
+        .cert-body { font-size:.8rem; color:var(--muted); line-height:1.6; font-family:'Epilogue',sans-serif; flex:1; }
+        .cert-meta { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); }
+        .cert-meta strong { color:var(--text); }
+        .cert-site { font-family:'Epilogue',sans-serif; font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; padding-top:.45rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:.3rem; text-decoration:none; }
+        .cert-site::before { content:'🔗'; font-size:.7rem; }
+        .cert-site:hover { opacity:.75; }
+
+        /* ── CAREER TIMELINE ── */
+        .career-track { display:flex; flex-direction:column; position:relative; }
+        .career-track::before { content:''; position:absolute; left:26px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--blue),var(--purple),#f59e0b,#ef4444,#16a34a,#0ea5e9); }
+        .ct-item { display:flex; gap:1.4rem; padding:0 0 2.2rem; position:relative; }
+        .ct-item:last-child { padding-bottom:0; }
+        .ct-left { width:52px; flex-shrink:0; display:flex; justify-content:center; }
+        .ct-dot  { width:15px; height:15px; border-radius:50%; border:3px solid var(--bg); box-shadow:0 0 0 2px currentColor; margin-top:5px; }
+        .ct-content { flex:1; background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.3rem 1.5rem; transition:box-shadow .25s; }
+        .ct-content:hover { box-shadow:0 8px 22px rgba(65,105,225,.08); }
+        .ct-stage  { font-size:.68rem; font-family:'JetBrains Mono',monospace; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+        .ct-period { font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.05em; margin-bottom:.2rem; }
+        .ct-title  { font-family:'Epilogue',sans-serif; font-size:1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .ct-salary { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700; padding:.22rem .6rem; border-radius:4px; margin-bottom:.55rem; }
+        .cs-blue   { background:rgba(65,105,225,.08); color:var(--blue);   border:1px solid rgba(65,105,225,.2); }
+        .cs-purple { background:rgba(91,79,198,.08);  color:var(--purple);  border:1px solid rgba(91,79,198,.2); }
+        .cs-amber  { background:rgba(245,158,11,.08); color:#d97706;        border:1px solid rgba(245,158,11,.2); }
+        .cs-red    { background:rgba(239,68,68,.08);  color:#dc2626;        border:1px solid rgba(239,68,68,.2); }
+        .cs-green  { background:rgba(22,163,74,.08);  color:#16a34a;        border:1px solid rgba(22,163,74,.2); }
+        .cs-cyan   { background:rgba(14,165,233,.08); color:#0ea5e9;        border:1px solid rgba(14,165,233,.2); }
+        .ct-desc  { font-size:.86rem; color:var(--muted); line-height:1.65; font-family:'Epilogue',sans-serif; margin-bottom:.75rem; }
+        .ct-gains { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .ct-gain  { font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.28rem; background:var(--bg); border:1px solid var(--border); padding:.2rem .6rem; border-radius:4px; font-family:'Epilogue',sans-serif; }
+        .ok { color:#16a34a; font-weight:700; }
+
+        /* ── OUTCOME ── */
+        .outcome-banner { background:linear-gradient(135deg,rgba(65,105,225,.06),rgba(91,79,198,.06)); border:1px solid rgba(65,105,225,.15); border-radius:14px; padding:2rem 2.2rem; margin-top:3rem; }
+        .ob-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1.2rem 1.8rem; margin-bottom:1.3rem; }
+        .ob-item  { text-align:center; }
+        .ob-val   { font-family:'Epilogue',sans-serif; font-size:1.4rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        .ob-lbl   { font-size:.72rem; color:var(--muted); margin-top:.12rem; font-family:'Epilogue',sans-serif; }
+        .ob-note  { padding-top:1.2rem; border-top:1px solid rgba(65,105,225,.12); font-size:.88rem; color:var(--muted); line-height:1.8; font-family:'Epilogue',sans-serif; }
+        .ob-note strong { color:var(--text); }
+
+        /* ── JOBS ── */
+        .jobs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+        .jobs-col h3 { font-family:'Epilogue',sans-serif; font-size:1.1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .jobs-col p  { font-size:.84rem; color:var(--muted); margin-bottom:.9rem; font-family:'Epilogue',sans-serif; line-height:1.6; }
+        .job-links { display:flex; flex-direction:column; gap:.5rem; }
+        .job-link  { display:flex; align-items:center; justify-content:space-between; background:var(--surf); border:1px solid var(--border); border-radius:9px; padding:.85rem 1rem; text-decoration:none; transition:border-color .2s,transform .2s; color:var(--text); }
+        .job-link:hover { border-color:rgba(65,105,225,.4); transform:translateY(-2px); }
+        .jl-left  { display:flex; align-items:center; gap:.7rem; }
+        .jl-icon  { font-size:1.2rem; }
+        .jl-name  { font-family:'Epilogue',sans-serif; font-size:.88rem; font-weight:700; }
+        .jl-cat   { font-family:'JetBrains Mono',monospace; font-size:.63rem; color:var(--muted); display:block; margin-top:.08rem; }
+        .jl-arrow { color:var(--blue); font-size:.95rem; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) { .cert-row { grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:900px) {
+            .hero-inner { grid-template-columns:1fr; min-height:auto; }
+            .hero-img-card { display: none; }
+            .zz-row, .zz-row.reverse, .zz-row.row3 { grid-template-columns:1fr; direction:ltr; }
+            .zz-row::before { display:none; }
+            .zz-connector { display:none; }
+            .zz-phase-card { margin:0 0 1.8rem; }
+            .jobs-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px) {
+            .cy-section { padding:3rem 1.2rem; }
+            .hero-stats { gap:1.2rem; }
+            .cert-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#specializations">Specializations</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#career-timeline">Timeline</a></li>
+            <li><a href="#jobs">Remote Jobs</a></li>
+            <li><a href="index.html" class="cta-button">← All Paths</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    </nav>
+</header>
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="yourcspath-landing.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section">
+    <div class="hero-inner">
+
+        <!-- LEFT: text -->
+        <div class="hero-left fade">
+            <div class="hero-badge">🤖 CAREER PATH · AI / ML ENGINEERING</div>
+            <h1>Engineer the<br><span class="hl">Intelligence</span><br>of Tomorrow.</h1>
+            <p class="hero-desc">
+                Artificial Intelligence and Machine Learning are no longer the future — they are the present. Every major company on earth is racing to embed AI into its products, and the engineers who build, train, and deploy these systems are the most sought-after professionals in all of technology. With median salaries exceeding $187,000 and demand growing 3x faster than supply, this is the highest-ceiling career in modern tech. This roadmap takes you from the fundamentals to production-ready AI systems step by step.
+            </p>
+            <div class="hero-stats">
+                <div><span class="hs-val">$187K</span><div class="hs-lbl">Median US Salary</div></div>
+                <div><span class="hs-val">40%</span><div class="hs-lbl">Job Growth (BLS)</div></div>
+                <div><span class="hs-val">3:1</span><div class="hs-lbl">Demand to Supply Ratio</div></div>
+            </div>
+        </div>
+
+        <!-- RIGHT: immersive image panel -->
+       <div class="hero-img-card fade">
+    <img
+        src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=85"
+        alt="AI Neural Network Visualization"
+        loading="eager"
+    >
+    <div class="hero-img-overlay"></div>
+    <div class="hero-label">🤖 AI / ML Engineering</div>
+    <div class="hero-chips">
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-green"></span>Python · TensorFlow · PyTorch</div>
+            <div class="chip"><span class="chip-dot cd-blue"></span>Deep Learning</div>
+        </div>
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-amber"></span>LLMs · Transformers · RAG</div>
+            <div class="chip"><span class="chip-dot cd-purple"></span>MLOps · Deployment</div>
+        </div>
+        <div class="chip-row">
+            <div class="chip"><span class="chip-dot cd-green"></span>NLP · Computer Vision · GenAI</div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Phase by Phase</div>
+        <h2 class="cy-title fade">Learning Roadmap</h2>
+        <p class="cy-sub fade">Nine structured phases from mathematics foundations to production AI systems. Each includes the topics, tools, and real courses that matter most.</p>
+
+        <div class="zz-wrap">
+
+            <!-- ROW 1 — phases 1,2,3 -->
+            <div class="zz-row fade">
+                <div class="zz-phase-card" data-num="01">
+                    <div class="zz-card-header"><span class="zz-icon">🔢</span>
+                        <div><div class="zz-phase">Phase 1 · Weeks 1–4</div><div class="zz-name">Math & Statistics Foundations</div></div>
+                    </div>
+                    <div class="zz-desc">Machine learning is built on mathematics. You don't need a PhD, but a solid grasp of linear algebra, calculus, probability, and statistics is non-negotiable for understanding why models work — and why they fail.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Linear Algebra</span>
+                        <span class="zz-topic">Matrices & Vectors</span>
+                        <span class="zz-topic">Calculus & Derivatives</span>
+                        <span class="zz-topic">Gradient Descent</span>
+                        <span class="zz-topic">Probability Theory</span>
+                        <span class="zz-topic">Statistics & Distributions</span>
+                        <span class="zz-topic">Bayes' Theorem</span>
+                        <span class="zz-topic">Information Theory</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/mathematics-machine-learning" target="_blank">Mathematics for Machine Learning</a> — Imperial College / Coursera</li>
+                        <li><a href="https://www.khanacademy.org/math/linear-algebra" target="_blank">Linear Algebra</a> — Khan Academy (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="02">
+                    <div class="zz-card-header"><span class="zz-icon">🐍</span>
+                        <div><div class="zz-phase">Phase 2 · Weeks 5–8</div><div class="zz-name">Python for AI/ML</div></div>
+                    </div>
+                    <div class="zz-desc">Python is the undisputed language of AI. Learn the language itself and the core scientific libraries that power every ML pipeline in the world — from data loading to model training.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Python Fundamentals</span>
+                        <span class="zz-topic">NumPy & Arrays</span>
+                        <span class="zz-topic">Pandas DataFrames</span>
+                        <span class="zz-topic">Matplotlib & Seaborn</span>
+                        <span class="zz-topic">Jupyter Notebooks</span>
+                        <span class="zz-topic">Scikit-learn basics</span>
+                        <span class="zz-topic">Data Cleaning & EDA</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/python-for-applied-data-science-ai" target="_blank">Python for Data Science, AI & Development</a> — IBM/Coursera (Free)</li>
+                        <li><a href="https://www.kaggle.com/learn/python" target="_blank">Python & Pandas</a> — Kaggle Learn (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="03">
+                    <div class="zz-card-header"><span class="zz-icon">🧠</span>
+                        <div><div class="zz-phase">Phase 3 · Weeks 9–13</div><div class="zz-name">Machine Learning Fundamentals</div></div>
+                    </div>
+                    <div class="zz-desc">Supervised learning, unsupervised learning, model evaluation — this is the core of ML. Master the classic algorithms that still power real production systems alongside modern deep learning techniques.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Supervised Learning</span>
+                        <span class="zz-topic">Linear & Logistic Regression</span>
+                        <span class="zz-topic">Decision Trees / Random Forest</span>
+                        <span class="zz-topic">SVM & KNN</span>
+                        <span class="zz-topic">Unsupervised Learning</span>
+                        <span class="zz-topic">Clustering & PCA</span>
+                        <span class="zz-topic">Model Evaluation & Cross-Val</span>
+                        <span class="zz-topic">Feature Engineering</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Machine Learning Specialization</a> — Andrew Ng / Stanford / Coursera</li>
+                        <li><a href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank">Intro to Machine Learning</a> — Kaggle Learn (Free)</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector -->
+            <div class="zz-connector"></div>
+
+            <!-- ROW 2 — phases 4,5,6 reversed -->
+            <div class="zz-row reverse fade">
+                <div class="zz-phase-card" data-num="04">
+                    <div class="zz-card-header"><span class="zz-icon">🔗</span>
+                        <div><div class="zz-phase">Phase 4 · Months 4–5</div><div class="zz-name">Deep Learning & Neural Networks</div></div>
+                    </div>
+                    <div class="zz-desc">Deep learning is what separates AI engineers from data analysts. Learn how neural networks think, how to build them from scratch, and how to train them at scale using the dominant frameworks.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Neural Network Architecture</span>
+                        <span class="zz-topic">Backpropagation</span>
+                        <span class="zz-topic">Activation Functions</span>
+                        <span class="zz-topic">CNNs (Convolutional)</span>
+                        <span class="zz-topic">RNNs & LSTMs</span>
+                        <span class="zz-topic">PyTorch Fundamentals</span>
+                        <span class="zz-topic">TensorFlow / Keras</span>
+                        <span class="zz-topic">Transfer Learning</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/deep-learning" target="_blank">Deep Learning Specialization</a> — Andrew Ng / DeepLearning.AI / Coursera</li>
+                        <li><a href="https://www.fast.ai/" target="_blank">Practical Deep Learning for Coders</a> — fast.ai (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="05">
+                    <div class="zz-card-header"><span class="zz-icon">🗣️</span>
+                        <div><div class="zz-phase">Phase 5 · Month 6</div><div class="zz-name">NLP & Large Language Models</div></div>
+                    </div>
+                    <div class="zz-desc">NLP is the most requested AI skill in job postings globally. Transformers, BERT, and GPT-style models now underpin virtually every AI product in production — this phase is where you learn to work with them directly.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Transformer Architecture</span>
+                        <span class="zz-topic">Attention Mechanism</span>
+                        <span class="zz-topic">BERT & GPT Models</span>
+                        <span class="zz-topic">Hugging Face Transformers</span>
+                        <span class="zz-topic">Fine-tuning (LoRA / QLoRA)</span>
+                        <span class="zz-topic">Text Classification & NER</span>
+                        <span class="zz-topic">Sentiment Analysis</span>
+                        <span class="zz-topic">Tokenization</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/natural-language-processing" target="_blank">Natural Language Processing Specialization</a> — DeepLearning.AI / Coursera</li>
+                        <li><a href="https://huggingface.co/learn/nlp-course" target="_blank">HuggingFace NLP Course</a> — Hugging Face (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="06">
+                    <div class="zz-card-header"><span class="zz-icon">✨</span>
+                        <div><div class="zz-phase">Phase 6 · Month 7</div><div class="zz-name">Generative AI & LLM Engineering</div></div>
+                    </div>
+                    <div class="zz-desc">GenAI expertise adds a 40–60% salary premium over baseline ML skills. This phase covers the bleeding edge — RAG systems, LLM agents, prompt engineering, and building real AI-powered applications with foundation models.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Prompt Engineering</span>
+                        <span class="zz-topic">RAG Architecture</span>
+                        <span class="zz-topic">Vector Databases</span>
+                        <span class="zz-topic">LangChain / LlamaIndex</span>
+                        <span class="zz-topic">LLM Agents</span>
+                        <span class="zz-topic">OpenAI / Anthropic APIs</span>
+                        <span class="zz-topic">LLM Evaluation</span>
+                        <span class="zz-topic">RLHF Basics</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.deeplearning.ai/short-courses/" target="_blank">Short Courses — GenAI & LLMs</a> — DeepLearning.AI (Free)</li>
+                        <li><a href="https://www.coursera.org/specializations/generative-ai-engineering-with-llms" target="_blank">Generative AI Engineering with LLMs</a> — IBM/Coursera</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- connector -->
+            <div class="zz-connector from-right"></div>
+
+            <!-- ROW 3 — phases 7,8,9 -->
+            <div class="zz-row row3 fade">
+                <div class="zz-phase-card" data-num="07">
+                    <div class="zz-card-header"><span class="zz-icon">👁️</span>
+                        <div><div class="zz-phase">Phase 7 · Month 8</div><div class="zz-name">Computer Vision</div></div>
+                    </div>
+                    <div class="zz-desc">Computer vision powers self-driving cars, medical imaging, facial recognition, and robotics. Junior Computer Vision engineers already command some of the highest entry-level salaries in all of AI at $121K+.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Image Classification</span>
+                        <span class="zz-topic">Object Detection (YOLO)</span>
+                        <span class="zz-topic">Semantic Segmentation</span>
+                        <span class="zz-topic">OpenCV</span>
+                        <span class="zz-topic">GANs & Diffusion Models</span>
+                        <span class="zz-topic">Vision Transformers (ViT)</span>
+                        <span class="zz-topic">Data Augmentation</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://opencv.org/university/free-opencv-course/" target="_blank">OpenCV Free Course</a> — OpenCV University (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/convolutional-neural-networks" target="_blank">Convolutional Neural Networks</a> — DeepLearning.AI / Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="08">
+                    <div class="zz-card-header"><span class="zz-icon">🚀</span>
+                        <div><div class="zz-phase">Phase 8 · Month 9</div><div class="zz-name">MLOps & Model Deployment</div></div>
+                    </div>
+                    <div class="zz-desc">A model that never ships to production creates zero value. MLOps skills add a 25–40% salary premium and are the biggest bottleneck in the industry — companies struggle to find engineers who can take models from experiment to production reliably.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">ML Pipelines</span>
+                        <span class="zz-topic">Docker & Kubernetes</span>
+                        <span class="zz-topic">AWS SageMaker / Vertex AI</span>
+                        <span class="zz-topic">MLflow & Experiment Tracking</span>
+                        <span class="zz-topic">Model Monitoring</span>
+                        <span class="zz-topic">CI/CD for ML</span>
+                        <span class="zz-topic">FastAPI Model Serving</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops" target="_blank">ML Engineering for Production (MLOps)</a> — DeepLearning.AI / Coursera</li>
+                        <li><a href="https://www.udacity.com/course/machine-learning-dev-ops-engineer--nd0821" target="_blank">ML DevOps Engineer Nanodegree</a> — Udacity</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="09" style="border-color:rgba(65,105,225,.35);">
+                    <div class="zz-card-header"><span class="zz-icon">🎯</span>
+                        <div><div class="zz-phase">Phase 9 · Month 10+</div><div class="zz-name">Choose Your Specialization</div></div>
+                    </div>
+                    <div class="zz-desc">You now have a complete foundation. Go deep into one domain — each is a distinct career with its own tools, research frontier, and salary ceiling. Pick the one that matches your curiosity.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic" style="color:#7c3aed;border-color:rgba(124,58,237,.25);background:rgba(124,58,237,.06);">🗣️ NLP / LLM Engineering</span>
+                        <span class="zz-topic" style="color:#0d9488;border-color:rgba(20,184,166,.25);background:rgba(20,184,166,.06);">👁️ Computer Vision</span>
+                        <span class="zz-topic" style="color:var(--blue);border-color:rgba(65,105,225,.25);background:rgba(65,105,225,.06);">🤖 Reinforcement Learning</span>
+                        <span class="zz-topic" style="color:#ea580c;border-color:rgba(249,115,22,.25);background:rgba(249,115,22,.06);">🚀 MLOps / AI Engineering</span>
+                        <span class="zz-topic" style="color:#db2777;border-color:rgba(236,72,153,.25);background:rgba(236,72,153,.06);">✨ Generative AI</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">↓ Detailed below</div><ul>
+                        <li><a href="#specializations">View all specializations</a> — with skills, tools, and importance</li>
+                        <li><a href="#certifications">View certifications</a> — matched to your chosen track</li>
+                    </ul></div>
+                </div>
+            </div>
+
+        </div><!-- end zz-wrap -->
+    </div>
+</section>
+
+<!-- ══ SPECIALIZATIONS ══ -->
+<section id="specializations" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Choose Your Domain</div>
+        <h2 class="cy-title fade">Specializations</h2>
+        <p class="cy-sub fade">AI/ML branches into highly distinct disciplines. Each has its own research frontier, toolset, and salary ceiling — over 75% of job listings specifically seek domain experts.</p>
+
+        <div class="spec-grid">
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1655720033654-a4239dd42d10?w=600&q=80" alt="NLP and Language Models" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">NLP / LLMs</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🗣️ NLP & LLM Engineering</div>
+                    <div class="spec-tag">Language AI · The Highest-Demand Specialization</div>
+                    <div class="spec-importance">NLP appears in 19.7% of all AI job postings — the single most requested AI specialization. NLP engineers build the systems behind chatbots, document analysis, search, and language understanding. With the explosion of LLMs like GPT and Claude, engineers who can fine-tune, evaluate, and deploy language models are commanding $170K+ at mid-level. GenAI expertise alone adds a 40–60% salary premium above baseline ML engineers.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-violet">Transformers (BERT/GPT)</span>
+                        <span class="spec-skill sk-violet">Hugging Face</span>
+                        <span class="spec-skill sk-violet">LangChain</span>
+                        <span class="spec-skill sk-violet">RAG Systems</span>
+                        <span class="spec-skill sk-violet">Vector DBs</span>
+                        <span class="spec-skill sk-violet">Fine-tuning / LoRA</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?w=600&q=80" alt="Computer Vision" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Computer Vision</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">👁️ Computer Vision</div>
+                    <div class="spec-tag">Visual AI · Self-Driving Cars · Medical Imaging</div>
+                    <div class="spec-importance">Computer vision engineers build systems that help machines see and understand the world. From facial recognition and autonomous vehicles to medical imaging diagnostics and quality control in manufacturing — CV powers it all. Junior CV engineers already command the highest entry-level salaries in AI at $121K+, with senior specialists reaching $211K. The rise of diffusion models and vision transformers has made this specialization even hotter in 2025.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-teal">CNNs & ViTs</span>
+                        <span class="spec-skill sk-teal">YOLO / Object Detection</span>
+                        <span class="spec-skill sk-teal">OpenCV</span>
+                        <span class="spec-skill sk-teal">Image Segmentation</span>
+                        <span class="spec-skill sk-teal">GANs / Diffusion</span>
+                        <span class="spec-skill sk-teal">TensorFlow / PyTorch</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80" alt="Reinforcement Learning" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Reinforcement Learning</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🤖 Reinforcement Learning</div>
+                    <div class="spec-tag">RL · Agents That Learn by Doing</div>
+                    <div class="spec-importance">Reinforcement learning is what powers AlphaGo, game-playing AI, robotics control systems, and increasingly — the RLHF training that shapes modern LLMs like ChatGPT. It is the most mathematically demanding specialization in ML and the one with the fewest qualified engineers — making specialists extremely valuable. Companies like DeepMind, OpenAI, and NVIDIA are leading employers in this space.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-blue">Markov Decision Processes</span>
+                        <span class="spec-skill sk-blue">Q-Learning / DQN</span>
+                        <span class="spec-skill sk-blue">Policy Gradient</span>
+                        <span class="spec-skill sk-blue">PPO / SAC</span>
+                        <span class="spec-skill sk-blue">OpenAI Gym</span>
+                        <span class="spec-skill sk-blue">RLHF</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&q=80" alt="MLOps and AI Engineering" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">MLOps</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🚀 MLOps & AI Engineering</div>
+                    <div class="spec-tag">Production AI · The Biggest Skills Gap</div>
+                    <div class="spec-importance">MLOps is the single biggest bottleneck in the industry. Companies have models — they can't reliably deploy or maintain them. MLOps engineers build the pipelines, infrastructure, and monitoring systems that take AI from a Jupyter notebook to a production system serving millions of users. MLOps skills add a 25–40% salary premium and are increasingly required at every level of ML engineering.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-orange">AWS SageMaker</span>
+                        <span class="spec-skill sk-orange">Vertex AI</span>
+                        <span class="spec-skill sk-orange">MLflow</span>
+                        <span class="spec-skill sk-orange">Docker / Kubernetes</span>
+                        <span class="spec-skill sk-orange">Airflow / Kubeflow</span>
+                        <span class="spec-skill sk-orange">Model Monitoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=600&q=80" alt="Generative AI" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Generative AI</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">✨ Generative AI</div>
+                    <div class="spec-tag">GenAI · The Fastest-Growing Segment</div>
+                    <div class="spec-importance">Generative AI is the single fastest-growing segment of the entire tech industry in 2025. Engineers who specialize in building GenAI applications — whether image generation, video synthesis, or AI-powered creative tools — are working at the bleeding edge. Professionals specializing in GenAI average $174K annually, with top performers at leading AI labs exceeding $300K. Demand for prompt engineers alone grew 135% in one year.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-pink">Stable Diffusion</span>
+                        <span class="spec-skill sk-pink">DALL-E / Midjourney API</span>
+                        <span class="spec-skill sk-pink">LLM Fine-tuning</span>
+                        <span class="spec-skill sk-pink">Multimodal Models</span>
+                        <span class="spec-skill sk-pink">ComfyUI</span>
+                        <span class="spec-skill sk-pink">Prompt Engineering</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Recognized</div>
+        <h2 class="cy-title fade">Certifications</h2>
+        <p class="cy-sub fade">In AI/ML, certifications matter less than portfolio projects — but these credentials from major tech companies add credibility and signal seriousness to employers.</p>
+
+        <div class="fade">
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-green">// Beginner — Build The Foundation</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Machine Learning Specialization</span><span class="cert-pill pill-g">ML-SPEC</span></div>
+                        <div class="cert-body">The definitive beginner ML program by Andrew Ng and Stanford. Covers supervised learning, unsupervised learning, recommenders, and RL. Used by millions worldwide — the gold standard first credential.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM Machine Learning Professional</span><span class="cert-pill pill-g">IBM-ML</span></div>
+                        <div class="cert-body">Six-course IBM program on Coursera covering supervised, unsupervised, deep learning, and reinforcement learning. No prerequisites — designed for career changers entering AI from any background.</div>
+                        <div class="cert-meta">Cost: <strong>~$59/month</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ibm-machine-learning" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Azure AI Fundamentals</span><span class="cert-pill pill-g">AI-900</span></div>
+                        <div class="cert-body">Entry-level Azure AI certification covering AI concepts, ML fundamentals, and Azure Cognitive Services. No coding required. The recommended first cert for professionals transitioning into AI from non-technical backgrounds.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS AI Practitioner</span><span class="cert-pill pill-g">AWS-AIP</span></div>
+                        <div class="cert-body">Amazon's newest foundational AI cert. Covers AI/ML concepts, generative AI, and AWS AI services. Designed for anyone wanting to understand AI in the AWS ecosystem before pursuing specialty certifications.</div>
+                        <div class="cert-meta">Cost: <strong>~$100</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-ai-practitioner/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-amber">// Intermediate — Prove Your Skills</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Deep Learning Specialization</span><span class="cert-pill pill-a">DL-SPEC</span></div>
+                        <div class="cert-body">Five-course program by Andrew Ng at DeepLearning.AI. Covers neural networks, CNNs, sequence models, and structuring ML projects. The most respected deep learning credential in the industry globally.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Azure AI Engineer</span><span class="cert-pill pill-a">AI-102</span></div>
+                        <div class="cert-body">The premier Azure AI certification for implementing AI solutions including Azure OpenAI Service (GPT-4). Extremely valuable for engineers building enterprise GenAI applications on the Microsoft stack.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM AI Engineering Professional</span><span class="cert-pill pill-a">IBM-AIE</span></div>
+                        <div class="cert-body">Hands-on AI development with TensorFlow, PyTorch, and Keras. Covers practical model building and deployment. Ideal complement to theoretical ML courses — focuses on building real systems.</div>
+                        <div class="cert-meta">Cost: <strong>~$59/month</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ai-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">DeepLearning.AI GenAI with LLMs</span><span class="cert-pill pill-a">GENAI</span></div>
+                        <div class="cert-body">Short but highly practical course on generative AI, LLM fine-tuning, and deployment by DeepLearning.AI. One of the fastest ways to add GenAI credentials to your profile before the advanced cloud certs.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/learn/generative-ai-with-llms" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-red">// Advanced — Elite Level</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Certified ML — Specialty</span><span class="cert-pill pill-r">AWS-MLS</span></div>
+                        <div class="cert-body">The most comprehensive AWS ML certification. Covers the full end-to-end ML lifecycle — data engineering, model training, deployment, and monitoring using AWS services. Requires 1 year of hands-on AWS experience.</div>
+                        <div class="cert-meta">Cost: <strong>~$300</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-machine-learning-specialty/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Cloud ML Engineer</span><span class="cert-pill pill-r">GCP-MLE</span></div>
+                        <div class="cert-body">Google's flagship ML certification. Validates ability to design, build, and productionize ML models on Google Cloud using Vertex AI and TensorFlow. Two-hour exam, 50–60 questions, recommended 3 years experience.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/machine-learning-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Azure Data Scientist Associate</span><span class="cert-pill pill-r">DP-100</span></div>
+                        <div class="cert-body">Microsoft's advanced ML certification covering ML solution design, Azure ML workspace, model training, optimization, and deployment with MLflow. Highly valued in enterprise environments using Microsoft's AI stack.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-data-scientist/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">MLOps Specialization</span><span class="cert-pill pill-r">MLOPS</span></div>
+                        <div class="cert-body">Four-course specialization by DeepLearning.AI and Andrew Ng covering ML pipelines, data management, model deployment, and monitoring at production scale. The go-to advanced credential for MLOps engineers.</div>
+                        <div class="cert-meta">Cost: <strong>~Coursera Sub.</strong></div>
+                        <a href="https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CAREER TIMELINE ══ -->
+<section id="career-timeline" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">From Student to Expert</div>
+        <h2 class="cy-title fade">Career Growth Timeline</h2>
+        <p class="cy-sub fade">A realistic picture of your AI/ML journey. This field rewards depth over breadth — the longer you stay and specialize, the more your value compounds exponentially.</p>
+
+        <div class="career-track">
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--blue);background:var(--blue);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Learning Phase</div>
+                    <div class="ct-period" style="color:var(--blue);">Months 1–8 — Foundations, ML, and Deep Learning</div>
+                    <div class="ct-title">Building Your AI Foundation</div>
+                    <div class="ct-desc">Study math, Python, and classic ML algorithms. Complete Andrew Ng's Machine Learning Specialization and the Deep Learning Specialization. Build at least 3 end-to-end projects on Kaggle or GitHub. Begin competing in Kaggle competitions — even bronze medals look excellent on a resume. Document your learning publicly on LinkedIn.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>ML Specialization completed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>3 Kaggle projects shipped</span>
+                        <span class="ct-gain"><span class="ok">✓</span>GitHub portfolio active</span>
+                        <span class="ct-gain"><span class="ok">✓</span>First Kaggle competition</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--purple);background:var(--purple);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">First Opportunity</div>
+                    <div class="ct-period" style="color:var(--purple);">Months 9–14 — Internship / Junior Role</div>
+                    <div class="ct-title">Your First AI/ML Job</div>
+                    <span class="ct-salary cs-purple">💼 $60K–$100K (Internship / Junior Researcher)</span>
+                    <div class="ct-desc">Apply for ML engineering internships, junior data scientist roles, or research assistant positions. Unlike web development, AI/ML internships are often research-heavy and may require academic connections. Build your reputation on Kaggle, contribute to Hugging Face models, and publish a write-up or GitHub project that demonstrates original thinking.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First ML internship landed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Kaggle Master / Expert rank</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Published ML write-up</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Intermediate cert earned</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#f59e0b;background:#f59e0b;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Early Career</div>
+                    <div class="ct-period" style="color:#d97706;">Year 1–2 — Junior ML Engineer</div>
+                    <div class="ct-title">ML Engineer / AI Engineer / Data Scientist</div>
+                    <span class="ct-salary cs-amber">💰 $100K–$150K</span>
+                    <div class="ct-desc">Junior ML engineers already start significantly above most tech roles. You are building, training, and evaluating models for real business problems — recommendation systems, fraud detection, churn prediction, or NLP pipelines. Start specializing in either NLP, Computer Vision, or MLOps based on your interests and company needs. Cloud certification at this stage opens more senior doors.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First ML role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Production model deployed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Specialization chosen</span>
+                        <span class="ct-gain"><span class="ok">✓</span>AWS / Azure cert in progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#ef4444;background:#ef4444;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Career Growth</div>
+                    <div class="ct-period" style="color:#ef4444;">Year 3–5 — Mid-Level ML Engineer</div>
+                    <div class="ct-title">Senior ML Engineer / NLP Engineer / CV Engineer / MLOps Engineer</div>
+                    <span class="ct-salary cs-red">💰 $149K–$200K</span>
+                    <div class="ct-desc">Mid-level ML engineers with 3–5 years of experience and specialization are among the most sought-after professionals in all of tech. The jump from junior to mid-level is approximately 29% salary increase. You are now designing full ML systems, leading model development, and owning production models. LLM or GenAI expertise at this stage pushes compensation significantly above baseline.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Mid-level role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Google or AWS cloud cert</span>
+                        <span class="ct-gain"><span class="ok">✓</span>System design ownership</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Mentoring junior engineers</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#16a34a;background:#16a34a;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Senior Level</div>
+                    <div class="ct-period" style="color:#16a34a;">Year 5–7 — Senior ML Engineer / AI Lead</div>
+                    <div class="ct-title">Senior ML Engineer / AI Research Engineer / Staff Engineer</div>
+                    <span class="ct-salary cs-green">💰 $175K–$275K</span>
+                    <div class="ct-desc">Senior ML engineers design complete AI systems end-to-end and own critical production models that impact millions of users. At this level you are defining technical vision, establishing team standards, and making architectural decisions that span years. Companies like Apple, Google, Meta, and NVIDIA are paying their senior ML engineers $300K–$400K+ in total compensation at this level.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Senior / Staff role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Technical vision ownership</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Published research or patents</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Speaking at conferences</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#0ea5e9;background:#0ea5e9;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Expert / Leadership</div>
+                    <div class="ct-period" style="color:#0ea5e9;">Year 7+ — Principal / Research Scientist / AI Lead</div>
+                    <div class="ct-title">Principal Engineer / AI Research Scientist / Head of AI / CTO Track</div>
+                    <span class="ct-salary cs-cyan">💰 $235K–$500K+</span>
+                    <div class="ct-desc">The ceiling in AI/ML is among the highest in all of human employment. Principal ML engineers and AI research scientists at top labs and tech companies command $300K–$700K+ in total compensation including equity. Hedge funds and quantitative trading firms pay AI specialists up to $1M+ for the right skills. This is a field where genuine expertise is compensated at extraordinary levels — and the demand will only compound as AI continues to reshape every industry.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Principal / Research role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Industry recognition</span>
+                        <span class="ct-gain"><span class="ok">✓</span>$300K+ total comp</span>
+                        <span class="ct-gain"><span class="ok">✓</span>PhD optional but valuable</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outcome-banner fade">
+            <div class="ob-stats">
+                <div class="ob-item"><span class="ob-val">$100K</span><div class="ob-lbl">Junior (Year 1)</div></div>
+                <div class="ob-item"><span class="ob-val">$175K</span><div class="ob-lbl">Mid-level (Year 3–5)</div></div>
+                <div class="ob-item"><span class="ob-val">$240K+</span><div class="ob-lbl">Senior (Year 5–7)</div></div>
+                <div class="ob-item"><span class="ob-val">40%</span><div class="ob-lbl">Job growth (BLS)</div></div>
+                <div class="ob-item"><span class="ob-val">3:1</span><div class="ob-lbl">Demand to supply</div></div>
+            </div>
+            <div class="ob-note">
+                AI/ML engineering is the highest-ceiling, highest-demand career in the history of computer science. <strong>The median salary for an AI/ML engineer in the US is $187,500</strong> — and junior engineers already start at $100K+. With 78% of positions targeting professionals with real specialization and a 3:1 demand-to-supply ratio, every engineer who commits to this path and goes deep in a specialization enters one of the most seller's markets in all of tech. The ML market is projected to reach <strong>$503 billion by 2030</strong>, the World Economic Forum projects 170 million new AI-related jobs globally by that year, and 86% of employers expect AI to fundamentally transform their business. <strong>The engineers who understand how to build, deploy, and maintain these systems will be the most valuable people in the digital economy.</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REMOTE JOBS ══ -->
+<section id="jobs" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Hired</div>
+        <h2 class="cy-title fade">Remote Internships & Jobs</h2>
+        <p class="cy-sub fade">AI/ML roles are highly remote-friendly at mid and senior levels. These platforms connect you with opportunities from research internships to senior engineering positions worldwide.</p>
+
+        <div class="jobs-grid">
+            <div class="jobs-col fade">
+                <h3>🎓 Research Internships & Entry Roles</h3>
+                <p>AI/ML internships are highly competitive. Beyond job boards, Kaggle competitions, Hugging Face contributions, and published projects are often the deciding factor in getting interviews.</p>
+                <div class="job-links">
+                    <a href="https://www.linkedin.com/jobs/machine-learning-engineer-jobs/?f_WT=2&f_E=1" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💼</span><div><div class="jl-name">LinkedIn Jobs</div><span class="jl-cat">Remote ML Engineer Internships</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.kaggle.com/jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">📊</span><div><div class="jl-name">Kaggle Jobs</div><span class="jl-cat">Data Science & ML Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://huggingface.co/jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🤗</span><div><div class="jl-name">Hugging Face Jobs</div><span class="jl-cat">NLP & ML Research Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.internshala.com/internships/machine-learning-internship" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎯</span><div><div class="jl-name">Internshala</div><span class="jl-cat">ML Internships (South Asia)</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://aijobs.net" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🤖</span><div><div class="jl-name">AI Jobs</div><span class="jl-cat">Dedicated AI/ML Job Board</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="jobs-col fade">
+                <h3>🌍 Remote Full-Time ML Roles</h3>
+                <p>Senior ML engineers work remotely at some of the highest-paying companies on earth. These boards specialize in technical AI/ML roles across all levels.</p>
+                <div class="job-links">
+                    <a href="https://remoteok.com/remote-machine-learning-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏠</span><div><div class="jl-name">Remote OK</div><span class="jl-cat">Remote-First ML Engineering Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://jobs.lever.co/?team=Machine%20Learning" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">⚙️</span><div><div class="jl-name">Lever ML Jobs</div><span class="jl-cat">ML Roles at Top Startups</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.indeed.com/q-remote-machine-learning-engineer-jobs.html" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🔍</span><div><div class="jl-name">Indeed</div><span class="jl-cat">Remote ML Engineer — All Levels</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.glassdoor.com/Job/remote-machine-learning-engineer-jobs-SRCH_KO0,32.htm" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏢</span><div><div class="jl-name">Glassdoor</div><span class="jl-cat">ML Jobs + Company Reviews + Salaries</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://wellfound.com/jobs?role=ml-engineer" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🚀</span><div><div class="jl-name">Wellfound (AngelList)</div><span class="jl-cat">ML Roles at AI Startups</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/pages.js"></script>
+<script>injectFooter('');</script>
+</body>
+</html>

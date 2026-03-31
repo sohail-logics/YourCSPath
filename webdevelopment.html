@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development — YourCSPath</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="homepage-style.css">
+    <link rel="stylesheet" href="/pages.css">
+
+    <style>
+
+        /* ── VARIABLES ── */
+        :root {
+            --blue:   #4169E1;
+            --purple: #5b4fc6;
+            --grad:   linear-gradient(135deg,#4169E1,#5b4fc6);
+            --bg:     #f8f9fc;
+            --surf:   #ffffff;
+            --border: #e2e8f0;
+            --text:   #0f1419;
+            --muted:  #5f6c7b;
+            --lb:     rgba(65,105,225,.07);
+        }
+
+        /* ── DARK MODE OVERRIDES ── */
+        body.dark-mode .cy-section,
+        body.dark-mode section { background-color: var(--bg) !important; }
+        body.dark-mode .cy-section[style*="var(--surf)"] { background: var(--surf) !important; }
+        body.dark-mode .zz-phase-card,
+        body.dark-mode .spec-card,
+        body.dark-mode .cert-card,
+        body.dark-mode .ct-content,
+        body.dark-mode .job-link,
+        body.dark-mode .outcome-banner { background: var(--surf) !important; border-color: var(--border) !important; }
+        body.dark-mode .hero-section { background: var(--surf) !important; }
+        body.dark-mode .hero-terminal { background: #0d1117 !important; border-color: #2a3148 !important; }
+        body.dark-mode .terminal-bar  { background: #161b22 !important; }
+
+        /* ── HERO — split layout ── */
+        .hero-section {
+            margin-top: 80px;
+            background: var(--surf);
+            border-bottom: 1px solid var(--border);
+            padding: 4rem 3rem;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            letter-spacing: .1em;
+            background: var(--lb);
+            border: 1px solid rgba(65,105,225,.25);
+            color: var(--blue);
+            padding: .38rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.3rem;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 7px; height: 7px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+        .hero-section h1 {
+            font-family: 'Epilogue', sans-serif;
+            font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: var(--text);
+            margin-bottom: 1.1rem;
+        }
+        .hero-section h1 .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: .98rem;
+            color: var(--muted);
+            line-height: 1.78;
+            margin-bottom: 2rem;
+            font-family: 'Epilogue', sans-serif;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1.6rem;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .hs-val {
+            font-family: 'Epilogue', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        .hs-lbl { font-size: .76rem; color: var(--muted); margin-top: .1rem; font-family:'Epilogue',sans-serif; }
+
+        /* ── HERO IMAGE CARD (web-themed, replaces terminal) ── */
+        .hero-img-card {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,.15);
+            animation: fadeInRight .8s ease-out .2s both;
+            position: relative;
+        }
+        @keyframes fadeInRight {
+            from { opacity:0; transform:translateX(30px); }
+            to   { opacity:1; transform:translateX(0); }
+        }
+        .hero-img-card img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(65,105,225,.35) 0%, rgba(91,79,198,.25) 100%);
+        }
+        .hero-img-stats {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+        .his-pill {
+            background: rgba(255,255,255,.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 6px;
+            padding: .4rem .9rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .72rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        .hero-img-label {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .7rem;
+            color: rgba(255,255,255,.85);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(65,105,225,.6);
+            padding: .3rem .8rem;
+            border-radius: 4px;
+        }
+
+        /* ── SHARED SECTION ── */
+        .cy-section { padding: 4.5rem 2.5rem; border-bottom: 1px solid var(--border); }
+        .cy-inner { max-width: 1200px; margin: 0 auto; }
+        .cy-label {
+            font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500;
+            letter-spacing:.12em; text-transform:uppercase; color:var(--blue);
+            margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem;
+        }
+        .cy-label::before { content:''; width:16px; height:2px; background:var(--blue); }
+        .cy-title {
+            font-family:'Epilogue',sans-serif; font-size:clamp(1.55rem,2.5vw,2.1rem);
+            font-weight:800; letter-spacing:-.02em; margin-bottom:.4rem; color:var(--text);
+        }
+        .cy-sub {
+            font-size:.93rem; color:var(--muted); max-width:560px;
+            line-height:1.7; margin-bottom:2.8rem; font-family:'Epilogue',sans-serif;
+        }
+        .fade { opacity:0; transform:translateY(18px); transition:opacity .55s ease,transform .55s ease; }
+        .fade.on { opacity:1; transform:none; }
+
+        /* ── SNAKE ROADMAP ── */
+        .zz-wrap { position:relative; }
+        .zz-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+            margin-bottom: 0;
+        }
+        .zz-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: calc(16.66% + 18px);
+            right: calc(16.66% + 18px);
+            height: 3px;
+            background: linear-gradient(90deg, #4169E1, #5b4fc6, #9650ff);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        .zz-row.reverse::before { background: linear-gradient(90deg, #9650ff, #f59e0b, #ef4444); }
+        .zz-row.row3::before {
+            background: linear-gradient(90deg, #ef4444, #16a34a);
+            right: calc(16.66% + 18px);
+        }
+        .zz-connector {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(16.66% + 6px);
+            height: 60px;
+        }
+        .zz-connector.from-right {
+            justify-content: flex-start;
+            padding-left: calc(16.66% + 6px);
+            padding-right: 0;
+        }
+        .zz-connector::before {
+            content: ''; width: 3px; height: 100%;
+            background: linear-gradient(180deg, #9650ff, #f59e0b);
+            display: block; border-radius: 2px;
+        }
+        .zz-connector.from-right::before { background: linear-gradient(180deg, #ef4444, #16a34a); }
+        .zz-phase-card {
+            background: var(--surf);
+            border: 2px solid rgba(65,105,225,.2);
+            border-radius: 14px;
+            padding: 1.8rem 1.8rem 1.6rem;
+            margin: 0 18px;
+            position: relative;
+            z-index: 1;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+            box-shadow: 0 2px 14px rgba(65,105,225,.07);
+        }
+        .zz-phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(65,105,225,.14);
+            border-color: rgba(65,105,225,.45);
+        }
+        .zz-phase-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -16px; left: 50%;
+            transform: translateX(-50%);
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .68rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3; line-height: 32px; text-align: center;
+            box-shadow: 0 3px 10px rgba(65,105,225,.35);
+        }
+        .zz-row.reverse { direction: rtl; }
+        .zz-row.reverse .zz-phase-card { direction: ltr; }
+        .zz-card-header { display:flex; align-items:center; gap:.65rem; margin-bottom:.55rem; padding-top:.6rem; }
+        .zz-icon { font-size:1.4rem; flex-shrink:0; }
+        .zz-phase { font-family:'JetBrains Mono',monospace; font-size:.61rem; color:var(--muted); letter-spacing:.05em; margin-bottom:.12rem; }
+        .zz-name  { font-family:'Epilogue',sans-serif; font-size:.92rem; font-weight:800; color:var(--text); line-height:1.2; }
+        .zz-desc  { font-size:.81rem; color:var(--muted); line-height:1.65; margin-bottom:.75rem; font-family:'Epilogue',sans-serif; }
+        .zz-topics { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.75rem; }
+        .zz-topic {
+            font-family:'JetBrains Mono',monospace; font-size:.6rem;
+            background:var(--lb); border:1px solid rgba(65,105,225,.15);
+            color:var(--blue); padding:.18rem .48rem; border-radius:3px;
+        }
+        .zz-courses { border-top:1px solid var(--border); padding-top:.65rem; }
+        .zz-courses-label { font-family:'JetBrains Mono',monospace; font-size:.58rem; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; margin-bottom:.32rem; }
+        .zz-courses ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.25rem; }
+        .zz-courses ul li { font-size:.77rem; color:var(--muted); font-family:'Epilogue',sans-serif; padding-left:.9rem; position:relative; }
+        .zz-courses ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue); font-size:.65rem; top:.06rem; }
+        .zz-courses ul li a { color:var(--blue); text-decoration:none; font-weight:600; }
+        .zz-courses ul li a:hover { text-decoration:underline; }
+
+        /* ── SPECIALIZATIONS ── */
+        .spec-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.4rem; }
+        .spec-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:14px; overflow:hidden; transition:transform .3s,box-shadow .3s;
+        }
+        .spec-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
+        .spec-img-wrap { width:100%; height:180px; overflow:hidden; position:relative; }
+        .spec-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+        .spec-card:hover .spec-img-wrap img { transform:scale(1.05); }
+        .spec-img-overlay {
+            position:absolute; inset:0;
+            background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.55) 100%);
+        }
+        .spec-img-label {
+            position:absolute; bottom:.9rem; left:1rem;
+            font-family:'JetBrains Mono',monospace; font-size:.68rem;
+            font-weight:700; color:rgba(255,255,255,.9);
+            letter-spacing:.08em; text-transform:uppercase;
+        }
+        .spec-body { padding:1.3rem 1.5rem; }
+        .spec-name { font-family:'Epilogue',sans-serif; font-size:.98rem; font-weight:800; color:var(--text); margin-bottom:.2rem; }
+        .spec-tag  { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); margin-bottom:.55rem; }
+        .spec-importance { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:.9rem; font-family:'Epilogue',sans-serif; }
+        .spec-skills { display:flex; flex-wrap:wrap; gap:.38rem; }
+        .spec-skill { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem; border-radius:4px; border:1px solid; font-weight:500; }
+        .sk-orange { background:rgba(249,115,22,.07);  border-color:rgba(249,115,22,.22);  color:#ea580c; }
+        .sk-blue   { background:rgba(65,105,225,.07);  border-color:rgba(65,105,225,.18);  color:var(--blue); }
+        .sk-green  { background:rgba(22,163,74,.07);   border-color:rgba(22,163,74,.18);   color:#16a34a; }
+        .sk-purple { background:rgba(150,80,255,.07);  border-color:rgba(150,80,255,.18);  color:#9650ff; }
+        .sk-cyan   { background:rgba(14,165,233,.07);  border-color:rgba(14,165,233,.18);  color:#0ea5e9; }
+        .sk-amber  { background:rgba(245,158,11,.07);  border-color:rgba(245,158,11,.18);  color:#d97706; }
+
+        /* ── CERTIFICATIONS ── */
+        .cert-tier { margin-bottom:3rem; }
+        .cert-tier:last-child { margin-bottom:0; }
+        .tier-header { display:flex; align-items:center; gap:.7rem; margin-bottom:1.2rem; }
+        .tier-badge { font-family:'JetBrains Mono',monospace; font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; padding:.3rem .8rem; border-radius:4px; }
+        .tb-green { background:#dcfce7; color:#16a34a; }
+        .tb-amber { background:#fef3c7; color:#d97706; }
+        .tb-red   { background:#fee2e2; color:#dc2626; }
+        .tier-line { flex:1; height:1px; background:var(--border); }
+        .cert-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; }
+        .cert-card {
+            background:var(--surf); border:1px solid var(--border);
+            border-radius:12px; padding:1.4rem 1.4rem 1.2rem;
+            display:flex; flex-direction:column; gap:.45rem;
+            transition:border-color .2s,transform .2s,box-shadow .2s;
+        }
+        .cert-card:hover { border-color:rgba(65,105,225,.4); transform:translateY(-3px); box-shadow:0 10px 28px rgba(65,105,225,.1); }
+        .cert-top { display:flex; justify-content:space-between; align-items:flex-start; gap:.5rem; }
+        .cert-name { font-size:.9rem; font-weight:700; color:var(--text); font-family:'Epilogue',sans-serif; }
+        .cert-pill { font-family:'JetBrains Mono',monospace; font-size:.62rem; font-weight:700; padding:.16rem .48rem; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .pill-g { background:#dcfce7; color:#16a34a; }
+        .pill-a { background:#fef3c7; color:#d97706; }
+        .pill-r { background:#fee2e2; color:#dc2626; }
+        .cert-body { font-size:.8rem; color:var(--muted); line-height:1.6; font-family:'Epilogue',sans-serif; flex:1; }
+        .cert-meta { font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); }
+        .cert-meta strong { color:var(--text); }
+        .cert-site { font-family:'Epilogue',sans-serif; font-size:.8rem; font-weight:600; color:var(--blue); margin-top:auto; padding-top:.45rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:.3rem; text-decoration:none; }
+        .cert-site::before { content:'🔗'; font-size:.7rem; }
+        .cert-site:hover { opacity:.75; }
+
+        /* ── CAREER TIMELINE ── */
+        .career-track { display:flex; flex-direction:column; position:relative; }
+        .career-track::before { content:''; position:absolute; left:26px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--blue),var(--purple),#f59e0b,#ef4444,#16a34a,#0ea5e9); }
+        .ct-item { display:flex; gap:1.4rem; padding:0 0 2.2rem; position:relative; }
+        .ct-item:last-child { padding-bottom:0; }
+        .ct-left { width:52px; flex-shrink:0; display:flex; justify-content:center; }
+        .ct-dot  { width:15px; height:15px; border-radius:50%; border:3px solid var(--bg); box-shadow:0 0 0 2px currentColor; margin-top:5px; }
+        .ct-content { flex:1; background:var(--surf); border:1px solid var(--border); border-radius:12px; padding:1.3rem 1.5rem; transition:box-shadow .25s; }
+        .ct-content:hover { box-shadow:0 8px 22px rgba(65,105,225,.08); }
+        .ct-stage  { font-size:.68rem; font-family:'JetBrains Mono',monospace; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+        .ct-period { font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:500; letter-spacing:.05em; margin-bottom:.2rem; }
+        .ct-title  { font-family:'Epilogue',sans-serif; font-size:1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .ct-salary { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.7rem; font-weight:700; padding:.22rem .6rem; border-radius:4px; margin-bottom:.55rem; }
+        .cs-blue   { background:rgba(65,105,225,.08); color:var(--blue);   border:1px solid rgba(65,105,225,.2); }
+        .cs-purple { background:rgba(91,79,198,.08);  color:var(--purple);  border:1px solid rgba(91,79,198,.2); }
+        .cs-amber  { background:rgba(245,158,11,.08); color:#d97706;        border:1px solid rgba(245,158,11,.2); }
+        .cs-red    { background:rgba(239,68,68,.08);  color:#dc2626;        border:1px solid rgba(239,68,68,.2); }
+        .cs-green  { background:rgba(22,163,74,.08);  color:#16a34a;        border:1px solid rgba(22,163,74,.2); }
+        .cs-cyan   { background:rgba(14,165,233,.08); color:#0ea5e9;        border:1px solid rgba(14,165,233,.2); }
+        .ct-desc  { font-size:.86rem; color:var(--muted); line-height:1.65; font-family:'Epilogue',sans-serif; margin-bottom:.75rem; }
+        .ct-gains { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .ct-gain  { font-size:.76rem; color:var(--muted); display:flex; align-items:center; gap:.28rem; background:var(--bg); border:1px solid var(--border); padding:.2rem .6rem; border-radius:4px; font-family:'Epilogue',sans-serif; }
+        .ok { color:#16a34a; font-weight:700; }
+
+        /* ── OUTCOME ── */
+        .outcome-banner { background:linear-gradient(135deg,rgba(65,105,225,.06),rgba(91,79,198,.06)); border:1px solid rgba(65,105,225,.15); border-radius:14px; padding:2rem 2.2rem; margin-top:3rem; }
+        .ob-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1.2rem 1.8rem; margin-bottom:1.3rem; }
+        .ob-item  { text-align:center; }
+        .ob-val   { font-family:'Epilogue',sans-serif; font-size:1.4rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+        .ob-lbl   { font-size:.72rem; color:var(--muted); margin-top:.12rem; font-family:'Epilogue',sans-serif; }
+        .ob-note  { padding-top:1.2rem; border-top:1px solid rgba(65,105,225,.12); font-size:.88rem; color:var(--muted); line-height:1.8; font-family:'Epilogue',sans-serif; }
+        .ob-note strong { color:var(--text); }
+
+        /* ── JOBS ── */
+        .jobs-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+        .jobs-col h3 { font-family:'Epilogue',sans-serif; font-size:1.1rem; font-weight:800; margin-bottom:.3rem; color:var(--text); }
+        .jobs-col p  { font-size:.84rem; color:var(--muted); margin-bottom:.9rem; font-family:'Epilogue',sans-serif; line-height:1.6; }
+        .job-links { display:flex; flex-direction:column; gap:.5rem; }
+        .job-link  { display:flex; align-items:center; justify-content:space-between; background:var(--surf); border:1px solid var(--border); border-radius:9px; padding:.85rem 1rem; text-decoration:none; transition:border-color .2s,transform .2s; color:var(--text); }
+        .job-link:hover { border-color:rgba(65,105,225,.4); transform:translateY(-2px); }
+        .jl-left  { display:flex; align-items:center; gap:.7rem; }
+        .jl-icon  { font-size:1.2rem; }
+        .jl-name  { font-family:'Epilogue',sans-serif; font-size:.88rem; font-weight:700; }
+        .jl-cat   { font-family:'JetBrains Mono',monospace; font-size:.63rem; color:var(--muted); display:block; margin-top:.08rem; }
+        .jl-arrow { color:var(--blue); font-size:.95rem; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) { .cert-row { grid-template-columns:repeat(2,1fr); } }
+        @media(max-width:900px) {
+            .hero-inner { grid-template-columns:1fr; }
+            .hero-img-card { display:none; }
+            .zz-row, .zz-row.reverse, .zz-row.row3 { grid-template-columns:1fr; direction:ltr; }
+            .zz-row::before { display:none; }
+            .zz-connector { display:none; }
+            .zz-phase-card { margin:0 0 1.8rem; }
+            .jobs-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:600px) {
+            .cy-section { padding:3rem 1.2rem; }
+            .hero-section { padding:2.5rem 1.2rem; }
+            .hero-stats { gap:1.2rem; }
+            .cert-row { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="logo3.png" alt="YourCSPath Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#specializations">Specializations</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#career-timeline">Timeline</a></li>
+            <li><a href="#jobs">Remote Jobs</a></li>
+            <li><a href="index.html" class="cta-button">← All Paths</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+    </nav>
+</header>
+<!-- Right after </header> on each page -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#roadmap">Roadmap</a>
+    <a href="#specializations">Specializations</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#career-timeline">Timeline</a>
+    <a href="#jobs">Remote Jobs</a>
+    <a href="yourcspath-landing.html" class="mob-cta">← All Paths</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero-section">
+    <div class="hero-inner">
+        <div class="fade">
+            <div class="hero-badge">💻 CAREER PATH · WEB DEVELOPMENT</div>
+            <h1>Build the <span class="hl">Modern Web.</span><br>Shape the Digital Future.</h1>
+            <p class="hero-desc">
+                Web development is the foundation of the digital world — every app, product, and service you interact with daily was built by a web developer. It is one of the most accessible, creative, and globally in-demand tech careers, with a low barrier to entry and a freelance ecosystem that lets you earn before you even land your first job. Whether you want to craft beautiful user interfaces, build powerful APIs, or do both as a full-stack engineer — this roadmap is your complete guide from zero to professional.
+            </p>
+            <div class="hero-stats">
+                <div><span class="hs-val">$119K</span><div class="hs-lbl">Avg Full-Stack Salary</div></div>
+                <div><span class="hs-val">16%</span><div class="hs-lbl">Job Growth (BLS)</div></div>
+                <div><span class="hs-val">28M+</span><div class="hs-lbl">Developers Worldwide</div></div>
+            </div>
+        </div>
+
+        <!-- Hero image card -->
+        <div class="hero-img-card fade">
+            <img src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=800&q=80" alt="Web Development workspace">
+            <div class="hero-img-overlay"></div>
+            <div class="hero-img-label">💻 Web Development</div>
+            <div class="hero-img-stats">
+                <span class="his-pill">HTML · CSS · JavaScript</span>
+                <span class="his-pill">React · Node.js</span>
+                <span class="his-pill">Frontend · Backend · Fullstack</span>
+                <span class="his-pill">Freelance · Remote</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section id="roadmap" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Step by Step</div>
+        <h2 class="cy-title fade">Learning Roadmap</h2>
+        <p class="cy-sub fade">Nine phases from absolute beginner to specialization-ready. Each phase includes topics, subtopics, and real courses to get you there.</p>
+
+        <div class="zz-wrap">
+
+            <!-- ROW 1 — phases 1,2,3 -->
+            <div class="zz-row fade">
+                <div class="zz-phase-card" data-num="01">
+                    <div class="zz-card-header"><span class="zz-icon">🌍</span>
+                        <div><div class="zz-phase">Phase 1 · Weeks 1–2</div><div class="zz-name">How the Web Works</div></div>
+                    </div>
+                    <div class="zz-desc">Before writing a single line of code, understand what happens when you type a URL. This mental model shapes everything you build as a developer.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">DNS & Domain Names</span>
+                        <span class="zz-topic">HTTP & HTTPS</span>
+                        <span class="zz-topic">Browsers & Rendering</span>
+                        <span class="zz-topic">Hosting & Servers</span>
+                        <span class="zz-topic">Client vs Server</span>
+                        <span class="zz-topic">IP Addresses</span>
+                        <span class="zz-topic">CDN Basics</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.freecodecamp.org/learn" target="_blank">freeCodeCamp — Web Basics</a> — Free</li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works" target="_blank">MDN — How the Web Works</a> — Free</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="02">
+                    <div class="zz-card-header"><span class="zz-icon">🎨</span>
+                        <div><div class="zz-phase">Phase 2 · Weeks 3–6</div><div class="zz-name">HTML5 & CSS3</div></div>
+                    </div>
+                    <div class="zz-desc">HTML gives a page structure; CSS makes it beautiful. Together they are the non-negotiable starting point for every single web developer on earth.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Semantic HTML5</span>
+                        <span class="zz-topic">Forms & Inputs</span>
+                        <span class="zz-topic">CSS Box Model</span>
+                        <span class="zz-topic">Flexbox</span>
+                        <span class="zz-topic">CSS Grid</span>
+                        <span class="zz-topic">Responsive Design</span>
+                        <span class="zz-topic">Media Queries</span>
+                        <span class="zz-topic">CSS Variables</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank">Responsive Web Design</a> — freeCodeCamp (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/html-css-javascript-for-web-developers" target="_blank">HTML, CSS & JS for Web Developers</a> — Johns Hopkins / Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="03">
+                    <div class="zz-card-header"><span class="zz-icon">⚡</span>
+                        <div><div class="zz-phase">Phase 3 · Weeks 7–11</div><div class="zz-name">JavaScript Fundamentals</div></div>
+                    </div>
+                    <div class="zz-desc">JavaScript makes pages interactive and dynamic. It is the only programming language that runs natively in the browser — making it the most important language a web developer learns.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Variables & Data Types</span>
+                        <span class="zz-topic">Functions & Scope</span>
+                        <span class="zz-topic">DOM Manipulation</span>
+                        <span class="zz-topic">Events & Listeners</span>
+                        <span class="zz-topic">ES6+ (Arrow Fns, etc.)</span>
+                        <span class="zz-topic">Fetch API & Promises</span>
+                        <span class="zz-topic">Async / Await</span>
+                        <span class="zz-topic">Error Handling</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank">JavaScript Algorithms & Data Structures</a> — freeCodeCamp (Free)</li>
+                        <li><a href="https://www.coursera.org/specializations/meta-front-end-developer" target="_blank">Meta Front-End Developer Certificate</a> — Coursera</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- vertical connector right -->
+            <div class="zz-connector"></div>
+
+            <!-- ROW 2 — phases 4,5,6 reversed -->
+            <div class="zz-row reverse fade">
+                <div class="zz-phase-card" data-num="04">
+                    <div class="zz-card-header"><span class="zz-icon">🛠️</span>
+                        <div><div class="zz-phase">Phase 4 · Weeks 12–13</div><div class="zz-name">Dev Tools & Version Control</div></div>
+                    </div>
+                    <div class="zz-desc">Every professional developer uses these tools daily. Git tracks your code history, npm manages packages, and Chrome DevTools lets you debug anything in real time.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Git & GitHub</span>
+                        <span class="zz-topic">Branching & Merging</span>
+                        <span class="zz-topic">npm & package.json</span>
+                        <span class="zz-topic">VS Code & Extensions</span>
+                        <span class="zz-topic">Chrome DevTools</span>
+                        <span class="zz-topic">Terminal & CLI</span>
+                        <span class="zz-topic">Prettier & ESLint</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/introduction-git-github" target="_blank">Introduction to Git and GitHub</a> — Google/Coursera (Free)</li>
+                        <li><a href="https://www.freecodecamp.org/news/git-and-github-for-beginners/" target="_blank">Git & GitHub for Beginners</a> — freeCodeCamp (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="05">
+                    <div class="zz-card-header"><span class="zz-icon">⚛️</span>
+                        <div><div class="zz-phase">Phase 5 · Months 4–5</div><div class="zz-name">React — Frontend Framework</div></div>
+                    </div>
+                    <div class="zz-desc">React is the most in-demand frontend framework in the world. It powers Facebook, Instagram, Airbnb, and thousands of other products. Mastering it is a career accelerator.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Components & JSX</span>
+                        <span class="zz-topic">Props & State</span>
+                        <span class="zz-topic">useEffect & Hooks</span>
+                        <span class="zz-topic">React Router</span>
+                        <span class="zz-topic">Context API</span>
+                        <span class="zz-topic">Fetching APIs</span>
+                        <span class="zz-topic">Component Lifecycle</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://react.dev/learn" target="_blank">Official React Documentation</a> — React.dev (Free)</li>
+                        <li><a href="https://www.coursera.org/learn/react-basics" target="_blank">React Basics</a> — Meta/Coursera</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="06">
+                    <div class="zz-card-header"><span class="zz-icon">🔷</span>
+                        <div><div class="zz-phase">Phase 6 · Month 5</div><div class="zz-name">TypeScript & Testing</div></div>
+                    </div>
+                    <div class="zz-desc">TypeScript adds type safety to JavaScript and is now required or strongly preferred by most serious companies. Testing ensures your code works correctly even as it grows.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">TypeScript Basics</span>
+                        <span class="zz-topic">Types & Interfaces</span>
+                        <span class="zz-topic">Generics</span>
+                        <span class="zz-topic">Jest Unit Testing</span>
+                        <span class="zz-topic">React Testing Library</span>
+                        <span class="zz-topic">Debugging & Profiling</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.typescriptlang.org/docs/" target="_blank">TypeScript Official Handbook</a> — Free</li>
+                        <li><a href="https://www.coursera.org/learn/programming-with-javascript" target="_blank">Programming with JavaScript</a> — Meta/Coursera</li>
+                    </ul></div>
+                </div>
+            </div>
+
+            <!-- vertical connector left -->
+            <div class="zz-connector from-right"></div>
+
+            <!-- ROW 3 — phases 7,8,9 -->
+            <div class="zz-row row3 fade">
+                <div class="zz-phase-card" data-num="07">
+                    <div class="zz-card-header"><span class="zz-icon">🖥️</span>
+                        <div><div class="zz-phase">Phase 7 · Months 6–7</div><div class="zz-name">Backend Development</div></div>
+                    </div>
+                    <div class="zz-desc">The backend is where your data lives and your business logic runs. Learn how servers, APIs, and databases work together to power the apps people use every day.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Node.js & Express</span>
+                        <span class="zz-topic">REST API Design</span>
+                        <span class="zz-topic">SQL & PostgreSQL</span>
+                        <span class="zz-topic">MongoDB & Mongoose</span>
+                        <span class="zz-topic">Authentication (JWT)</span>
+                        <span class="zz-topic">Middleware & Routing</span>
+                        <span class="zz-topic">Environment Variables</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/node-js" target="_blank">Server-side JavaScript with Node.js</a> — Coursera</li>
+                        <li><a href="https://www.freecodecamp.org/learn/back-end-development-and-apis/" target="_blank">Back End Development & APIs</a> — freeCodeCamp (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="08">
+                    <div class="zz-card-header"><span class="zz-icon">🚀</span>
+                        <div><div class="zz-phase">Phase 8 · Month 8</div><div class="zz-name">Deployment & DevOps Basics</div></div>
+                    </div>
+                    <div class="zz-desc">A developer who can ship is infinitely more valuable than one who cannot. Learn how to take your project from local machine to live URL and set up automated workflows.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic">Netlify & Vercel</span>
+                        <span class="zz-topic">AWS / Cloud Basics</span>
+                        <span class="zz-topic">Docker Basics</span>
+                        <span class="zz-topic">CI/CD Pipelines</span>
+                        <span class="zz-topic">Environment Config</span>
+                        <span class="zz-topic">Domain & SSL Setup</span>
+                        <span class="zz-topic">Performance & Lighthouse</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">📚 Courses</div><ul>
+                        <li><a href="https://www.coursera.org/learn/devops-cloud-and-agile-foundations" target="_blank">DevOps, Cloud & Agile Foundations</a> — IBM/Coursera (Free)</li>
+                        <li><a href="https://www.freecodecamp.org/news/learn-docker-by-building-a-node-express-app/" target="_blank">Docker for Beginners</a> — freeCodeCamp (Free)</li>
+                    </ul></div>
+                </div>
+
+                <div class="zz-phase-card" data-num="09" style="border-color:rgba(65,105,225,.35);">
+                    <div class="zz-card-header"><span class="zz-icon">🎯</span>
+                        <div><div class="zz-phase">Phase 9 · Month 9+</div><div class="zz-name">Choose Your Specialization</div></div>
+                    </div>
+                    <div class="zz-desc">You are now ready to focus. Pick the track that matches your strengths and the market you want to enter. Each is a distinct career with its own tools and salary ceiling.</div>
+                    <div class="zz-topics">
+                        <span class="zz-topic" style="color:#ea580c;border-color:rgba(249,115,22,.25);background:rgba(249,115,22,.06);">🎨 Frontend Specialist</span>
+                        <span class="zz-topic" style="color:var(--blue);border-color:rgba(65,105,225,.25);background:rgba(65,105,225,.06);">⚙️ Backend / API Dev</span>
+                        <span class="zz-topic" style="color:#16a34a;border-color:rgba(22,163,74,.25);background:rgba(22,163,74,.06);">🔗 Full Stack Engineer</span>
+                        <span class="zz-topic" style="color:#9650ff;border-color:rgba(150,80,255,.25);background:rgba(150,80,255,.06);">📱 React Native</span>
+                        <span class="zz-topic" style="color:#0ea5e9;border-color:rgba(14,165,233,.25);background:rgba(14,165,233,.06);">⚡ Next.js / Web3</span>
+                    </div>
+                    <div class="zz-courses"><div class="zz-courses-label">↓ Detailed below</div><ul>
+                        <li><a href="#specializations">View all specializations</a> — with skills, tools, and importance</li>
+                        <li><a href="#certifications">View certifications</a> — matched to your chosen track</li>
+                    </ul></div>
+                </div>
+            </div>
+
+        </div><!-- end zz-wrap -->
+    </div>
+</section>
+
+<!-- ══ SPECIALIZATIONS ══ -->
+<section id="specializations" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Choose Your Domain</div>
+        <h2 class="cy-title fade">Specializations</h2>
+        <p class="cy-sub fade">After the foundations, the field branches into distinct disciplines. Each has a different mindset, toolset, and job market.</p>
+
+        <div class="spec-grid">
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=600&q=80" alt="Frontend Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Frontend</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🎨 Frontend Development</div>
+                    <div class="spec-tag">UI/UX · Everything The User Sees</div>
+                    <div class="spec-importance">Frontend developers craft the visual experience — layouts, animations, interactivity, and performance. React dominates the market and companies like Meta, Airbnb, and Netflix rely on it daily. A strong portfolio with 3–4 deployed projects can land you a job faster than any certification.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-orange">React / Vue</span>
+                        <span class="spec-skill sk-orange">Tailwind CSS</span>
+                        <span class="spec-skill sk-orange">TypeScript</span>
+                        <span class="spec-skill sk-orange">Figma</span>
+                        <span class="spec-skill sk-orange">Animations</span>
+                        <span class="spec-skill sk-orange">Performance Opt.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Backend Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Backend</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">⚙️ Backend Development</div>
+                    <div class="spec-tag">APIs · Databases · Server Logic</div>
+                    <div class="spec-importance">Backend developers build the invisible engine that powers every app — APIs, databases, authentication, and business logic. Companies need backend engineers who understand system design and scalability. This track offers some of the highest salaries in web development, particularly for those who also understand cloud infrastructure.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-blue">Node.js / Express</span>
+                        <span class="spec-skill sk-blue">PostgreSQL</span>
+                        <span class="spec-skill sk-blue">MongoDB</span>
+                        <span class="spec-skill sk-blue">REST & GraphQL</span>
+                        <span class="spec-skill sk-blue">Auth & Security</span>
+                        <span class="spec-skill sk-blue">System Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=600&q=80" alt="Full Stack Development" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Full Stack</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">🔗 Full Stack Engineering</div>
+                    <div class="spec-tag">End-to-End · Most Versatile Track</div>
+                    <div class="spec-importance">Full stack developers handle both frontend and backend — making them the most versatile and sought-after developers in the market. Startups especially prefer full stack engineers because one person can build an entire product. This track has the widest range of opportunities globally and is ideal for freelancers.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-green">React + Node.js</span>
+                        <span class="spec-skill sk-green">MERN Stack</span>
+                        <span class="spec-skill sk-green">Next.js</span>
+                        <span class="spec-skill sk-green">Prisma / ORM</span>
+                        <span class="spec-skill sk-green">Docker</span>
+                        <span class="spec-skill sk-green">AWS Basics</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80" alt="React Native Mobile" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">React Native</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">📱 React Native / Mobile</div>
+                    <div class="spec-tag">Cross-Platform · iOS & Android</div>
+                    <div class="spec-importance">React Native lets web developers build native mobile apps for iOS and Android using the same JavaScript skills they already have. With over 6 billion smartphone users globally, mobile development demand has never been higher. Companies like Facebook, Shopify, and Discord use React Native in production.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-purple">React Native</span>
+                        <span class="spec-skill sk-purple">Expo</span>
+                        <span class="spec-skill sk-purple">Navigation</span>
+                        <span class="spec-skill sk-purple">Native APIs</span>
+                        <span class="spec-skill sk-purple">App Store Deploy</span>
+                        <span class="spec-skill sk-purple">Push Notifications</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-card fade">
+                <div class="spec-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="Next.js Modern Web" loading="lazy">
+                    <div class="spec-img-overlay"></div>
+                    <div class="spec-img-label">Next.js / Modern Stack</div>
+                </div>
+                <div class="spec-body">
+                    <div class="spec-name">⚡ Next.js & Modern Web</div>
+                    <div class="spec-tag">SSR · Serverless · Edge Computing</div>
+                    <div class="spec-importance">Next.js has become the default choice for production React apps — it adds server-side rendering, file-based routing, and API routes in one framework. Combined with headless CMS and serverless functions, this track targets the fastest-growing segment of modern web development with salaries reaching $160K+ at senior levels.</div>
+                    <div class="spec-skills">
+                        <span class="spec-skill sk-cyan">Next.js 14+</span>
+                        <span class="spec-skill sk-cyan">Server Components</span>
+                        <span class="spec-skill sk-cyan">Vercel Edge</span>
+                        <span class="spec-skill sk-cyan">Headless CMS</span>
+                        <span class="spec-skill sk-cyan">Serverless Fns</span>
+                        <span class="spec-skill sk-cyan">tRPC / Drizzle</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CERTIFICATIONS ══ -->
+<section id="certifications" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Recognized</div>
+        <h2 class="cy-title fade">Certifications</h2>
+        <p class="cy-sub fade">Unlike cybersecurity, web development values portfolio over certs — but these credentials signal credibility and unlock higher-paying opportunities.</p>
+
+        <div class="fade">
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-green">// Beginner — Build The Foundation</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">freeCodeCamp Responsive Web Design</span><span class="cert-pill pill-g">RWD</span></div>
+                        <div class="cert-body">Covers HTML5 and CSS3 including Flexbox, Grid, and responsive layouts. Completely free and widely respected in the developer community as a first credential.</div>
+                        <div class="cert-meta">Cost: <strong>Free</strong></div>
+                        <a href="https://www.freecodecamp.org/learn/2022/responsive-web-design/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">freeCodeCamp JavaScript Algorithms</span><span class="cert-pill pill-g">JS</span></div>
+                        <div class="cert-body">Covers JavaScript fundamentals, algorithms, and data structures. One of the most recognized free certifications in web development globally.</div>
+                        <div class="cert-meta">Cost: <strong>Free</strong></div>
+                        <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Meta Front-End Developer Certificate</span><span class="cert-pill pill-g">META</span></div>
+                        <div class="cert-body">Comprehensive 9-course program by Meta on Coursera. Covers HTML, CSS, JavaScript, React, Bootstrap, Figma, and GitHub. Industry-backed credential from a major tech company.</div>
+                        <div class="cert-meta">Cost: <strong>~$300 total</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/meta-front-end-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google UX Design Certificate</span><span class="cert-pill pill-g">UX</span></div>
+                        <div class="cert-body">Covers UX research, wireframing, Figma prototyping, and usability testing. Valuable addition for frontend developers who want to bridge design and development.</div>
+                        <div class="cert-meta">Cost: <strong>~$300 total</strong></div>
+                        <a href="https://grow.google/certificates/ux-design/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-amber">// Intermediate — Prove Your Skills</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Meta Back-End Developer Certificate</span><span class="cert-pill pill-a">META-BE</span></div>
+                        <div class="cert-body">Covers Python, Django, REST APIs, and databases. Comprehensive backend path by Meta that pairs perfectly with the front-end certificate for full-stack positioning.</div>
+                        <div class="cert-meta">Cost: <strong>~$300 total</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/meta-back-end-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">IBM Full Stack Developer Certificate</span><span class="cert-pill pill-a">IBM-FS</span></div>
+                        <div class="cert-body">Covers HTML, CSS, JavaScript, React, Node.js, Python, Django, Docker, Kubernetes, and cloud deployment. One of the most comprehensive beginner-to-intermediate full stack programs available.</div>
+                        <div class="cert-meta">Cost: <strong>~$400 total</strong></div>
+                        <a href="https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">MongoDB Associate Developer</span><span class="cert-pill pill-a">MDB</span></div>
+                        <div class="cert-body">Validates MongoDB skills including data modeling, CRUD, aggregation, and indexing. Valuable for MERN stack developers and any developer working with NoSQL databases.</div>
+                        <div class="cert-meta">Cost: <strong>~$150</strong></div>
+                        <a href="https://learn.mongodb.com/pages/mongodb-associate-developer-exam" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">W3Schools JavaScript Developer</span><span class="cert-pill pill-a">W3S</span></div>
+                        <div class="cert-body">Recognized JavaScript certification from W3Schools. Tests real-world JS knowledge and is a quick, affordable credential to add alongside a GitHub portfolio.</div>
+                        <div class="cert-meta">Cost: <strong>~$95</strong></div>
+                        <a href="https://courses.w3schools.com/courses/javascript-developer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-tier">
+                <div class="tier-header"><span class="tier-badge tb-red">// Advanced — Expert Level</span><div class="tier-line"></div></div>
+                <div class="cert-row">
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">AWS Certified Developer — Associate</span><span class="cert-pill pill-r">AWS-DEV</span></div>
+                        <div class="cert-body">Validates skills in developing and deploying applications on AWS including Lambda, DynamoDB, S3, and CI/CD pipelines. The top cloud cert for web developers targeting enterprise roles.</div>
+                        <div class="cert-meta">Cost: <strong>~$150</strong></div>
+                        <a href="https://aws.amazon.com/certification/certified-developer-associate/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Microsoft Azure Developer Associate</span><span class="cert-pill pill-r">AZ-204</span></div>
+                        <div class="cert-body">Covers designing, building, testing, and maintaining cloud applications on Microsoft Azure. Highly valued in enterprise environments where Azure is the dominant cloud platform.</div>
+                        <div class="cert-meta">Cost: <strong>~$165</strong></div>
+                        <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-developer/" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">Google Associate Cloud Engineer</span><span class="cert-pill pill-r">ACE</span></div>
+                        <div class="cert-body">Validates skills in deploying applications and monitoring operations on Google Cloud. Ideal for full-stack developers who want to move into cloud-native development or DevOps roles.</div>
+                        <div class="cert-meta">Cost: <strong>~$200</strong></div>
+                        <a href="https://cloud.google.com/learn/certification/cloud-engineer" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                    <div class="cert-card">
+                        <div class="cert-top"><span class="cert-name">GitHub Actions Certification</span><span class="cert-pill pill-r">GH-ACT</span></div>
+                        <div class="cert-body">Official GitHub certification for CI/CD automation. Validates skills in building, testing, and deploying workflows — increasingly required at senior developer and DevOps-adjacent roles.</div>
+                        <div class="cert-meta">Cost: <strong>~$99</strong></div>
+                        <a href="https://examregistration.github.com/certification/ACTIONS" target="_blank" class="cert-site">Official Website</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══ CAREER TIMELINE ══ -->
+<section id="career-timeline" class="cy-section" style="background:var(--surf);">
+    <div class="cy-inner">
+        <div class="cy-label fade">From Student to Expert</div>
+        <h2 class="cy-title fade">Career Growth Timeline</h2>
+        <p class="cy-sub fade">A realistic picture of your journey — web development is one of the fastest fields to break into, with freelancing available from day one.</p>
+
+        <div class="career-track">
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--blue);background:var(--blue);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Learning Phase</div>
+                    <div class="ct-period" style="color:var(--blue);">Months 1–6 — Core Skills & First Projects</div>
+                    <div class="ct-title">Building Your Foundation</div>
+                    <div class="ct-desc">Learn HTML, CSS, and JavaScript deeply. Build 2–3 personal projects and deploy them live on Netlify or Vercel. Start contributing to GitHub daily. Complete freeCodeCamp certifications. Begin learning React in month 4. Document your progress on LinkedIn — many developers land interviews directly through consistent posting.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>3 projects deployed live</span>
+                        <span class="ct-gain"><span class="ok">✓</span>GitHub profile active daily</span>
+                        <span class="ct-gain"><span class="ok">✓</span>freeCodeCamp certs earned</span>
+                        <span class="ct-gain"><span class="ok">✓</span>React fundamentals solid</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:var(--purple);background:var(--purple);"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">First Income</div>
+                    <div class="ct-period" style="color:var(--purple);">Months 5–9 — Freelancing & Internships</div>
+                    <div class="ct-title">Your First Paid Work</div>
+                    <span class="ct-salary cs-purple">💼 $15–$40/hr (Freelance) · $30K–$55K (Internship)</span>
+                    <div class="ct-desc">Apply for remote internships and simultaneously start freelancing on Upwork or Fiverr. Web development is unique in that you can earn money before your first full-time job by building landing pages and small websites for local businesses. This gives you real-world experience and income while you keep learning.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First freelance client</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Internship or part-time role</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Portfolio published</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Meta or IBM cert in progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#f59e0b;background:#f59e0b;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Early Career</div>
+                    <div class="ct-period" style="color:#d97706;">Year 1 — Junior Developer</div>
+                    <div class="ct-title">Junior Frontend / Full Stack Developer</div>
+                    <span class="ct-salary cs-amber">💰 $55K–$85K</span>
+                    <div class="ct-desc">You are now employed as a junior developer. You build features, fix bugs, participate in code reviews, and collaborate with designers and product managers. Start specializing — pick either frontend depth with React or full-stack with Node.js. Begin learning TypeScript as it is now an industry standard at most companies.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>First full-time role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>TypeScript adopted</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Code reviews contributing</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Agile / Scrum experience</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#ef4444;background:#ef4444;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Career Growth</div>
+                    <div class="ct-period" style="color:#ef4444;">Year 2 — Mid-Level Developer</div>
+                    <div class="ct-title">Frontend Engineer / Full Stack Developer / React Native Dev</div>
+                    <span class="ct-salary cs-red">💰 $80K–$115K</span>
+                    <div class="ct-desc">With a year of professional experience, you transition to mid-level. You are now building entire features independently, making architecture decisions, and mentoring junior developers. This is where freelance rates jump to $50–$100/hr. Cloud certification (AWS Developer) at this stage significantly increases earning potential.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Mid-level role or promotion</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Architecture decisions</span>
+                        <span class="ct-gain"><span class="ok">✓</span>AWS or Azure cert pursued</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Freelancing at $50–100/hr</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#16a34a;background:#16a34a;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Senior Level</div>
+                    <div class="ct-period" style="color:#16a34a;">Year 3 — Senior Developer</div>
+                    <div class="ct-title">Senior Frontend Engineer / Senior Full Stack / Tech Lead</div>
+                    <span class="ct-salary cs-green">💰 $110K–$155K</span>
+                    <div class="ct-desc">Three years in, you are a senior developer responsible for major architectural decisions, performance optimization, and team standards. Senior developers at product companies in the US routinely earn $130K–$160K. At this stage you may also move into engineering management or continue growing as an individual contributor.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Senior role secured</span>
+                        <span class="ct-gain"><span class="ok">✓</span>System design proficient</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Mentoring juniors & mids</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Open source contributions</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct-item fade">
+                <div class="ct-left"><div class="ct-dot" style="color:#0ea5e9;background:#0ea5e9;"></div></div>
+                <div class="ct-content">
+                    <div class="ct-stage">Expert / Leadership</div>
+                    <div class="ct-period" style="color:#0ea5e9;">Year 4–5 — Expert / Leadership Track</div>
+                    <div class="ct-title">Principal Engineer / Engineering Manager / CTO Track / Indie Dev</div>
+                    <span class="ct-salary cs-cyan">💰 $140K–$220K+</span>
+                    <div class="ct-desc">The ceiling in web development is extremely high for those who combine technical depth with product thinking. Principal engineers at FAANG companies earn $200K–$400K+ with equity. Independent developers (indie hackers) who build their own products can earn unlimited income. The path to CTO in a startup is also well-trodden for senior full-stack engineers.</div>
+                    <div class="ct-gains">
+                        <span class="ct-gain"><span class="ok">✓</span>Principal or EM track</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Product thinking developed</span>
+                        <span class="ct-gain"><span class="ok">✓</span>Indie projects or startup</span>
+                        <span class="ct-gain"><span class="ok">✓</span>$200K+ achievable</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outcome-banner fade">
+            <div class="ob-stats">
+                <div class="ob-item"><span class="ob-val">$55K</span><div class="ob-lbl">Starting (Year 1)</div></div>
+                <div class="ob-item"><span class="ob-val">$100K</span><div class="ob-lbl">Mid-level (Year 2)</div></div>
+                <div class="ob-item"><span class="ob-val">$140K+</span><div class="ob-lbl">Senior (Year 3)</div></div>
+                <div class="ob-item"><span class="ob-val">16%</span><div class="ob-lbl">Job growth (BLS)</div></div>
+                <div class="ob-item"><span class="ob-val">28M+</span><div class="ob-lbl">Developers globally</div></div>
+            </div>
+            <div class="ob-note">
+                Web development is the most accessible high-paying career in tech. You can start earning money through freelancing within months of beginning, build an income before landing your first job, and scale to six figures within 2–3 years with dedicated effort. Unlike many technical fields, <strong>your portfolio speaks louder than any degree or certificate</strong>. Three well-built, deployed projects with clean code on GitHub are worth more to most employers than a 4-year degree. The ecosystem is constantly evolving — which means <strong>curiosity and continuous learning are the only prerequisites that never expire.</strong> From indie hacker to CTO, web development gives you the tools to build anything you can imagine.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ REMOTE JOBS ══ -->
+<section id="jobs" class="cy-section" style="background:var(--bg);">
+    <div class="cy-inner">
+        <div class="cy-label fade">Get Hired</div>
+        <h2 class="cy-title fade">Remote Internships & Jobs</h2>
+        <p class="cy-sub fade">Web development is the most remote-friendly career in all of tech. These platforms connect you with opportunities from day one — including freelance work before your first full-time job.</p>
+
+        <div class="jobs-grid">
+            <div class="jobs-col fade">
+                <h3>🎓 Remote Internships & Freelance</h3>
+                <p>Web development is unique — you can start earning through freelancing before even landing a formal internship. These platforms cover both paths.</p>
+                <div class="job-links">
+                    <a href="https://www.linkedin.com/jobs/web-developer-jobs/?f_WT=2&f_E=1" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">💼</span><div><div class="jl-name">LinkedIn Jobs</div><span class="jl-cat">Remote Web Developer Internships</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.upwork.com/freelance-jobs/web-development/" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🟢</span><div><div class="jl-name">Upwork</div><span class="jl-cat">Freelance Web Development Projects</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.fiverr.com/categories/programming-tech/web-programming" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎯</span><div><div class="jl-name">Fiverr</div><span class="jl-cat">Freelance Gigs — Web Dev Projects</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.internshala.com/internships/web-development-internship" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏫</span><div><div class="jl-name">Internshala</div><span class="jl-cat">Web Dev Internships (South Asia)</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://arc.dev/remote-jobs/web-developer" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🔵</span><div><div class="jl-name">Arc.dev</div><span class="jl-cat">Vetted Remote Developer Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="jobs-col fade">
+                <h3>🌍 Remote Full-Time Jobs</h3>
+                <p>Web development has the highest concentration of remote jobs in all of tech. These boards specialize in remote developer roles at all levels worldwide.</p>
+                <div class="job-links">
+                    <a href="https://remoteok.com/remote-web-developer-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏠</span><div><div class="jl-name">Remote OK</div><span class="jl-cat">Remote-First Web Developer Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://weworkremotely.com/categories/remote-programming-jobs" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🌐</span><div><div class="jl-name">We Work Remotely</div><span class="jl-cat">Remote Programming & Dev Jobs</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://stackoverflow.com/jobs/developer-jobs-using-javascript" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">📚</span><div><div class="jl-name">Stack Overflow Jobs</div><span class="jl-cat">JavaScript & Web Developer Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.dice.com/jobs?q=web+developer&locationFilters=Remote" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🎲</span><div><div class="jl-name">Dice</div><span class="jl-cat">Tech-Focused Remote Web Dev Roles</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                    <a href="https://www.glassdoor.com/Job/remote-web-developer-jobs-SRCH_KO0,20_KE21,27.htm" target="_blank" class="job-link">
+                        <div class="jl-left"><span class="jl-icon">🏢</span><div><div class="jl-name">Glassdoor</div><span class="jl-cat">Remote Web Jobs + Salary Insights</span></div></div><span class="jl-arrow">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/pages.js"></script>
+<script>injectFooter('');</script>
+</body>
+</html>
