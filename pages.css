@@ -461,6 +461,15 @@ body.dark-mode .mobile-drawer a { color: #e8eaed; border-color: #2a3148; }
 @media (max-width: 768px) {
     .hamburger { display: flex; }
     nav .nav-links { display: none !important; }
+
+    /* Theme toggle always visible — sits between nav-links and hamburger */
+    .theme-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: .6rem;
+    }
 }
 
 /* ── CENTER SECTION HEADINGS ── */
