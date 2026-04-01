@@ -4,7 +4,7 @@
 
 ### 🎓 The Smart Career Guidance Platform for Computer Science Students
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-yourcspath.netlify.app-4169E1?style=for-the-badge)](https://yourcspath.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-yourcspath.vercel.app-4169E1?style=for-the-badge)](https://yourcspath.vercel.app)
 [![Made With Love](https://img.shields.io/badge/Made_With-❤️-red?style=for-the-badge)](#)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#license)
 [![Status](https://img.shields.io/badge/Status-Live_✅-brightgreen?style=for-the-badge)](#)
@@ -56,7 +56,7 @@ No account. No spam. No fluff. Just results.
 
 ## 🚀 Live Demo
 
-🌐 **[https://yourcspath.netlify.app](https://yourcspath.netlify.app)**
+🌐 **[https://yourcspath.vercel.app](https://yourcspath.vercel.app)**
 
 | Page | Link |
 |------|------|
