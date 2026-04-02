@@ -152,7 +152,7 @@ Frontend Only — No Framework, No Backend, No Build Tool
 | **Netlify** | Hosting and continuous deployment |
 
 > No React. No Vue. No npm. No build process.  
-> Open `index.html` in a browser and it works.
+> Open `index.html` in the browser and it works.
 
 ---
 
